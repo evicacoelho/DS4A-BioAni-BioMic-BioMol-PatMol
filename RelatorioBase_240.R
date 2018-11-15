@@ -2,16 +2,16 @@
 #LEMBRAR DE CONFIGURAR O DIRETORIO NO COMANDO setwd()
 
 #Pacotes para serem ativados
+library(dplyr) #Operador %>%
 library(tidyverse)
 library(jsonlite)
 library(listviewer)
 library(igraph)
-library(dplyr) #Operador %>%
 library(tidyr) #spread()
 library(ggplot2) #ggplot()
 
-#CONFIGURAR - DIRETORIO DOS .R
-setwd("C:/DataScience/Workspace") #Pasta contendo os arquivos
+#CONFIGURAR DIRETORIO DO GITHUB
+setwd("/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
 source("elattes.ls2df.R")
 
 #CONFIGURAR - DIRETORIO DOS .JSON (Arquivos eLattes)
@@ -21,8 +21,8 @@ orient <- fromJSON("240BiologiaAnimal/240advise.json")
 graphl <- fromJSON("240BiologiaAnimal/240graph.json")
 
 #Arquivos Sucupira? Pesquisar
-#res.area <- fromJSON("UnBPosGeral/researchers_by_area.json")
-#df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",", 
+#res.area <- fromJSON("240BiologiaAnimal/researchers_by_area.json")
+#df.prog <- read.table("240BiologiaAnimal/prof_prog.csv", sep = ",", 
 #                      colClasses = "character", encoding = "UTF-8", header = TRUE)
 
 #SEPARACAO DOS CAMPOS DE DF.PROG - Depende dos arquivos Sucupira
