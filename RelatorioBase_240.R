@@ -2,16 +2,16 @@
 #LEMBRAR DE CONFIGURAR O DIRETORIO NO COMANDO setwd()
 
 #Pacotes para serem ativados
-library(dplyr) #Operador %>%
 library(tidyverse)
 library(jsonlite)
 library(listviewer)
 library(igraph)
+library(dplyr) #Operador %>%
 library(tidyr) #spread()
 library(ggplot2) #ggplot()
 
-#CONFIGURAR DIRETORIO DO GITHUB
-setwd("/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
+#CONFIGURAR - DIRETORIO DOS .R
+setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
 source("elattes.ls2df.R")
 
 #CONFIGURAR - DIRETORIO DOS .JSON (Arquivos eLattes)
@@ -21,16 +21,14 @@ orient <- fromJSON("240BiologiaAnimal/240advise.json")
 graphl <- fromJSON("240BiologiaAnimal/240graph.json")
 
 #Arquivos Sucupira? Pesquisar
-#res.area <- fromJSON("240BiologiaAnimal/researchers_by_area.json")
-df.prog <- read.table("240BiologiaAnimal/bioani.prof_por_area.csv", sep = ",", 
+res.area <- fromJSON("UnBPosGeral/researchers_by_area.json")
+df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",", 
                       colClasses = "character", encoding = "UTF-8", header = TRUE)
 
-#SEPARACAO DOS CAMPOS DE DF.PROG - DEPENDE DE IDENTIFICAR ALGUM SEPARADOR
-df.prog <- df.prog %>% separate(Researcher,
-                     c("Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
-                     sep = ",")
-
-?separate
+#SEPARACAO DOS CAMPOS DE DF.PROG - Depende dos arquivos Sucupira
+df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.Avaliacao.Codigo.AreaPos.Programa,
+                     c("idLattes", "Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
+                     sep = ";")
 
 ######
 #Analise do arquivo perfil
@@ -223,7 +221,7 @@ g <- g.ls2ig(graphl)
 df <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
 
 #BLOCO ABAIXO REQUER BASE DE DADOS df.prog
-#df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
+df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
 
 #Apenas para fins de analise inicial, foram retiradas as observacoes 
 #com duplicacao de pesquisadores no caso de haver professores em mais 
