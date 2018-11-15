@@ -22,13 +22,15 @@ graphl <- fromJSON("240BiologiaAnimal/240graph.json")
 
 #Arquivos Sucupira? Pesquisar
 #res.area <- fromJSON("240BiologiaAnimal/researchers_by_area.json")
-#df.prog <- read.table("240BiologiaAnimal/prof_prog.csv", sep = ",", 
-#                      colClasses = "character", encoding = "UTF-8", header = TRUE)
+df.prog <- read.table("240BiologiaAnimal/bioani.prof_por_area.csv", sep = ",", 
+                      colClasses = "character", encoding = "UTF-8", header = TRUE)
 
-#SEPARACAO DOS CAMPOS DE DF.PROG - Depende dos arquivos Sucupira
-#df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.Avaliacao.Codigo.AreaPos.Programa,
-#                     c("idLattes", "Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
-#                     sep = ";")
+#SEPARACAO DOS CAMPOS DE DF.PROG - DEPENDE DE IDENTIFICAR ALGUM SEPARADOR
+df.prog <- df.prog %>% separate(Researcher,
+                     c("Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
+                     sep = ",")
+
+?separate
 
 ######
 #Analise do arquivo perfil
