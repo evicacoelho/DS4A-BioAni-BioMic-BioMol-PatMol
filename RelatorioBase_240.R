@@ -206,19 +206,31 @@ public.periodico.df %>%
   summarise(Quantidade = n()) %>%
   ggplot(aes(x = ano, y = Quantidade)) +
   geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
+  ggtitle("Periodicos publicados entre 2010 e 2017") +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
-  theme_minimal()
+  theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+
+#Quantidade de periodicos publicados por professor(a) entre 2010 e 2017 - by Jonas
+perfil.df %>%
+  ggplot(aes(idLattes,PERIODICO)) +
+  geom_col(fill = "purple") +
+  ggtitle("Periodicos publicados entre 2010 e 2017") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Numero de publicacoes") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
 #publicacao de livros fora do Brasil
-public.livros.df %>%
-  group_by(pais_de_publicacao) %>%
-  summarise(Quantidade = n()) %>%
-  filter(pais_de_publicacao != "Brasil") %>% 
-  ggplot(aes(x = pais_de_publicacao, y = Quantidade)) +
-  geom_bar(width=0.8, position = "stack",stat = "identity", fill = "coral")+
-  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
-  theme_minimal()
+#public.livros.df %>%
+#  group_by(pais_de_publicacao) %>%
+#  summarise(Quantidade = n()) %>%
+#  filter(pais_de_publicacao != "Brasil") %>% 
+#  ggplot(aes(x = pais_de_publicacao, y = Quantidade)) +
+#  geom_bar(width=0.8, position = "stack",stat = "identity", fill = "coral")+
+#  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
+#  theme_minimal()
 
+#publicacao de livros por pais/ano
 public.livros.df %>%
   filter(pais_de_publicacao %in% c("Brasil", "Estados Unidos", "Holanda",
                                    "Gra-Bretanha", "Alemanha", "Suica")) %>%
@@ -243,7 +255,7 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade")
 
-#Quantidade de bolsas distribuidas por ano - by Jonas
+#Bolsas distribuidas por ano - by Jonas
 
 orient.df %>% filter(bolsa == "SIM") %>%
 ggplot(aes(ano,fill=natureza)) +
@@ -251,4 +263,4 @@ ggplot(aes(ano,fill=natureza)) +
   ggtitle("Bolsas disponibilizadas por ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade")
+  labs(x="Ano",y="Quantidade de bolsas")
