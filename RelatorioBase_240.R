@@ -28,7 +28,7 @@ df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",",
 #SEPARACAO DOS CAMPOS DE DF.PROG - Depende dos arquivos Sucupira
 df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.Avaliacao.Codigo.AreaPos.Programa,
                      c("idLattes", "Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
-                     sep = ";")
+                     sep = ";", extra = "drop", fill = "right")
 
 ######
 #Analise do arquivo perfil
@@ -160,6 +160,45 @@ table(public.periodico.df$ano)
 #Mesma visao que anterior mas agora trabalhando no DataFrame
 head(sort(table(public.periodico.df$periodico), decreasing = TRUE), 20)
 
+####
+#Orientacao
+#Analise dos dados em formato lista
+##Numero de Orientacoes Mestrado e Doutorado
+sum(sapply(orient$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
+
+##Analise dos dados no formato DF
+orient.posdoutorado.df <- ori.ls2df(orient, 6) #pos-Doutorado concluido
+orient.doutorado.df <- ori.ls2df(orient, 7) #Doutorado concluido
+orient.mestrado.df <- ori.ls2df(orient, 8) #Mestrado concluido
+
+orient.df <- rbind(rbind(orient.posdoutorado.df, orient.doutorado.df), orient.mestrado.df)
+
+###
+#Grafo
+g <- g.ls2ig(graphl)
+df <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
+
+#BLOCO ABAIXO REQUER BASE DE DADOS df.prog
+df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
+
+#Apenas para fins de analise inicial, foram retiradas as observacoes 
+#com duplicacao de pesquisadores no caso de haver professores em mais 
+#de um programa
+df <- df %>% group_by(Idlattes) %>% 
+  slice(1L)
+V(g)$programa <- df$Programa
+V(g)$orient_dout <- perfil.df$ORIENTACAO_CONCLUIDA_DOUTORADO
+V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
+V(g)$publicacao <- perfil.df$PERIODICO
+V(g)$eventos <- perfil.df$EVENTO
+
+head(V(g), n =1)
+head(perfil.df$PERIODICO, n =1)
+head(perfil.df$EVENTO, n =1)
+
+###
+
 #Visualizacao
 # Grafico de barras; periodicos por ano
 public.periodico.df %>%
@@ -187,7 +226,7 @@ public.livros.df %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 
-  #Eventos
+#Eventos nacionais e internacionais
 public.eventos.df %>%
   filter(pais_do_evento %in% 
            c(names(head(sort(table(public.eventos.df$pais_do_evento)
@@ -196,21 +235,7 @@ public.eventos.df %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 
-
-####
-#Orientacao
-#Analise dos dados em formato lista
-##Numero de Orientacoes Mestrado e Doutorado
-sum(sapply(orient$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
-  sum(sapply(orient$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
-
-##Analise dos dados no formato DF
-orient.posdoutorado.df <- ori.ls2df(orient, 6) #pos-Doutorado concluido
-orient.doutorado.df <- ori.ls2df(orient, 7) #Doutorado concluido
-orient.mestrado.df <- ori.ls2df(orient, 8) #Mestrado concluido
-
-orient.df <- rbind(rbind(orient.posdoutorado.df, orient.doutorado.df), orient.mestrado.df)
-
+#Orientacoes completas por ano e natureza
 ggplot(orient.df,aes(ano,fill=natureza)) +
   geom_bar(stat = "count", position="dodge") +
   ggtitle("Natureza das Orientacoes Completas Por Ano") +
@@ -219,37 +244,11 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
   labs(x="Ano",y="Quantidade")
 
 #Quantidade de bolsas distribuidas por ano - by Jonas
-#TO DO: COMO MELHORAR AS CORES EM 'colour = bolsa'?
-#Alternativa: Separar a análise de bolsa da análise por natureza (apagar o 'colour')
 
-ggplot(orient.df,aes(ano,fill=natureza, colour = bolsa)) +
-  geom_bar(stat = "count", position = "stack") +
-  ggtitle("Relação de bolsas disponibilizadas por ano") +
+orient.df %>% filter(bolsa == "SIM") %>%
+ggplot(aes(ano,fill=natureza)) +
+  geom_bar(stat = "count", position = "dodge") +
+  ggtitle("Bolsas disponibilizadas por ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade")
-
-###
-#Grafo
-g <- g.ls2ig(graphl)
-df <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
-
-#BLOCO ABAIXO REQUER BASE DE DADOS df.prog
-df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
-
-#Apenas para fins de analise inicial, foram retiradas as observacoes 
-#com duplicacao de pesquisadores no caso de haver professores em mais 
-#de um programa
-df <- df %>% group_by(Idlattes) %>% 
-  slice(1L)
-V(g)$programa <- df$Programa
-V(g)$orient_dout <- perfil.df$ORIENTACAO_CONCLUIDA_DOUTORADO
-V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g)$publicacao <- perfil.df$PERIODICO
-V(g)$eventos <- perfil.df$EVENTO
-
-head(V(g), n =1)
-head(perfil.df$PERIODICO, n =1)
-head(perfil.df$EVENTO, n =1)
-
-###

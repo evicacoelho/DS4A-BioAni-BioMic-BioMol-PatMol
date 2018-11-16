@@ -47,8 +47,8 @@ ori.ls2df <- function(lsOrient, tipo) {
   orient.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", orient.df$id_lattes_orientadores)
   
   #Separar as colunas com dois orientadores
-  orient.df <- separate(orient.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
-  orient.df <- separate(orient.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
+  orient.df <- separate(orient.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",", extra = "drop", fill = "right")
+  orient.df <- separate(orient.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",", extra = "drop", fill = "right")
   
   return(orient.df)
 }
