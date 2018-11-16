@@ -33,8 +33,8 @@ df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.A
 ######
 #Analise do arquivo perfil
 
-jsonedit(perfil)
-jsonedit(public)
+#jsonedit(perfil)
+#jsonedit(public)
 
 #Numero de Docentes encontrados
 length(perfil)
@@ -97,13 +97,16 @@ table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CON
 perfil.df.professores <- extrai.perfis(perfil)
 
 # extrai producao bibliografica de todos os professores 
-perfil.df.publicacoes <- extrai.producoes(perfil)
+perfil.df.publicacoes <- extrai.producoes(perfil) %>%
+  select(tipo_producao, everything()) %>% arrange(tipo_producao)
 
 #extrai orientacoes 
-perfil.df.orientacoes <- extrai.orientacoes(perfil)
+perfil.df.orientacoes <- extrai.orientacoes(perfil) %>%
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
 
 #extrai areas de atuacao 
-perfil.df.areas.de.atuacao <- extrai.areas.atuacao(perfil)
+perfil.df.areas.de.atuacao <- extrai.areas.atuacao(perfil) %>%
+  select(idLattes, everything())
 
 #cria arquivo com dados quantitativos para analise
 perfil.df <- data.frame()
@@ -158,7 +161,7 @@ table(public.periodico.df$ano)
 head(sort(table(public.periodico.df$periodico), decreasing = TRUE), 20)
 
 #Visualizacao
-# Grafico de barras
+# Grafico de barras; periodicos por ano
 public.periodico.df %>%
   group_by(ano) %>%
   summarise(Quantidade = n()) %>%
@@ -173,7 +176,7 @@ public.livros.df %>%
   summarise(Quantidade = n()) %>%
   filter(pais_de_publicacao != "Brasil") %>% 
   ggplot(aes(x = pais_de_publicacao, y = Quantidade)) +
-  geom_bar(width=0.8, height = 0.3, position = "stack",stat = "identity", fill = "coral")+
+  geom_bar(width=0.8, position = "stack",stat = "identity", fill = "coral")+
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
   theme_minimal()
 
@@ -211,6 +214,17 @@ orient.df <- rbind(rbind(orient.posdoutorado.df, orient.doutorado.df), orient.me
 ggplot(orient.df,aes(ano,fill=natureza)) +
   geom_bar(stat = "count", position="dodge") +
   ggtitle("Natureza das Orientacoes Completas Por Ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade")
+
+#Quantidade de bolsas distribuidas por ano - by Jonas
+#TO DO: COMO MELHORAR AS CORES EM 'colour = bolsa'?
+#Alternativa: Separar a análise de bolsa da análise por natureza (apagar o 'colour')
+
+ggplot(orient.df,aes(ano,fill=natureza, colour = bolsa)) +
+  geom_bar(stat = "count", position = "stack") +
+  ggtitle("Relação de bolsas disponibilizadas por ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade")
