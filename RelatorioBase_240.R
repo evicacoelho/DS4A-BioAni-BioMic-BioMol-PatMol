@@ -193,10 +193,6 @@ V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
 V(g)$publicacao <- perfil.df$PERIODICO
 V(g)$eventos <- perfil.df$EVENTO
 
-head(V(g), n =1)
-head(perfil.df$PERIODICO, n =1)
-head(perfil.df$EVENTO, n =1)
-
 ###
 
 #Visualizacao
@@ -219,16 +215,6 @@ perfil.df %>%
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Pesquisador(a)",y="Numero de publicacoes") +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
-
-#publicacao de livros fora do Brasil
-#public.livros.df %>%
-#  group_by(pais_de_publicacao) %>%
-#  summarise(Quantidade = n()) %>%
-#  filter(pais_de_publicacao != "Brasil") %>% 
-#  ggplot(aes(x = pais_de_publicacao, y = Quantidade)) +
-#  geom_bar(width=0.8, position = "stack",stat = "identity", fill = "coral")+
-#  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
-#  theme_minimal()
 
 #publicacao de livros por pais/ano
 public.livros.df %>%
@@ -264,3 +250,6 @@ ggplot(aes(ano,fill=natureza)) +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade de bolsas")
+
+#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
+plot(g, vertex.label = NA)
