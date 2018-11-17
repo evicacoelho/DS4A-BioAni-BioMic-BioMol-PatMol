@@ -2,10 +2,10 @@
 #LEMBRAR DE CONFIGURAR O DIRETORIO NO COMANDO setwd()
 
 #Pacotes para serem ativados
-library(tidyverse)
-library(jsonlite)
-library(listviewer)
-library(igraph)
+library(tidyverse) #Importado para manipulação de tibbles
+library(jsonlite) #Importado para carga dos arquivos JSON para o R
+library(listviewer) #Importado para análise dos arquivos JSON
+library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
@@ -21,7 +21,7 @@ orient <- fromJSON("240BiologiaAnimal/240advise.json")
 graphl <- fromJSON("240BiologiaAnimal/240graph.json")
 
 #Arquivos Sucupira? Pesquisar
-res.area <- fromJSON("UnBPosGeral/researchers_by_area.json")
+#res.area <- fromJSON("UnBPosGeral/researchers_by_area.json") #NÃO UTILIZADO
 df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",", 
                       colClasses = "character", encoding = "UTF-8", header = TRUE)
 
