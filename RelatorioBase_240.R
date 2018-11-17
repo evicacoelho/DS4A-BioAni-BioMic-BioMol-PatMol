@@ -305,17 +305,47 @@ plot(g, vertex.label = NA)
 #observar uma considerável cooperação entre os membros do Programa, mas
 #alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
 
-#Número de professores por grande área:
-ggplot(df.prog, aes(GrandeArea, fill=AreaPos)) +
-  geom_bar(stat = 'count', position = 'dodge') +
-  ggtitle('Número de áreas por grande área') +
-  theme(legend.position = 'right') +
-  labs(x='Grande Área de conhecimento',y='Área de conhecimento')
-
 #Natureza das orientações por tipo de orientação
 ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
   geom_bar(stat = 'count') +
-  ggtitle('Natureza das orientações por tipo de orientação')
-  theme(legend.position='right',legend.text=element_text(size=7)) +
-  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = 'top')) +
+  theme(legend.position = 'right') +
+  ggtitle('Natureza das orientações por tipo de orientação') +
   labs(x='Natureza da orientação',y=' ')
+
+# Orientações por ano:
+ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
+  geom_bar(stat = 'count') +
+  ggtitle('Orientações por ano') +
+  theme(legend.position = 'right') +
+  labs(x='Ano',y='Tipo de orientação')
+# A partir do número de orientações por ano e pela natureza destas,
+# percebe-se que a quantidade de orientações de pós graduações no
+# sentido restrito era pequena em proporção a outras otientações
+# conduzidas por PPG por ano, até sua volta em 2015, onde o número
+# de pós graduações no sentido restrito foram maiores que outras
+# orientações.
+
+# Mestrados e cursos que mais ocorrem por ano
+ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
+  geom_bar(stat = 'count') +
+  ggtitle('Orientações por ano') +
+  theme(legend.position = 'right') +
+  labs(x='Ano',y='Cursos')
+
+# Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
+# o grande domínio em volume da pós graduação em Biologia animal, que na maioria
+# dos anos corresponde a quase metade das orientações de pós graduação por ano
+# dentre os PPG estudados.
+
+# Publicações em países:
+perfil.df.publicacoes %>%
+  filter(!(tipo_producao %in% c('EVENTO','TEXTO_EM_JORNAIS','PERIODICO','ARTIGO_ACEITO'))) %>%
+  group_by(tipo_producao,pais_de_publicacao) %>%
+  ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
+  geom_point(alpha = 0.7) + geom_jitter() +
+  labs(x='Tipo de produção',y='País')
+
+# Observa-se deficiência de dados quanto ao país de publicação para periódicos,
+# textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
+# gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
+# los no Brasil e demais países.
