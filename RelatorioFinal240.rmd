@@ -53,18 +53,147 @@ library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
 ```
 
-<!-- DAQUI PRA CIMA JA TA PRONTO! -->
 
-A importação dos dados é mostrada como a seguir, utilizando a função `fromJSON()` do pacote `jsonlite`.
 
+Após a importação e definição das bibliotecas utilizadas, podemos utilizar funções de tais pacotes para análise sistêmica dos dados, mas para isto, estes deves sem primeiramente descritos por meio de funções de descrição do pacote `dplyr` que facilita a visualização e manipulação dos dados:
+
+*SEPARACAO DOS CAMPOS DE DF.PROG*
 ```{r}
-zika.profile <- fromJSON(profile)
-zika.advise <- fromJSON(advise)
-zika.publication <- fromJSON(publication)
-zika.list <- fromJSON(list)
-zika.graph <- fromJSON(graph)
 
+df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.Avaliacao.Codigo.AreaPos.Programa,
+                     c("idLattes", "Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
+                     sep = ";", extra = "drop", fill = "right")
 ```
+
+*Número de docentes na base e a construção das listas dos mesmos:*
+```{r}
+length(perfil)
+ProfileList <- list()
+for (i in 1:length(perfil)) {
+  ProfileList <- rbind(ProfileList, perfil[[i]]$nome)
+}
+```
+
+# Análise das listas:
+*Número de áreas de atuação cumulativas:*
+```{r}
+sum(sapply(perfil, function(x) nrow(x$areas_de_atuacao)))
+```
+*Numero de areas de atuacao por pessoa*
+```{r}
+table(unlist(sapply(perfil, function(x) nrow(x$areas_de_atuacao))))
+```
+*Numero de pessoas por grande area*
+```{r}
+table(unlist(sapply(perfil, function(x) (x$areas_de_atuacao$grande_area))))
+```
+*Numero de pessoas que produziram os especificos tipos de producao*
+```{r}
+table(unlist(sapply(perfil, function(x) names(x$producao_bibiografica))))
+```
+*Numero de publicacoes por tipo*
+```{r}
+sum(sapply(perfil, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+sum(sapply(perfil, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+sum(sapply(perfil, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+sum(sapply(perfil, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+sum(sapply(perfil, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+```
+*Numero de pessoas por quantitativo de producoes por pessoa 0 = 1; 1 = 2...*
+```{r}
+table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+```
+*Numero de producoes por ano*
+```{r}
+table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+```
+*Numero de pessoas que realizaram diferentes tipos de orientacoes*
+```{r}
+length(unlist(sapply(perfil, function(x) names(x$orientacoes_academicas))))
+```
+*Numero de pessoas por tipo de orientacao*
+```{r}
+table(unlist(sapply(perfil, function(x) names(x$orientacoes_academicas))))
+```
+*Numero de orientacoes concluidas*
+```{r}
+sum(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+```
+*Numero de pessoas por quantitativo de orientacoes por pessoa 0 = 1; 1 = 2...*
+```{r}
+table(unlist(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+```
+*Numero de orientacoes por ano*
+```{r}
+table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+```
+
+# Análise dos dataframes:
+*Arquivo Profile por Curriculo:*
+*Extrai perfis dos professores:*
+```{r}
+perfil.df.professores <- extrai.perfis(perfil)
+```
+*extrai producao bibliografica de todos os professores*
+```{r}
+perfil.df.publicacoes <- extrai.producoes(perfil) %>%
+  select(tipo_producao, everything()) %>% arrange(tipo_producao)
+```
+*extrai orientacoes*
+```{r}
+perfil.df.orientacoes <- extrai.orientacoes(perfil) %>%
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+```
+*extrai areas de atuacao *
+```{r}
+perfil.df.areas.de.atuacao <- extrai.areas.atuacao(perfil) %>%
+  select(idLattes, everything())
+```
+*cria arquivo com dados quantitativos para analise*
+```{r}
+perfil.df <- data.frame()
+perfil.df <- perfil.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    perfil.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes")
+
+glimpse(perfil.df)
+```
+<!-- DAQUI PRA CIMA JA TA PRONTO! -->
 
 Ao realizar a importação dos arquivos em formato `json`, é possível identificar seu formato, uma lista (ou “large list”) de objetos JSON. Esse formato não é o mais simples de ser análisado utilizando as funções e bibliotecas da linguagem R, porém em breve, uma série de passos será aplicada para que sejam simplificadas.
 
@@ -177,297 +306,237 @@ Por fim, ocorre a tarefa de formatação dos dados, que é a realização de mod
 
 Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a realização de comparações ao final, os mesmos procedimentos foram realizados para os três programas de pós-graduação. Além disso, é importante ressaltar que as variáveis e estruturas montadas foram nomeados de forma mnemônica permitindo a distinção de diferentes programas e aspectos, como orientações, publicações, entre outros.
 
+Para a limpeza dos dados temos:
 
-##ZIKA
-
+##Analise dos dados no formato lista
+*numero de Publicacoes em periódicos*
 ```{r}
-# quantidade de periódicos publicados sobre ZIKA entre 2010 a 2017
-infperiodicosZika <- data.frame()
-for(i in 1:length(zika.publication$PERIODICO))
-infperiodicosZika <- rbind(infperiodicosZika, zika.publication$PERIODICO[[i]])
+sum(sapply(public$PERIODICO, function(x) length(x$natureza)))
 ```
-
+*anos analisados*
 ```{r}
-# quantidade de livros publicados relacionados a Zika entre 2010 a 2017
-inflivrosZika <- data.frame()
-for(i in 1:length(zika.publication$LIVRO))
-inflivrosZika <- rbind(inflivrosZika, zika.publication$LIVRO[[i]])
+names(public$PERIODICO)
 ```
-
-
+*20 revistas mais publicadas*
 ```{r}
-# produção de livros de cada integrante do ZIKA no ano de 2017
-autoreslivrosZika <- zika.publication[["LIVRO"]][["2017"]][["autores"]]
-tabelaautoresZika <- table(unlist(autoreslivrosZika))
-dfautoresZika <- data.frame(tabelaautoresZika)
+head(sort(table(as.data.frame(unlist
+    (sapply(public$PERIODICO, function(x) unlist(x$periodico)))
+  )), decreasing = TRUE),20)
 ```
-
-
+*Analise dos dados no formato DF*
 ```{r}
-# quantidade de periódicos publicados sobre Zika entre 2010 a 2017
-infeventosZika <- data.frame()
-for(i in 1:length(zika.publication$EVENTO))
-infeventosZika <- rbind(infeventosZika, zika.publication$EVENTO[[i]])
+public.periodico.df <- pub.ls2df(public, 1) #artigos
+public.livros.df <- pub.ls2df(public, 2) #livros
+public.eventos.df <- pub.ls2df(public, 5) #eventos
 ```
-
+*Publicacao por ano*
 ```{r}
-# Monta data frame com orientações completas
-orientacaoCompletaZika <- bind_rows(zika.advise$ORIENTACAO_CONCLUIDA_DOUTORADO)
-orientacaoCompletaZika <- bind_rows(orientacaoCompletaZika,
-zika.advise$ORIENTACAO_CONCLUIDA_POS_DOUTORADO)
-orientacaoCompletaZika <- bind_rows(orientacaoCompletaZika,
-zika.advise$ORIENTACAO_CONCLUIDA_MESTRADO)
-orientacaoCompletaZika <- bind_rows(orientacaoCompletaZika,
-zika.advise$OUTRAS_ORIENTACOES_CONCLUIDAS)
+table(public.periodico.df$ano)
 ```
-
+*20 revistas mais publicadas*
+*Mesma visao que anterior mas agora trabalhando no DataFrame*
 ```{r}
-# Monta data frame com orientações incompletas
-orientacaoIncompletaZika <-bind_rows(zika.advise$ORIENTACAO_EM_ANDAMENTO_DE_POS_DOUTORADO)
-orientacaoIncompletaZika <- bind_rows(orientacaoIncompletaZika,
-zika.advise$ORIENTACAO_EM_ANDAMENTO_DOUTORADO)
-orientacaoIncompletaZika <- bind_rows(orientacaoIncompletaZika,
-zika.advise$ORIENTACAO_EM_ANDAMENTO_MESTRADO)
-orientacaoIncompletaZika <- bind_rows(orientacaoIncompletaZika,
-zika.advise$ORIENTACAO_EM_ANDAMENTO_GRADUACAO)
+head(sort(table(public.periodico.df$periodico), decreasing = TRUE), 20)
 ```
-
+####
+#Orientacao
+#Analise dos dados em formato lista
+*Numero de Orientacoes Mestrado e Doutorado*
 ```{r}
-# data frames com orientações completas e incompletas
-orientacaoZika.df <- bind_rows(orientacaoIncompletaZika, orientacaoCompletaZika)
-df_orientadores1Zika <- as.data.frame(sort(table(unlist(
-orientacaoZika.df$id_lattes_orientadores, recursive = TRUE)),decreasing=TRUE))
+sum(sapply(orient$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
 ```
-
-<!-- ```{r} -->
-<!-- # circulação de publicações nos cenários nacional e internacional -->
-<!-- participantesDGP.Zika <- participantesDGP.Zika %>% -->
-<!-- mutate(`Nome Participante`=tolower(`Nome Participante`)) -->
-<!-- df_orientadoresZika <- as.data.frame(unique(unlist( -->
-<!-- orientacaoZika.df$nome_orientadores, recursive = TRUE))) -->
-<!-- names(df_orientadoresZika) <- c("nome") -->
-<!-- df_orientadoresZika <- df_orientadoresZika %>% mutate(`nome`=tolower(`nome`)) -->
-<!-- tokenGruposZika <- inner_join(participantesDGP.Zika, df_orientadoresZika, -->
-<!-- by = c("Nome Participante" = "nome")) -->
-<!-- tokenGruposZika <- as.data.frame(unique( -->
-<!-- tokenGruposZika$`Token Grupo Pesquisa`),stringsAsFactors = FALSE) -->
-<!-- names(tokenGruposZika) <- c("token") -->
-<!-- producaoDGP.Zika <- inner_join(tokenGruposZika, -->
-<!-- producaoDGP.Zika, by = c("token" = "Token Grupo Pesquisa")) -->
-<!-- publicacoesInternacionaisZika <- -->
-<!-- sum(producaoDGP.Zika$`Quantidades de Produções - Artigos Completos de Circulação Internacional`) -->
-<!-- publicacoesNacionaisZika <- -->
-<!-- sum(producaoDGP.Zika$`Quantidades de Produções - Artigos Completos de Circulação Nacional`) -->
-<!-- publicacoesZika.df <- data.frame("group"=c("circulação nacional","circulação internacional"), -->
-<!-- "value"=c(publicacoesNacionaisZika, -->
-<!-- publicacoesInternacionaisZika)) -->
-
-<!-- ``` -->
-
+*Analise dos dados no formato DF*
 ```{r}
-# participação de professores em eventos de cunho internacional
-pubZika <- data.frame()
-for(profile in zika.profile) {
-if(!is.null(profile$`producao_bibiografica`$`EVENTO`)) {
-temp <- profile$`producao_bibiografica`$`EVENTO` %>%
-filter(classificacao == "INTERNACIONAL")
-pubZika <- rbind(pubZika, temp)
-}
-}
-```
+orient.posdoutorado.df <- ori.ls2df(orient, 6) #pos-Doutorado concluido
+orient.doutorado.df <- ori.ls2df(orient, 7) #Doutorado concluido
+orient.mestrado.df <- ori.ls2df(orient, 8) #Mestrado concluido
 
+orient.df <- rbind(rbind(orient.posdoutorado.df, orient.doutorado.df), orient.mestrado.df)
+```
+###
+*Grafo*
 ```{r}
-# periódicos que possuem mais artigos publicados
-perZika <- data.frame()
-for (profile in zika.profile) {
-if(!is.null(profile$producao_bibiografica$PERIODICO)) {
-temp <- profile$`producao_bibiografica`$PERIODICO
-perZika <- rbind(perZika, temp)
-}
-}
-top10Zika <- perZika %>%
-filter(ano >= 2012) %>%
-count(periodico) %>%
-top_n(10) %>%
-arrange(n, periodico) %>%
-mutate(periodico = factor(periodico, levels = unique(periodico)))
+g <- g.ls2ig(graphl)
+df <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
+df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
 ```
-
-
-
-##Resultados
+#Apenas para fins de analise inicial, foram retiradas as observacoes 
+#com duplicacao de pesquisadores no caso de haver professores em mais 
+#de um programa
+```{r}
+df <- df %>% group_by(Idlattes) %>% 
+  slice(1L)
+V(g)$programa <- df$Programa
+V(g)$orient_dout <- perfil.df$ORIENTACAO_CONCLUIDA_DOUTORADO
+V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
+V(g)$publicacao <- perfil.df$PERIODICO
+V(g)$eventos <- perfil.df$EVENTO
+```
+##Resultados e visualizações:
 Foram escolhidos alguns resultados, em relação aos dados encontrados durante o processo, para serem plotados em gráficos.
 
+# Grafico de barras; periodicos por ano
 ```{r}
-infperiodicosZika %>%
-group_by(ano) %>%
-summarise(Quantidade = n()) %>%
-ggplot(aes(x = ano, y = Quantidade)) +
-geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
-geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
-theme_minimal()
+public.periodico.df %>%
+  group_by(ano) %>%
+  summarise(Quantidade = n()) %>%
+  ggplot(aes(x = ano, y = Quantidade)) +
+  geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
+  ggtitle("Periodicos publicados por ano") +
+  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+  theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 ```
 
+Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
+de Biologia Microbiana apresentou um crescimento considerável de 2013 para 2014,
+aumentando o número de publicações em mais de 25% e mantendo esta média a partir
+de então.
 
-É possível notar que o __ZIKA__ publicou __x__ nos últimos anos. Percebe-se que o máximo de publicações, durante o período estudado, encontra-se no ano de 2016. Isso pode indicar
-que existem pesquisas com um bom aproveitamento nesse período.
-
-
+Quantidade de periodicos publicados por professor(a) entre 2010 e 2017 - by Jonas
 ```{r}
-inflivrosZika %>%
-group_by(pais_de_publicacao) %>%
-summarise(Quantidade = n()) %>%
-ggplot(aes(x = pais_de_publicacao, y = Quantidade)) +
-geom_bar(width=0.8, height = 0.3, position = "stack",stat = "identity", fill = "coral")+
-geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
-theme_minimal()
+perfil.df %>%
+  ggplot(aes(idLattes,PERIODICO)) +
+  geom_col(fill = "purple") +
+  ggtitle("Periodicos publicados por pesquisador") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Numero de publicacoes") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.df %>% summarize(x = median(PERIODICO))), color = "red")
 ```
+Investigando o comportamento dos pesquisadores do programa, os professores
+foram ordenado pelo número total de publicações em periódicos entre 2010 e 2017, 
+cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
+11 publicações no período total. O gráfico indica que, dos 23 pesquisadores
+inclusos na base de dados, cinco se destacaram com publicações que mais que
+duplicaram este valor - com um deles chegando a 52 publicações em periódicos.
 
-
-Com relação aos livros publicados no contexto do __ZIKA__, nota-se que existe um número considerável(
-principalmente se o número de livros publicados em território nacional for levado em conta) de livros
-publicados no exterior. Com 6 livros publicados nos Estados Unidos nos últimos anos, além de outros países
-como Alemanha e Holanda, onde há um foco grande na área da computação, é possível perceber que o
-programa tem caminhado para um ótimo nível de internacionalização, pelo menos no quesito dos livros.
-
-
+#publicacao de livros por pais/ano
 ```{r}
-inflivrosZika %>%
-filter(pais_de_publicacao %in% c("Brasil", "Estados Unidos", "Holanda",
-"Grã-Bretanha", "Alemanha", "Suiça")) %>%
-group_by(ano,pais_de_publicacao) %>%
-ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
-xlab("Ano") + ylab("Pais") + geom_point()
+public.livros.df %>%
+  group_by(ano,pais_de_publicacao) %>%
+  ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  ggtitle("Livros publicados por ano") +
+  xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 ```
+Apenas cinco anos apresentaram registros de publicação de livros por parte
+do Programa no período de 2010 a 2017. Além disso, é possível notar uma grande
+concentração destas publicações em território nacional.
 
-
-Quanto à perspectiva dos livros sendo publicados em diferentes países nos últimos anos, é possível ver que
-houve um aumento na quantidade de localidades. O ano de 2017 parece ser o auge dessa quantidade, com
-livros sendo publicados em até 4 países diferentes.
-
-
+#Eventos nacionais e internacionais
 ```{r}
-ggplot(dfautoresZika, aes(x = Freq, y = Var1, color=Var1)) +
-xlab("QUANTIDADE") + ylab("Autor") + geom_point()
+public.eventos.df %>%
+  filter(pais_do_evento %in% 
+           c(names(head(sort(table(public.eventos.df$pais_do_evento)
+                             , decreasing = TRUE), 10)))) %>%
+  group_by(ano_do_trabalho,pais_do_evento) %>%
+  ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
+  ggtitle("Participacoes em eventos") +
+  xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 ```
+Considerando eventos, o Programa de Biologia Microbiana teve comparecimento maior
+em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
+que o programa esteve presente em eventos de sede internacional em 
+todos os anos registrados na base de dados, principalmente nos Estados Unidos.
 
-O gráfico acima mostra os autores de livros em função do número de suas publicações.
+#Orientacoes completas por ano e natureza
 ```{r}
-infeventosZika %>%
-filter(pais_do_evento %in% c("Brasil", "Estados Unidos", "Japão", "Colômbia",
-"Venezuela", "Portugal", "Grã-Bretanha", "França",
-"Espanha", "China", "Alemanha")) %>%
-group_by(ano_do_trabalho,pais_do_evento) %>%
-ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
-xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+ggplot(orient.df,aes(ano,fill=natureza)) +
+  geom_bar(stat = "count", position="dodge") +
+  ggtitle("Natureza das Orientacoes Completas Por Ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 32))
 ```
+Observando a evolução do número de orientações completas ao longo dos anos,
+percebe-se que o Programa de Pós-Graduação cresceu consideravelmente na
+natureza de mestrado após 2010, com uma regressão em 2016.
+Entretanto, não há um comportamento linear na evolução do número de orientações
+finalizadas. 2014 despontou no número de dissertações de mestrado, mas
+este comportamento não se repetiu posteriormente. Enquanto as orientações
+de mestrado do Programa parecem bem estabelecidas, as supervisões de
+pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
+em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
 
-
-Quanto aos eventos em que houveram participações dos membros do do PPGInf, nota-se uma concentração
-grande de cunho nacional, com um foco internacional nos Estados Unidos.
-
+#Bolsas distribuidas por ano - by Jonas
 ```{r}
-ggplot(orientacaoCompletaZika,aes(ano,fill=natureza)) +
-geom_bar(stat = "count", position="dodge") +
-ggtitle("Natureza das Orientações Completas Por Ano") +
-theme(legend.position="bottom",legend.text=element_text(size=7)) +
-guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-labs(x="Ano",y="Quantidade")
+orient.df %>% filter(bolsa == "SIM") %>%
+ggplot(aes(ano,fill=natureza)) +
+  geom_bar(stat = "count", position = "dodge") +
+  ggtitle("Bolsas disponibilizadas por ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 32))
 ```
+Comparando os gráficos de orientações completas e de bolsas, é possível
+perceber que o número de bolsas oferecidas para o Programa acompanhou o
+total de orientações de maneira satisfatória ao longo dos anos.
+Durante todo o período, todas as naturezas apresentaram um índice de pelo menos
+50% de bolsas, chegando a 100% em alguns casos.
+Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
+contemplada pelas agências financiadoras, visto que apenas uma das observações
+não recebeu bolsa. Por fim, é possível observar que o pico no número de
+orientações de mestrado registrado em 2014 não foi tão expressivo em número
+de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
-
-Em relação às orientações completadas durante os últimos anos, nota-se que o foco maior dos professores
-envolvidos é o trabalho de conclusão de curso. Isso se dá, provavelmente por uma questão numérica. O
-número de alunos de graduação é naturalmente maior que os de pós graduação. Esses professores que
-compõem o PPGInf também são, em maioria, professores da graduação. Dado isso, essa disparidade é
-esperada. Quanto ao número de dissertações de mestrado e doutorado, que é o foco desse programa, nota-se
-um bom número de orientações dessa natureza, principalmente da primeira mencionada.
-
+#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
 ```{r}
-ggplot(orientacaoIncompletaZika,aes(ano,fill=natureza)) +
-geom_bar(stat = "count", position="dodge") +
-ggtitle("Natureza das Orientações Incompletas Por Ano") +
-theme(legend.position="bottom",legend.text=element_text(size=9)) +
-guides(fill=guide_legend(nrow=2, byrow=TRUE, title.position = "top")) +
-labs(x="Ano",y="Quantidade")
+plot(g, vertex.label = NA)
 ```
+#O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
+#e a existência de cooperação entre eles em suas arestas. Portanto, é possível
+#observar que grande parte dos membros do Programa possui um grau de cooperação
+#pequeno, limitado a até dois outros pesquisadores.
 
-
-Quanto às orientações incompletas, é possível perceber que o número de orientações de doutorado que aparece
-nesse gráfico é relativamente maior do que o número que apareceu no gráfico anterior. Um forte indicador
-do porquê disso acontecer é a maior complexidade de uma pesquisa necessária para a escrita de tese de
-doutorado.
-
-
-
+#Natureza das orientações por tipo de orientação
 ```{r}
-ggplot(df_orientadores1Zika, aes(x=Var1, y=Freq)) +
-geom_point(size=3) +
-geom_segment(aes(x=Var1,
-xend=Var1,
-y=0,
-yend=Freq)) +
-labs(title="Número de Orientações por Professor", x="Lattes do Professor",
-y="Número de Orientações") +
-theme(axis.text.x = element_text(angle=75, vjust=0.6))
+ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
+  geom_bar(stat = 'count') +
+  theme(legend.position = 'right') +
+  ggtitle('Natureza das orientações por tipo de orientação') +
+  labs(x='Natureza',y='Quantidade de orientações') +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
-
-
-
-O gráfico acima mostra o número de orientações por professor com base em seu identificador de Lattes.
-Percebe-se que o número de orientações é bastante variado.
-
-<!-- ```{r} -->
-<!-- data <- publicacoesZika.df %>% -->
-<!-- mutate(per=`value`/sum(`value`)) %>% -->
-<!-- arrange(per) -->
-<!-- data$label <- scales::percent(data$per) -->
-<!-- ggplot(data=data)+ -->
-<!-- geom_bar(aes(x="", y=per, fill=group), stat="identity", width = 1)+ -->
-<!-- coord_polar("y", start=0)+ -->
-<!-- labs(title="Comparativo entre Publicações de 2017", -->
-<!-- caption="fonte: Publicações do PPGInf") + -->
-<!-- theme_void()+ -->
-<!-- geom_text(aes(x=1, y = cumsum(per) - per/2, label=label)) -->
-<!-- ``` -->
-
-<!-- O gráfico acima informa um comparativo das publicações do __ZIKA__ no ano de 2017. Nota-se um foco bem -->
-<!-- maior no foco internacional, com impressionantes 77,8% de suas publicações possuindo circulação internacional, -->
-<!-- o que mostra ainda mais como o programa está se internacionalizando de forma eficaz. -->
-
-
-
+# Orientações por ano:
 ```{r}
-pubZika %>%
-group_by(ano_do_trabalho) %>%
-summarise(Quantidade=n()) %>%
-ggplot(aes(x=ano_do_trabalho, y=Quantidade)) +
-geom_bar(stat="identity", fill="lightblue")
+ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
+  geom_bar(stat = 'count') +
+  ggtitle('Orientações por ano') +
+  theme(legend.position = 'right') +
+  labs(x='Ano',y='Quantidade de orientações')
 ```
-O gráfico acima mostra a quantidade geral de publicações do grupo, de todas as naturezas.
+A partir do número de orientações por ano e pela natureza destas,
+percebe-se que a quantidade de orientações de pós graduações no
+sentido restrito era pequena em proporção a outras orientações
+conduzidas por PPG por ano, até sua volta em 2015, onde o número
+de pós graduações no sentido restrito foram maiores que outras
+orientações.
 
+# Mestrados e cursos que mais ocorrem por ano
+```{r}
+ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
+  geom_bar(stat = 'count') +
+  ggtitle('Orientações por ano') +
+  theme(legend.position = 'right') +
+  labs(x='Ano',y='Cursos')
+```
+Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
+o grande domínio em volume da pós graduação em Biologia Microbiana, que na maioria
+dos anos corresponde a quase metade das orientações de pós graduação por ano
+dentre os PPG estudados.
 
-
-<!-- ```{r} -->
-<!-- perZika %>% -->
-<!-- filter(periodico %in% top10PPGINF$periodico) %>% -->
-<!-- mutate(periodico = factor(periodico, levels = levels(top10PPGINF$periodico))) %>% -->
-<!-- ggplot(aes(x = periodico, y="Quantidade", fill=periodico)) + -->
-<!-- geom_bar(stat="identity", width=0.5) + -->
-<!-- coord_flip() + -->
-<!-- guides(fill=FALSE) -->
-<!-- ``` -->
-
-<!-- O gráfico acima mostra os dez periódicos que mais aceitaram trabalhos da __ZIKA__, com o destaque para __x__. -->
-
-
-##Conclusão
-Por meio desse trabalho, foi possível ter uma noção mais real de como é trabalhar com a ciência de dados
-e deixar ainda mais claro a importância de ferramentas de análise. Foi possível perceber como boa parte
-do tempo empregado é gasto analisando a estrutura dos dados obtidos e bolando estratégias para que se
-adquira aquilo que realmente importa.
-Também, há de se ressaltar, como é gratificante atingir o objetivo que se planeja ao iniciar a análise, possibilitando
-um entendimento maior do que se está estudando. No caso, foi possível diminuir o escopo dos
-nossos dados, filtrar por informações particulares, plotar gráficos para facilitar a visualização, e, de forma
-geral, conhecer um volume de dados expressivo com uma pequena análise quantitativa e qualitativa feita em
-cima dele.
+# Publicações em países:
+```{r}
+perfil.df.publicacoes %>%
+  filter(!(tipo_producao %in% c('EVENTO','TEXTO_EM_JORNAIS','PERIODICO','ARTIGO_ACEITO'))) %>%
+  group_by(tipo_producao,pais_de_publicacao) %>%
+  ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
+  geom_point(alpha = 0.7) + geom_jitter() +
+  labs(x='Tipo de produção',y='País')
+```
+Observa-se deficiência de dados quanto ao país de publicação para periódicos,
+textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
+gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
+los no Brasil e demais países.
