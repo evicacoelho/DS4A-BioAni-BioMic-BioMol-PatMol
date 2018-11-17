@@ -15,10 +15,10 @@ setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
 source("elattes.ls2df.R")
 
 #CONFIGURAR - DIRETORIO DOS .JSON (Arquivos eLattes)
-perfil <- fromJSON("240BiologiaAnimal/240profile.json")
-public <- fromJSON("240BiologiaAnimal/240publication.json")
-orient <- fromJSON("240BiologiaAnimal/240advise.json")
-graphl <- fromJSON("240BiologiaAnimal/240graph.json")
+perfil <- fromJSON("313PatologiaMolecular/313profile.json")
+public <- fromJSON("313PatologiaMolecular/313publication.json")
+orient <- fromJSON("313PatologiaMolecular/313advise.json")
+graphl <- fromJSON("313PatologiaMolecular/313graph.json")
 
 #Arquivos Sucupira? Pesquisar
 #res.area <- fromJSON("UnBPosGeral/researchers_by_area.json") #NÃO UTILIZADO
@@ -210,10 +210,11 @@ public.periodico.df %>%
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 
 #Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-#de Biologia Animal apresentou pouco crescimento entre 2010 e 2017, registrando
-#de 60 a 70 publicações por ano em grande parte da amostra.
+#de Patologia Molecular apresentou cresceu considerave entre 2010 e 2013,
+#com crescimento de quase 200% até atingir estabilidade de cerca de 100 publicações
+#por ano.
 
-#Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+#Quantidade de periodicos publicados por professor(a) entre 2010 e 2017 - by Jonas
 perfil.df %>%
   ggplot(aes(idLattes,PERIODICO)) +
   geom_col(fill = "purple") +
@@ -227,9 +228,10 @@ perfil.df %>%
 #Investigando o comportamento dos pesquisadores do programa, os professores
 #foram ordenados pelo número total de publicações em periódicos entre 2010 e 2017, 
 #cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
-#26 publicações no período total. O gráfico indica que, dos 19 pesquisadores
-#inclusos na base de dados, dois totalizaram publicações que duplicaram este valor
-#e outros dois quadruplicaram este valor, com mais de 104 publicações em periódicos.
+#26 publicações no período total. O gráfico indica que, dos 23 pesquisadores
+#inclusos na base de dados, dois se destacaram com publicações que mais que
+#triplicaram este valor - com um deles chegando a 88 e outro atingindo 233
+#publicações em periódicos.
 
 #publicacao de livros por pais/ano
 public.livros.df %>%
@@ -238,10 +240,8 @@ public.livros.df %>%
   ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 
-#Apenas três anos apresentaram registros de publicação de livros por parte
-#do Programa no período de 2010 a 2017. Entretanto, uma observação notável
-#é um maior número de publicações em países estrangeiros que no Brasil, o que
-#sinaliza um bom grau de internacionalização do programa.
+#O Programa em questão registrou publicações de livros na maioria dos anos
+#registrados no período de 2010 a 2017, todas em território nacional.
 
 #Eventos nacionais e internacionais
 public.eventos.df %>%
@@ -253,10 +253,11 @@ public.eventos.df %>%
   ggtitle("Participacoes em eventos") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 
-#Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
+#Considerando eventos, o Programa de Patologia Molecular teve comparecimento maior
 #em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
-# que o programa esteve presente em pelo menos um evento de sede internacional em 
-#todos os anos registrados na base de dados.
+# que o programa esteve presente em eventos de sede internacional em 
+#todos os anos registrados na base de dados, exceto em 2015. O ano destaque para
+#eventos internacionais foi 2012, com diversos registros na Alemanha e Estados Unidos.
 
 #Orientacoes completas por ano e natureza
 ggplot(orient.df,aes(ano,fill=natureza)) +
@@ -264,18 +265,15 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
   ggtitle("Natureza das Orientacoes Completas Por Ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 25))
+  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 40))
 
 #Observando a evolução do número de orientações completas ao longo dos anos,
-#percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
-#naturezas de doutorado e pós-doutorado após 2010.
-#Entretanto, não há um comportamento linear na evolução do número de orientações
-#finalizadas. A partir de 2011, todos os anos pares apresentaram um aumento no
-#número de pós-doutorados enquanto os anos ímpares seguintes mostram
-#retrocesso neste número. Além disso, o ano de 2017 apresentou um aumento
-#considerável no número de teses de doutorado, mas uma queda vertiginosa nas
-#demais naturezas de orientações - sugerindo uma mudança brusca nas bases
-#do programa.
+#percebe-se que o Programa de mestrado cresceu consideravelmente entre
+#2010 e 2014, mas apresentou regressão nos períodos posteriores, chegando ao seu
+#menor índice em 2017. Em contrapartida, o número de orientações de doutorado
+#e pós-doutorado apresentou maior estabilidade ao longo da amostra. Todas
+#as naturezas de orientação do Programa parecem bem estabelecidas, visto que
+#mesmo os índices de doutorado indicam uma média de mais de 10 observações/ano.
 
 #Bolsas distribuidas por ano
 
@@ -285,25 +283,29 @@ ggplot(aes(ano,fill=natureza)) +
   ggtitle("Bolsas disponibilizadas por ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 25))
+  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 40))
 
 #Comparando os gráficos de orientações completas e de bolsas, é possível
-#perceber que o número de bolsas oferecidas
-#para o Programa não apresentou um comportamento linear ao longo dos anos.
+#perceber que o número de bolsas oferecidas para o Programa acompanhou o
+#total de orientações de maneira satisfatória ao longo dos anos.
+#Durante todo o período, todas as naturezas apresentaram um índice de pelo menos
+#50% de bolsas, chegando a 100% em alguns casos.
 #Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
-#contemplada pelas agências financiadoras, visto que quase todas as observações
-#receberam bolsa. Por fim, é possível observar que os anos com maior
-#número de orientações de mestrado e doutorado também consistem nos
-#anos com maior número de bolsas distribuídas entre o programa, mas a ocorrência
-#de pesquisas realizadas sem este apoio financeiro foi marcante em todo o período.
+#contemplada pelas agências financiadoras, visto que apenas uma das observações
+#não recebeu bolsa. Um dado notável é a marca atingida em 2014, onde apenas 4
+#de 41 mestrandos não foram contemplados com bolsa.
 
-#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
+#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
 plot(g, vertex.label = NA)
 
 #O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
 #e a existência de cooperação entre eles em suas arestas. Portanto, é possível
-#observar uma considerável cooperação entre os membros do Programa, mas
-#alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
+#observar uma considerável cooperação entre os membros do Programa, com muitos
+#pesquisadores em vizinhanças próximas. Ainda assim, é possível observar a existência
+#de alguns nós periféricos, com baixa diversidade em suas colaborações no período,
+#variando entre zero e dois colaboradores.
+
+#REVER COMENTARIOS DAQUI PRA BAIXO
 
 #Natureza das orientações por tipo de orientação
 ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
@@ -336,7 +338,7 @@ ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
   labs(x='Ano',y='Cursos')
 
 # Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
-# o grande domínio em volume da pós graduação em Biologia animal, que na maioria
+# o grande domínio em volume da pós graduação em Patologia Molecular, que na maioria
 # dos anos corresponde a quase metade das orientações de pós graduação por ano
 # dentre os PPG estudados.
 
