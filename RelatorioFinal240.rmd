@@ -242,7 +242,7 @@ public.periodico.df <- pub.ls2df(public, 1) #artigos
 public.livros.df <- pub.ls2df(public, 2) #livros
 public.eventos.df <- pub.ls2df(public, 5) #eventos
 ```
-*Publicação por ano*
+*Publicacao por ano*
 ```{r}
 table(public.periodico.df$ano)
 ```
@@ -318,7 +318,7 @@ perfil.df %>%
 ```
 O gráfico acima demonstra o total de publicações para cada pesquisador, demonstrando relativa homogeneidade entre a quantidade de pesquisadores em média, porém há aqueles que deslocam a média para cima por estarem fora do desvio padrão acima ou abaixo, sendo que há destaque para dois pesquisadores que tem um número de publicação que corresponde cerca de quatro vezes o valor da média.
 
-#Publicação de livros por pais/ano
+#publicacao de livros por pais/ano
 ```{r}
 public.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
@@ -326,7 +326,7 @@ public.livros.df %>%
   ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 ```
-Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal.
+Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal
 
 #Eventos nacionais e internacionais
 ```{r}
@@ -388,8 +388,12 @@ de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 ```{r}
 plot(g, vertex.label = NA)
 ```
-
-O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices e a existência de cooperação entre eles em suas arestas. Portanto, é possível observar que grande parte dos membros do Programa possui um grau de cooperação pequeno, limitado a até dois outros pesquisadores.
+#O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
+#e a existência de cooperação entre eles em suas arestas. É possível observar um grau
+#profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em 
+#grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. 
+#Existem, claro, excessões tais como os vértices mais afastados e o vértice único que 
+#não tem nenhuma aresta com adjacentes.
 
 #Natureza das orientações por tipo de orientação
 ```{r}
