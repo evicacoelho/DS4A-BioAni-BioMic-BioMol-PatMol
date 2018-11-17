@@ -15,10 +15,10 @@ setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
 source("elattes.ls2df.R")
 
 #CONFIGURAR - DIRETORIO DOS .JSON (Arquivos eLattes)
-perfil <- fromJSON("242BiologiaMicrobiana/242profile.json")
-public <- fromJSON("242BiologiaMicrobiana/242publication.json")
-orient <- fromJSON("242BiologiaMicrobiana/242advise.json")
-graphl <- fromJSON("242BiologiaMicrobiana/242graph.json")
+perfil <- fromJSON("243BiologiaMolecular/243profile.json")
+public <- fromJSON("243BiologiaMolecular/243publication.json")
+orient <- fromJSON("243BiologiaMolecular/243advise.json")
+graphl <- fromJSON("243BiologiaMolecular/243graph.json")
 
 #Arquivos Sucupira? Pesquisar
 #res.area <- fromJSON("UnBPosGeral/researchers_by_area.json") #NÃO UTILIZADO
@@ -210,9 +210,10 @@ public.periodico.df %>%
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 
 #Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-#de Biologia Microbiana apresentou um crescimento considerável de 2013 para 2014,
-#aumentando o número de publicações em mais de 25% e mantendo esta média a partir
-#de então.
+#de Biologia Molecular apresentou pouco crescimento entre 2010 e 2017, registrando
+#de 110 a 130 publicações por ano em grande parte da amostra. Uma curiosidade a
+#ser observada é que os anos seguidos de 2011 e 2012 foram os de maior e menor
+#produção, respectivamente.
 
 #Quantidade de periodicos publicados por professor(a) entre 2010 e 2017 - by Jonas
 perfil.df %>%
@@ -228,9 +229,10 @@ perfil.df %>%
 #Investigando o comportamento dos pesquisadores do programa, os professores
 #foram ordenado pelo número total de publicações em periódicos entre 2010 e 2017, 
 #cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
-#11 publicações no período total. O gráfico indica que, dos 23 pesquisadores
-#inclusos na base de dados, cinco se destacaram com publicações que mais que
-#duplicaram este valor - com um deles chegando a 52 publicações em periódicos.
+#28 publicações no período total. O gráfico indica que, dos 36 pesquisadores
+#inclusos na base de dados, três se destacaram com publicações que mais que
+#duplicaram este valor - com um deles chegando a 77 e outro atingindo 104
+#publicações em periódicos.
 
 #publicacao de livros por pais/ano
 public.livros.df %>%
@@ -239,9 +241,8 @@ public.livros.df %>%
   ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 
-#Apenas cinco anos apresentaram registros de publicação de livros por parte
-#do Programa no período de 2010 a 2017. Além disso, é possível notar uma grande
-#concentração destas publicações em território nacional.
+#O Programa em questão registrou publicações de livros em todos os anos no período
+#de 2010 a 2017, com grande concentração destas publicações em território nacional.
 
 #Eventos nacionais e internacionais
 public.eventos.df %>%
@@ -253,7 +254,7 @@ public.eventos.df %>%
   ggtitle("Participacoes em eventos") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 
-#Considerando eventos, o Programa de Biologia Microbiana teve comparecimento maior
+#Considerando eventos, o Programa de Biologia Molecular teve comparecimento maior
 #em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
 # que o programa esteve presente em eventos de sede internacional em 
 #todos os anos registrados na base de dados, principalmente nos Estados Unidos.
@@ -264,17 +265,15 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
   ggtitle("Natureza das Orientacoes Completas Por Ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 32))
+  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 45))
 
 #Observando a evolução do número de orientações completas ao longo dos anos,
-#percebe-se que o Programa de Pós-Graduação cresceu consideravelmente na
-#natureza de mestrado após 2010, com uma regressão em 2016.
-#Entretanto, não há um comportamento linear na evolução do número de orientações
-#finalizadas. 2014 despontou no número de dissertações de mestrado, mas
-#este comportamento não se repetiu posteriormente. Enquanto as orientações
-#de mestrado do Programa parecem bem estabelecidas, as supervisões de
-#pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
-#em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
+#percebe-se que o Programa de mestrado cresceu consideravelmente entre
+#2010 e 2013, mas apresentou regressão nos períodos posteriores, chegando ao seu
+#menor índice em 2017. Em contrapartida, o número de orientações de doutorado
+#e pós-doutorado apresentou maior estabilidade ao longo da amostra. Todas
+#as naturezas de orientação do Programa parecem bem estabelecidas, visto que
+#mesmo os índices de pós-doutorado indicam uma média de mais de 10 observações/ano.
 
 #Bolsas distribuidas por ano - by Jonas
 
@@ -284,7 +283,7 @@ ggplot(aes(ano,fill=natureza)) +
   ggtitle("Bolsas disponibilizadas por ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 32))
+  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 45))
 
 #Comparando os gráficos de orientações completas e de bolsas, é possível
 #perceber que o número de bolsas oferecidas para o Programa acompanhou o
@@ -293,17 +292,17 @@ ggplot(aes(ano,fill=natureza)) +
 #50% de bolsas, chegando a 100% em alguns casos.
 #Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
 #contemplada pelas agências financiadoras, visto que apenas uma das observações
-#não recebeu bolsa. Por fim, é possível observar que o pico no número de
-#orientações de mestrado registrado em 2014 não foi tão expressivo em número
-#de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
+#não recebeu bolsa.
 
 #Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
 plot(g, vertex.label = NA)
 
 #O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
 #e a existência de cooperação entre eles em suas arestas. Portanto, é possível
-#observar que grande parte dos membros do Programa possui um grau de cooperação
-#pequeno, limitado a até dois outros pesquisadores.
+#observar uma considerável cooperação entre os membros do Programa, com muitos
+#pesquisadores em vizinhanças próximas. Ainda assim, é possível observar a existência
+#de alguns nós periféricos, com baixa diversidade em suas colaborações no período,
+#variando entre zero e dois colaboradores.
 
 #REVER DAQUI PRA BAIXO
 
@@ -338,7 +337,7 @@ ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
   labs(x='Ano',y='Cursos')
 
 # Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
-# o grande domínio em volume da pós graduação em Biologia Microbiana, que na maioria
+# o grande domínio em volume da pós graduação em Biologia Molecular, que na maioria
 # dos anos corresponde a quase metade das orientações de pós graduação por ano
 # dentre os PPG estudados.
 
