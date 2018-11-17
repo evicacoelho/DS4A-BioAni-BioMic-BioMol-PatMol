@@ -279,24 +279,22 @@ ggplot(aes(ano,fill=natureza)) +
 #Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
 plot(g, vertex.label = NA)
 
-<<<<<<< HEAD
 #O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
 #e a existência de cooperação entre eles em suas arestas. Portanto, é possível
 #observar uma considerável cooperação entre os membros do Programa, mas
 #alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
-=======
+
 #Número de professores por grande área:
-ggplot(df.prog, aes(GrandeArea, col=AreaPos)) +
+ggplot(df.prog, aes(GrandeArea, fill=AreaPos)) +
   geom_bar(stat = 'count', position = 'dodge') +
   ggtitle('Número de áreas por grande área') +
   theme(legend.position = 'right') +
   labs(x='Grande Área de conhecimento',y='Área de conhecimento')
 
 #Natureza das orientações por tipo de orientação
-ggplot(perfil.df.orientacoes, aes(natureza,col=orientacao)) +
+ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
   geom_bar(stat = 'count') +
   ggtitle('Natureza das orientações por tipo de orientação')
   theme(legend.position='right',legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = 'top')) +
   labs(x='Natureza da orientação',y=' ')
->>>>>>> 1e1ebcd717ed4c149831b253971756d29858fc5a
