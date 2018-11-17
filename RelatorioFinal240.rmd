@@ -388,12 +388,12 @@ de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 ```{r}
 plot(g, vertex.label = NA)
 ```
-#O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
-#e a existência de cooperação entre eles em suas arestas. É possível observar um grau
-#profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em 
-#grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. 
-#Existem, claro, excessões tais como os vértices mais afastados e o vértice único que 
-#não tem nenhuma aresta com adjacentes.
+O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
+e a existência de cooperação entre eles em suas arestas. É possível observar um grau
+profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em 
+grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. 
+Existem, claro, excessões tais como os vértices mais afastados e o vértice único que 
+não tem nenhuma aresta com adjacentes.
 
 #Natureza das orientações por tipo de orientação
 ```{r}
