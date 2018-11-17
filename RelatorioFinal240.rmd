@@ -6,6 +6,7 @@ output:
 
 #Definir JSONS
 ```{r}
+library(jsonlite) #Importado para carga dos arquivos JSON para o R
 perfil <- fromJSON("240BiologiaAnimal/240profile.json")
 public <- fromJSON("240BiologiaAnimal/240publication.json")
 orient <- fromJSON("240BiologiaAnimal/240advise.json")
@@ -45,15 +46,13 @@ Para continuar com as análises, as seguintes bibliotecas são selecionadas:
 
 ```{r}
 library(tidyverse) #Importado para manipulação de tibbles
-library(jsonlite) #Importado para carga dos arquivos JSON para o R
 library(listviewer) #Importado para análise dos arquivos JSON
 library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
+source("elattes.ls2df.R")
 ```
-
-
 
 Após a importação e definição das bibliotecas utilizadas, podemos utilizar funções de tais pacotes para análise sistêmica dos dados, mas para isto, estes deves sem primeiramente descritos por meio de funções de descrição do pacote `dplyr` que facilita a visualização e manipulação dos dados:
 
@@ -203,10 +202,10 @@ Por meio da biblioteca `dplyr` é possível realizar uma série de verificaçõe
 
 As seguintes análises são realizadas para os arquivos de perfis.
 
-Por meio do tamanho da lista gerada ao importar os arquivos, é possível obter a quantidade de pesquisadores científicos que produzem estudos e conhecimentos que possam levar a desenvolvimentos significativos no combate __Zika__.
+Por meio do tamanho da lista gerada ao importar os arquivos, é possível obter a quantidade de professores do __Programa de Pós-graduação em Biologia Animal__ no período de 2010 a 2017.
 *Quantidade de pesquisadores na base*
 ```{r}
-length(zika.profile)
+length(perfil.df)
 ```
 
 
@@ -214,7 +213,7 @@ Por meio da função `glimpse`, é possível verificar uma apresentação inicia
 O código a seguir mostra os atributos presentes em um dos pesquisadores.
 
 ```{r}
-glimpse(zika.profile[[1]], width = 30)
+glimpse(perfil.df[[1]], width = 30)
 ```
 
 Uma breve inspeção visual dos atributos anteriormente apresentados permite inferir que o pesquisador __x__, sob análise:
@@ -229,33 +228,33 @@ Uma breve inspeção visual dos atributos anteriormente apresentados permite inf
 As seguintes descrições possuem, para simplificar, informações relativas às orientações concluídas nos anos 2016 e 2017.
 
 
-*Retorna campos dentro do arquivo `zika.advise`*
+*Retorna campos dentro do arquivo `advise`*
 ```{r}
-names(zika.advise)
+names(orient)
 ```
 
 
 *Quantidade de orientações de Mestrado concluídas em 2017*
 ```{r}
-length(zika.advise$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$natureza)
+length(orient$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$natureza)
 ```
 
 
 *Quantidade de orientações de Doutorado concluídas em 2017*
 ```{r}
-length(zika.advise$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$natureza)
+length(orient$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$natureza)
 ```
 
 
 *Cursos presentes nos Doutorados concluídos em 2017*
 ```{r}
-head(sort(table(zika.advise$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
+head(sort(table(orient$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
 ```
 
 
 *Cursos presentes nos Mestrados concluídos em 2017*
 ```{r}
-head(sort(table(zika.advise$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
+head(sort(table(orient$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
 ```
 
 
@@ -263,21 +262,21 @@ head(sort(table(zika.advise$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreas
 ##Descrição dos dados de produção bibliográfica
 Quanto aos dados de publicações, as descrições a seguir mostram informações sobre os tipos de produções bibliográficas presentes no arquivo juntantente a títulos de periódicos publicados no ano de 2017.
 
-*Retorna campos com tipos de publicação dentro de `zika.publication`*
+*Retorna campos com tipos de publicação dentro de `publication`*
 ```{r}
-names(zika.publication)
+names(public)
 ```
 
 
 *Retorna campos dos periódicos de 2017*
 ```{r}
-names(zika.publication$PERIODICO$`2017`)
+names(public$PERIODICO$`2017`)
 ```
 
 
 *Mostra o título dos periódicos publicados em 2017*
 ```{r}
-head(sort(table(zika.publication$PERIODICO$`2017`$titulo), decreasing = TRUE), 10)
+head(sort(table(public$PERIODICO$`2017`$titulo), decreasing = TRUE), 10)
 ```
 
 
@@ -389,11 +388,11 @@ public.periodico.df %>%
 ```
 
 Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-de Biologia Microbiana apresentou um crescimento considerável de 2013 para 2014,
+de Biologia Animal apresentou um crescimento considerável de 2013 para 2014,
 aumentando o número de publicações em mais de 25% e mantendo esta média a partir
 de então.
 
-Quantidade de periodicos publicados por professor(a) entre 2010 e 2017 - by Jonas
+#Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
 ```{r}
 perfil.df %>%
   ggplot(aes(idLattes,PERIODICO)) +
@@ -435,7 +434,7 @@ public.eventos.df %>%
   ggtitle("Participacoes em eventos") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 ```
-Considerando eventos, o Programa de Biologia Microbiana teve comparecimento maior
+Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
 em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
 que o programa esteve presente em eventos de sede internacional em 
 todos os anos registrados na base de dados, principalmente nos Estados Unidos.
@@ -459,7 +458,7 @@ de mestrado do Programa parecem bem estabelecidas, as supervisões de
 pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
 em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
 
-#Bolsas distribuidas por ano - by Jonas
+#Bolsas distribuidas por ano
 ```{r}
 orient.df %>% filter(bolsa == "SIM") %>%
 ggplot(aes(ano,fill=natureza)) +
@@ -480,7 +479,7 @@ não recebeu bolsa. Por fim, é possível observar que o pico no número de
 orientações de mestrado registrado em 2014 não foi tão expressivo em número
 de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
-#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
+#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
 ```{r}
 plot(g, vertex.label = NA)
 ```
@@ -523,7 +522,7 @@ ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
   labs(x='Ano',y='Cursos')
 ```
 Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
-o grande domínio em volume da pós graduação em Biologia Microbiana, que na maioria
+o grande domínio em volume da pós graduação em Biologia Animal, que na maioria
 dos anos corresponde a quase metade das orientações de pós graduação por ano
 dentre os PPG estudados.
 
