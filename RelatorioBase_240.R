@@ -310,17 +310,20 @@ ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
   geom_bar(stat = 'count') +
   theme(legend.position = 'right') +
   ggtitle('Natureza das orientações por tipo de orientação') +
-  labs(x='Natureza da orientação',y=' ')
+  labs(x='Natureza',y='Quantidade de orientações') +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 
 # Orientações por ano:
 ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
   geom_bar(stat = 'count') +
   ggtitle('Orientações por ano') +
   theme(legend.position = 'right') +
-  labs(x='Ano',y='Tipo de orientação')
+  labs(x='Ano',y='Quantidade de orientações')
+
 # A partir do número de orientações por ano e pela natureza destas,
 # percebe-se que a quantidade de orientações de pós graduações no
-# sentido restrito era pequena em proporção a outras otientações
+# sentido restrito era pequena em proporção a outras orientações
 # conduzidas por PPG por ano, até sua volta em 2015, onde o número
 # de pós graduações no sentido restrito foram maiores que outras
 # orientações.
