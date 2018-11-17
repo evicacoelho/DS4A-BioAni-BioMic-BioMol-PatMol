@@ -6,6 +6,7 @@ output:
 
 #Definir JSONS
 ```{r}
+library(jsonlite) #Importado para carga dos arquivos JSON para o R
 perfil <- fromJSON("240BiologiaAnimal/240profile.json")
 public <- fromJSON("240BiologiaAnimal/240publication.json")
 orient <- fromJSON("240BiologiaAnimal/240advise.json")
@@ -45,15 +46,15 @@ Para continuar com as análises, as seguintes bibliotecas são selecionadas:
 
 ```{r}
 #library(tidyverse) #Importado para manipulação de tibbles
-library(jsonlite) #Importado para carga dos arquivos JSON para o R
 library(listviewer) #Importado para análise dos arquivos JSON
 library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
+
+setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
+source("elattes.ls2df.R")
 ```
-
-
 
 Após a importação e definição das bibliotecas utilizadas, podemos utilizar funções de tais pacotes para análise sistêmica dos dados, mas para isto, estes deves sem primeiramente descritos por meio de funções de descrição do pacote `dplyr` que facilita a visualização e manipulação dos dados:
 
