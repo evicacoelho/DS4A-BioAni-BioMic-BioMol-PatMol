@@ -240,7 +240,7 @@ extrai.orientacoes <- function(jsonProfessores) {
   for( i in 1:length(jsonProfessores)) {
     jsonProfessor <- jsonProfessores[i]
     df.orientacao <- extrai.1orientacao(jsonProfessor)
-    if( nrow(df.saida) > 0 ) {
+    if( length(nrow(df.saida)) > 0 && nrow(df.saida) > 0 ) {
       df.saida <- concatenadf(df.saida , df.orientacao)
     } else {
       df.saida <- df.orientacao
