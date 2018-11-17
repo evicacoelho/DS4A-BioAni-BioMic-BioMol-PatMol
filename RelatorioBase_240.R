@@ -205,27 +205,43 @@ public.periodico.df %>%
   summarise(Quantidade = n()) %>%
   ggplot(aes(x = ano, y = Quantidade)) +
   geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
-  ggtitle("Periodicos publicados entre 2010 e 2017") +
+  ggtitle("Periodicos publicados por ano") +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+
+#Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
+#de Biologia Animal apresentou pouco crescimento entre 2010 e 2017, registrando
+#de 60 a 70 publicações por ano em grande parte da amostra.
 
 #Quantidade de periodicos publicados por professor(a) entre 2010 e 2017 - by Jonas
 perfil.df %>%
   ggplot(aes(idLattes,PERIODICO)) +
   geom_col(fill = "purple") +
-  ggtitle("Periodicos publicados entre 2010 e 2017") +
+  ggtitle("Periodicos publicados por pesquisador") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Pesquisador(a)",y="Numero de publicacoes") +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.df %>% summarize(x = median(PERIODICO))), color = "red")
+
+#Investigando o comportamento dos pesquisadores do programa, os professores
+#foram ordenado pelo número total de publicações em periódicos entre 2010 e 2017, 
+#cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
+#26 publicações no período total. O gráfico indica que, dos 19 pesquisadores
+#inclusos na base de dados, dois totalizaram publicações que duplicaram este valor
+#e outros dois quadruplicaram este valor, com mais de 104 publicações em periódicos.
 
 #publicacao de livros por pais/ano
 public.livros.df %>%
-  filter(pais_de_publicacao %in% c("Brasil", "Estados Unidos", "Holanda",
-                                   "Gra-Bretanha", "Alemanha", "Suica")) %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+
+#Apenas três anos apresentaram registros de publicação de livros por parte
+#do Programa no período de 2010 a 2017. Entretanto, uma observação notável
+#é um maior número de publicações em países estrangeiros que no Brasil, o que
+#sinaliza um bom grau de internacionalização do programa.
 
 #Eventos nacionais e internacionais
 public.eventos.df %>%
@@ -236,6 +252,11 @@ public.eventos.df %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacoes em eventos") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+
+#Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
+#em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
+# que o programa esteve presente em pelo menos um evento de sede internacional em 
+#todos os anos registrados na base de dados.
 
 #Orientacoes completas por ano e natureza
 ggplot(orient.df,aes(ano,fill=natureza)) +
