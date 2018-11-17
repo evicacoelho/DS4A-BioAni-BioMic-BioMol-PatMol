@@ -253,3 +253,18 @@ ggplot(aes(ano,fill=natureza)) +
 
 #Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
 plot(g, vertex.label = NA)
+
+#Número de professores por grande área:
+ggplot(df.prog, aes(GrandeArea, col=AreaPos)) +
+  geom_bar(stat = 'count', position = 'dodge') +
+  ggtitle('Número de áreas por grande área') +
+  theme(legend.position = 'right') +
+  labs(x='Grande Área de conhecimento',y='Área de conhecimento')
+
+#Natureza das orientações por tipo de orientação
+ggplot(perfil.df.orientacoes, aes(natureza,col=orientacao)) +
+  geom_bar(stat = 'count') +
+  ggtitle('Natureza das orientações por tipo de orientação')
+  theme(legend.position='right',legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = 'top')) +
+  labs(x='Natureza da orientação',y=' ')
