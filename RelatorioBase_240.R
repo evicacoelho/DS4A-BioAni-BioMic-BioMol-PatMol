@@ -6,9 +6,9 @@ library(tidyverse)
 library(jsonlite)
 library(listviewer)
 library(igraph)
-library(dplyr) #Operador %>%
-library(tidyr) #spread()
-library(ggplot2) #ggplot()
+library(dplyr) #Importado para uso do Operador Pipe
+library(tidyr) #Importado para uso da função spread()
+library(ggplot2) #Importado para visualizações com ggplot()
 
 #CONFIGURAR - DIRETORIO DOS .R
 setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
@@ -38,6 +38,9 @@ df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.A
 
 #Numero de Docentes encontrados
 length(perfil)
+
+#Atributos presentes em um dos pesquisadores
+glimpse(perfil[[1]], width = 30)
 
 #Constroi lista de nomes de docentes/pessoas
 ProfileList <- list()
@@ -231,6 +234,7 @@ public.eventos.df %>%
                              , decreasing = TRUE), 10)))) %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
+  ggtitle("Participacoes em eventos") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 
 #Orientacoes completas por ano e natureza
@@ -239,7 +243,18 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
   ggtitle("Natureza das Orientacoes Completas Por Ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade")
+  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 25))
+
+#Observando a evolução do número de orientações completas ao longo dos anos,
+#percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
+#naturezas de doutorado e pós-doutorado após 2010.
+#Entretanto, não há um comportamento linear na evolução do número de orientações
+#finalizadas. A partir de 2011, todos os anos pares apresentaram um aumento no
+#número de pós-doutorados enquanto os anos ímpares seguintes mostram
+#retrocesso neste número. Além disso, o ano de 2017 apresentou um aumento
+#considerável no número de teses de doutorado, mas uma queda vertiginosa nas
+#demais naturezas de orientações - sugerindo uma mudança brusca nas bases
+#do programa.
 
 #Bolsas distribuidas por ano - by Jonas
 
@@ -249,7 +264,22 @@ ggplot(aes(ano,fill=natureza)) +
   ggtitle("Bolsas disponibilizadas por ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade de bolsas")
+  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 25))
+
+#Comparando os gráficos de orientações completas e de bolsas, é possível
+#perceber que o número de bolsas oferecidas
+#para o Programa não apresentou um comportamento linear ao longo dos anos.
+#Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
+#contemplada pelas agências financiadoras, visto que quase todas as observações
+#receberam bolsa. Por fim, é possível observar que os anos com maior
+#número de orientações de mestrado e doutorado também consistem nos
+#anos com maior número de bolsas distribuídas entre o programa, mas a ocorrência
+#de pesquisas realizadas sem este apoio financeiro foi marcante em todo o período.
 
 #Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
 plot(g, vertex.label = NA)
+
+#O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
+#e a existência de cooperação entre eles em suas arestas. Portanto, é possível
+#observar uma considerável cooperação entre os membros do Programa, mas
+#alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
