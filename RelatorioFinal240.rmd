@@ -6,7 +6,6 @@ output:
 
 #Definir JSONS
 ```{r}
-library(jsonlite) #Importado para carga dos arquivos JSON para o R
 perfil <- fromJSON("240BiologiaAnimal/240profile.json")
 public <- fromJSON("240BiologiaAnimal/240publication.json")
 orient <- fromJSON("240BiologiaAnimal/240advise.json")
@@ -45,14 +44,16 @@ Os arquivos com informações sobre os pesquisadores do Programa de __Biologia A
 Para continuar com as análises, as seguintes bibliotecas são selecionadas:
 
 ```{r}
-library(tidyverse) #Importado para manipulação de tibbles
+#library(tidyverse) #Importado para manipulação de tibbles
+library(jsonlite) #Importado para carga dos arquivos JSON para o R
 library(listviewer) #Importado para análise dos arquivos JSON
 library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
-source("elattes.ls2df.R")
 ```
+
+
 
 Após a importação e definição das bibliotecas utilizadas, podemos utilizar funções de tais pacotes para análise sistêmica dos dados, mas para isto, estes deves sem primeiramente descritos por meio de funções de descrição do pacote `dplyr` que facilita a visualização e manipulação dos dados:
 
@@ -192,94 +193,6 @@ perfil.df <- perfil.df.professores %>%
 
 glimpse(perfil.df)
 ```
-<!-- DAQUI PRA CIMA JA TA PRONTO! -->
-
-Ao realizar a importação dos arquivos em formato `json`, é possível identificar seu formato, uma lista (ou “large list”) de objetos JSON. Esse formato não é o mais simples de ser análisado utilizando as funções e bibliotecas da linguagem R, porém em breve, uma série de passos será aplicada para que sejam simplificadas.
-
-Por meio da biblioteca `dplyr` é possível realizar uma série de verificações relacionadas à disposição dos dados ao serem importados.
-
-##Descrição dos dados do Perfil
-
-As seguintes análises são realizadas para os arquivos de perfis.
-
-Por meio do tamanho da lista gerada ao importar os arquivos, é possível obter a quantidade de professores do __Programa de Pós-graduação em Biologia Animal__ no período de 2010 a 2017.
-*Quantidade de pesquisadores na base*
-```{r}
-length(perfil.df)
-```
-
-
-Por meio da função `glimpse`, é possível verificar uma apresentação inicial dos dados de perfil pesquisadores.
-O código a seguir mostra os atributos presentes em um dos pesquisadores.
-
-```{r}
-glimpse(perfil.df[[1]], width = 30)
-```
-
-Uma breve inspeção visual dos atributos anteriormente apresentados permite inferir que o pesquisador __x__, sob análise:
-1. A
-2. B
-3. C
-4. D
-5. E
-
-#Descrição dos dados de orientações
-
-As seguintes descrições possuem, para simplificar, informações relativas às orientações concluídas nos anos 2016 e 2017.
-
-
-*Retorna campos dentro do arquivo `advise`*
-```{r}
-names(orient)
-```
-
-
-*Quantidade de orientações de Mestrado concluídas em 2017*
-```{r}
-length(orient$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$natureza)
-```
-
-
-*Quantidade de orientações de Doutorado concluídas em 2017*
-```{r}
-length(orient$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$natureza)
-```
-
-
-*Cursos presentes nos Doutorados concluídos em 2017*
-```{r}
-head(sort(table(orient$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
-```
-
-
-*Cursos presentes nos Mestrados concluídos em 2017*
-```{r}
-head(sort(table(orient$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
-```
-
-
-
-##Descrição dos dados de produção bibliográfica
-Quanto aos dados de publicações, as descrições a seguir mostram informações sobre os tipos de produções bibliográficas presentes no arquivo juntantente a títulos de periódicos publicados no ano de 2017.
-
-*Retorna campos com tipos de publicação dentro de `publication`*
-```{r}
-names(public)
-```
-
-
-*Retorna campos dos periódicos de 2017*
-```{r}
-names(public$PERIODICO$`2017`)
-```
-
-
-*Mostra o título dos periódicos publicados em 2017*
-```{r}
-head(sort(table(public$PERIODICO$`2017`$titulo), decreasing = TRUE), 10)
-```
-
-
 
 ##CRISP-DM Fase 3 - Preparação dos Dados
 A terceira fase do CRISP é conhecida por ser a parte de preparação dos dados. Tal fase possui como
@@ -388,11 +301,11 @@ public.periodico.df %>%
 ```
 
 Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-de Biologia Animal apresentou um crescimento considerável de 2013 para 2014,
-aumentando o número de publicações em mais de 25% e mantendo esta média a partir
-de então.
+de Biologia Animal apresentou uma queda considerável de 2014 para 2015,
+diminuindo o número de publicações em cerca de 18% mas recuperando em anos
+posteriores
 
-#Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+Quantidade de periodicos publicados por professor(a) entre 2010 e 2017 - by Jonas
 ```{r}
 perfil.df %>%
   ggplot(aes(idLattes,PERIODICO)) +
@@ -458,7 +371,7 @@ de mestrado do Programa parecem bem estabelecidas, as supervisões de
 pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
 em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
 
-#Bolsas distribuidas por ano
+#Bolsas distribuidas por ano - by Jonas
 ```{r}
 orient.df %>% filter(bolsa == "SIM") %>%
 ggplot(aes(ano,fill=natureza)) +
@@ -479,7 +392,7 @@ não recebeu bolsa. Por fim, é possível observar que o pico no número de
 orientações de mestrado registrado em 2014 não foi tão expressivo em número
 de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
-#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
+#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao - by Jonas
 ```{r}
 plot(g, vertex.label = NA)
 ```
