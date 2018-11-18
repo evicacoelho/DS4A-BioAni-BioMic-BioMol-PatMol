@@ -9,8 +9,7 @@ output:
 
 # Resumo
 
-Este documento apresenta o relat?rio final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. 
-A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010).
+Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada um modelo metodolágco de mineração de dados denominado CRISP-DM e foram dispostas diversas informações sobre a evolução dos programas de pós-graduação entre os anos de 2010 e 2017.
 
 # Introdução
 
@@ -29,44 +28,44 @@ O PNPG também traça as diretrizes para financiamento da pós-graduação e sua
 As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
 Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
 Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).
-
-Não há solução simples, mas postula-se, nesta disciplina, que uma maior agilidade na avaliação e a utilização de critérios mais objetivos, poderá facilitar a melhoria do sistema. [indicacao da fonte ]
-
-
-## Os Colégios, Grandes reas e áreas da Pós-Graduação Brasileira
-
-A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas. Os colégios foram separados da seguinte formar:
-
-- Colégio de Ciências da Vida que contempla as grandes áreas de Ciências Agrárias, Ciências Biológicas e Ciências da Saúde. 
-
-- Colégio de Ciências Exatas, Tecnológicas e Multidisciplinar que contempla as grandes áreas de Ciencias Exatas e da Terra, Engenharias e Multidisciplinar.
-
--  Colégio de Humanidades que contempla as grandes ?reas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
-
-Cada um desses colégios, grandes ?reas e ?reas de conhecimento possuem din?micas pr?prias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
-
+Esta disciplina propõe que uma maior agilidade e a utilização de critérios mais objetivos na avaliação dos programas poderá facilitar a melhoria do sistema.
 
 ##A UnB dentro do Sistema Nacional de Pós-Graduação
 
-A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Os dados apresentados abaixo, mostram que, em um período de seis anos, o impacto das citações de pesquisadores vinculados à UnB aumentou mais de 100%.[inserir fonte]
+A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
 
-[Colocar imagem 1]
-[colcoar imagem 2]
+![production](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem1.jpg)
 
-[1] Um impacto normalizado de 1,00 significa que a produção teve comportamento similar a média global. Um impacto superior a 1,00 indica maior citação que a m?dia (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média.
+![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem2.jpg)
  
-Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, 0.85 aproximadamente, o que indica que os pesquisadores da UnB foram 8,5% menos citados do que a média global. Similarmente em 2013, ouve uma diminuição branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado, ficam assim os pesquisadores da UnB com um impacto por citação de 1.45,em 2016, o que caracteriza 45% mais citados que a média global. 
+Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global. 
+Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [fonte]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
 
-Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, um aumento de 32%. Entre 2013 e 2016, foram 185 docentes (8%).[inserir fonte]. Esse aumento ajuda a consolidar o quadro de professores permanentes na instituição e isso gera maior produção de artigos e outros matérias científicos pela UnB.
+# Objetivo
 
-## Objetivo
+Este trabalho vem então - a partir do contexto da pós-graduação do sentido amplo e restrito do Brasil e em especial da Universidade de Brasília - buscar relações entre os Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular para sintetizar o panorama e o paradigma da pós-graduação nestes programas.
 
-Este trabalho vem então - a partir do contexto da pós-graduação do sentido amplo e restrito do Brasil e em especial da Universidade de Brasília com enfoque nos Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular - buscar relações entre os programas estudados para sintetizar o panorama e o paradigma da pós-graduação em áreas específicas já mencionadas nesta introdução.
+# CRISP-DM:
 
-# Metodologia:
+A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). Este modelo é caracterizado por um projeto dividido
 
-Para a realização deste trabalho, utilizou-se da metodologia base de CRISP-DM...
-#<<< ____ COMPLETAR COM URGÊNCIA ____ >>>
+<...>
+
+#Resultados
+
+##CRISP-DM Fase 1 - Entendimento do Negócio
+
+### Os Colégios, Grandes áreas e áreas da Pós-Graduação Brasileira
+
+A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas. Os colégios foram separados da seguinte formar:
+
+- Colégio de Ciências da Vida - que contempla as grandes áreas de Ciências Agrárias, Ciências Biológicas e Ciências da Saúde. 
+
+- Colégio de Ciências Exatas, Tecnológicas e Multidisciplinar - que contempla as grandes áreas de Ciencias Exatas e da Terra, Engenharias e Multidisciplinar.
+
+- Colégio de Humanidades - que contempla as grandes áreas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
+
+Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
 
 ###Definir JSONS
 ```{r}
@@ -88,11 +87,9 @@ Os arquivos utilizados são provenientes da plataforma Elattes e compilam inform
 
 Os __datasets__ que serão trabalhados consistem em: perfil profissional; orientações de mestrado e doutorado realizadas; produções bibliográficas e redes de colaboração entre os pesquisadores.
 
-
 ##Arquivos Analisados
 
 Os arquivos com informações sobre os pesquisadores do Programa de __Biologia Animal__:
-
 
 * __240BiologiaAnimal/240profile.json__: apresenta dados sobre o __perfil__ de todos os pesquisadores.
 
@@ -163,7 +160,7 @@ sum(sapply(perfil, function(x) length(x$producao_bibiografica$LIVRO$ano)))
 sum(sapply(perfil, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
 sum(sapply(perfil, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
 ```
-*Numero de pessoas por quantitativo de producoes por pessoa 0 = 1; 1 = 2...*
+*Número de pessoas por quantitativo de produções por pessoa*
 ```{r}
 table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
@@ -171,7 +168,7 @@ table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$LIVRO$ano
 table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
 ```
-*Numero de producoes por ano*
+*Número de produções por ano*
 ```{r}
 table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
@@ -179,27 +176,27 @@ table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
 ```
-*Numero de pessoas que realizaram diferentes tipos de orientacoes*
+*Número de pessoas que realizaram diferentes tipos de orientações*
 ```{r}
 length(unlist(sapply(perfil, function(x) names(x$orientacoes_academicas))))
 ```
-*Numero de pessoas por tipo de orientacao*
+*Número de pessoas por tipo de orientação*
 ```{r}
 table(unlist(sapply(perfil, function(x) names(x$orientacoes_academicas))))
 ```
-*Numero de orientacoes concluidas*
+*Número de orientacões concluídas*
 ```{r}
 sum(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
 ```
-*Numero de pessoas por quantitativo de orientacoes por pessoa 0 = 1; 1 = 2...*
+*Número de pessoas por quantitativo de orientacões por pessoa*
 ```{r}
 table(unlist(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 ```
-*Numero de orientacoes por ano*
+*Número de orientações por ano*
 ```{r}
 table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
@@ -207,27 +204,27 @@ table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CON
 ```
 
 # Análise dos dataframes:
-*Arquivo Profile por Curriculo:*
+
 *Extrai perfis dos professores:*
 ```{r}
 perfil.df.professores <- extrai.perfis(perfil)
 ```
-*extrai producao bibliografica de todos os professores*
+*Extrai produção bibliográfica de todos os professores*
 ```{r}
 perfil.df.publicacoes <- extrai.producoes(perfil) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
 ```
-*extrai orientacoes*
+*Extrai orientações*
 ```{r}
 perfil.df.orientacoes <- extrai.orientacoes(perfil) %>%
   select(id_lattes_orientadores, natureza, ano, orientacao, everything())
 ```
-*extrai areas de atuacao *
+*Extrai áreas de atuação *
 ```{r}
 perfil.df.areas.de.atuacao <- extrai.areas.atuacao(perfil) %>%
   select(idLattes, everything())
 ```
-*cria arquivo com dados quantitativos para analise*
+*Cria arquivo com dados quantitativos para análise*
 ```{r}
 perfil.df <- data.frame()
 perfil.df <- perfil.df.professores %>% 
@@ -284,7 +281,7 @@ Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a
 
 Para a limpeza dos dados temos:
 
-##Analise dos dados no formato lista
+##Análise dos dados no formato lista
 *numero de Publicacoes em periódicos*
 ```{r}
 sum(sapply(public$PERIODICO, function(x) length(x$natureza)))
@@ -299,7 +296,7 @@ head(sort(table(as.data.frame(unlist
     (sapply(public$PERIODICO, function(x) unlist(x$periodico)))
   )), decreasing = TRUE),20)
 ```
-*Analise dos dados no formato DF*
+*Análise dos dados no formato DF*
 ```{r}
 public.periodico.df <- pub.ls2df(public, 1) #artigos
 public.livros.df <- pub.ls2df(public, 2) #livros
@@ -316,13 +313,13 @@ head(sort(table(public.periodico.df$periodico), decreasing = TRUE), 20)
 ```
 ####
 #Orientacao
-#Analise dos dados em formato lista
-*Numero de Orientacoes Mestrado e Doutorado*
+#Análise dos dados em formato lista
+*Número de Orientações de Mestrado e Doutorado*
 ```{r}
 sum(sapply(orient$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
   sum(sapply(orient$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
 ```
-*Analise dos dados no formato DF*
+*Análise dos dados no formato DF*
 ```{r}
 orient.posdoutorado.df <- ori.ls2df(orient, 6) #pos-Doutorado concluido
 orient.doutorado.df <- ori.ls2df(orient, 7) #Doutorado concluido
@@ -337,7 +334,9 @@ g <- g.ls2ig(graphl)
 df <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
 df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
 ```
-Apenas para fins de analise inicial, foram retiradas as observacoes com duplicacao de pesquisadores no caso de haver professores em mais de um programa
+
+Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa.
+
 ```{r}
 df <- df %>% group_by(Idlattes) %>% 
   slice(1L)
@@ -347,6 +346,7 @@ V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
 V(g)$publicacao <- perfil.df$PERIODICO
 V(g)$eventos <- perfil.df$EVENTO
 ```
+
 #Resultados e visualizações:
 Foram escolhidos alguns resultados, em relação aos dados encontrados durante o processo, para serem plotados em gráficos.
 
@@ -445,17 +445,12 @@ não recebeu bolsa. Por fim, é possível observar que o pico no número de
 orientações de mestrado registrado em 2014 não foi tão expressivo em número
 de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
-###Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
+###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
 ```{r}
 plot(g, vertex.label = NA)
 ```
 
-O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
-e a existência de cooperação entre eles em suas arestas. É possível observar um grau
-profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em 
-grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. 
-Existem, claro, excessões tais como os vértices mais afastados e o vértice único que 
-não tem nenhuma aresta com adjacentes.
+O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices e a existência de cooperação entre eles em suas arestas. É possível observar um grau profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em  grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. Existem excessões tais como os vértices mais afastados e o vértice único que não tem nenhuma aresta com adjacentes.
 
 ###Natureza das orientações por tipo de orientação
 ```{r}
@@ -467,6 +462,7 @@ ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
   theme(axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
 ```
+
 ### Orientações por ano:
 ```{r}
 ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
@@ -475,6 +471,7 @@ ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
   theme(legend.position = 'right') +
   labs(x='Ano',y='Quantidade de orientações')
 ```
+
 A partir do número de orientações por ano e pela natureza destas,
 percebe-se que a quantidade de orientações de pós graduações no
 sentido restrito era pequena em proporção a outras orientações
@@ -490,6 +487,7 @@ ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
   theme(legend.position = 'right') +
   labs(x='Ano',y='Cursos')
 ```
+
 Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
 o grande domínio em volume da pós graduação em Biologia Animal, que na maioria
 dos anos corresponde a quase metade das orientações de pós graduação por ano
@@ -504,8 +502,21 @@ perfil.df.publicacoes %>%
   geom_point(alpha = 0.7) + geom_jitter() +
   labs(x='Tipo de produção',y='País')
 ```
+
 Observa-se deficiência de dados quanto ao país de publicação para periódicos,
 textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
 gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
 los no Brasil e demais países.
 
+##Bibliografia
+
+- _SciVal Metrics Guidebook._ ELSEVIER, 2014.
+- Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e
+Rüdiger Wirth. “CRISP-DM 1.0: Step-by-Step Data Mining Guide”. USA: CRISP-DM Consortium,
+2000. https://www.the-modeling-agency.com/crisp-dm.pdf.
+- Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência
+de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da
+Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação
+da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do
+Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de
+junho de 2018.
