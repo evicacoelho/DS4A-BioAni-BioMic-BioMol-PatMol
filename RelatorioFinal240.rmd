@@ -13,6 +13,19 @@ Este documento apresenta o relatório final da disciplina Tópicos Avançados em
 
 # Introdução
 
+
+# Objetivo
+
+Este trabalho vem então - a partir do contexto da pós-graduação do sentido amplo e restrito do Brasil e em especial da Universidade de Brasília - buscar relações entre os Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular para sintetizar o panorama e o paradigma da pós-graduação nestes programas.
+
+# CRISP-DM:
+
+A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). Este modelo é caracterizado por um projeto dividido
+
+<...>
+
+
+##CRISP-DM Fase 1 - Entendimento do Negócio
 ##O que é o Sistema Nacional de Pós-Graduação?
 
 A produção do conhecimento científico, no Brasil, é predominantemente efetuada por meio do Sistema Nacional de Pós-Graduação - SNPG, e mais fortemente relacionada com a formação de doutores nesse sistema (Pátaro e Mezzomo, 2013), por meio de cursos de pós-graduação _strictu sensu_. 
@@ -41,20 +54,6 @@ A produção científica da Universidade de Brasília despontou como uma das mai
 Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global. 
 Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [fonte]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
 
-# Objetivo
-
-Este trabalho vem então - a partir do contexto da pós-graduação do sentido amplo e restrito do Brasil e em especial da Universidade de Brasília - buscar relações entre os Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular para sintetizar o panorama e o paradigma da pós-graduação nestes programas.
-
-# CRISP-DM:
-
-A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). Este modelo é caracterizado por um projeto dividido
-
-<...>
-
-#Resultados
-
-##CRISP-DM Fase 1 - Entendimento do Negócio
-
 ### Os Colégios, Grandes áreas e áreas da Pós-Graduação Brasileira
 
 A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas. Os colégios foram separados da seguinte formar:
@@ -66,6 +65,8 @@ A partir de 2018, as diversas áreas da pós-graduação brasileira foram organi
 - Colégio de Humanidades - que contempla as grandes áreas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
 
 Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
+
+#Resultados
 
 ###Definir JSONS
 ```{r}
