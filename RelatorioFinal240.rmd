@@ -9,7 +9,9 @@ output:
 
 # Resumo
 
-Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada o modelo metodológico de mineração de dados denominado CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017.
+Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada o modelo metodológico de mineração de dados denominado CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017.[1]
+
+[1] Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
 
 # Introdução
 
@@ -41,8 +43,9 @@ O PNPG também traça as diretrizes para financiamento da pós-graduação e sua
 
 As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
 Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
-Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).
-Esta disciplina propõe que uma maior agilidade e a utilização de critérios mais objetivos na avaliação dos programas poderá facilitar a melhoria do sistema.
+Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).[1]
+[1] Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
+
 
 ### Os Colégios, Grandes áreas e áreas da Pós-Graduação Brasileira
 
@@ -54,7 +57,8 @@ A partir de 2018, as diversas áreas da pós-graduação brasileira foram organi
 
 - Colégio de Humanidades - que contempla as grandes áreas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
 
-Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
+Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).[2]
+[2]Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
 
 ##A UnB dentro do Sistema Nacional de Pós-Graduação
 
@@ -65,7 +69,8 @@ A produção científica da Universidade de Brasília despontou como uma das mai
 ![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem2.jpg)
  
 Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global. 
-Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [fonte]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
+Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [3]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
+[3]https://www.noticias.unb.br/publicacoes/117-pesquisa/2267-impacto-da-producao-cientifica-da-unb-aumenta-mais-de-100-em-seis-anos
 
 ###Captura dos dados - Definir JSONS
 ```{r}
