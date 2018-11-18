@@ -43,17 +43,6 @@ Embora o sistema seja altamente sofisticado ele é também altamente criticado (
 Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).
 Esta disciplina propõe que uma maior agilidade e a utilização de critérios mais objetivos na avaliação dos programas poderá facilitar a melhoria do sistema.
 
-##A UnB dentro do Sistema Nacional de Pós-Graduação
-
-A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
-
-![production](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem1.jpg)
-
-![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem2.jpg)
- 
-Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global. 
-Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [fonte]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
-
 ### Os Colégios, Grandes áreas e áreas da Pós-Graduação Brasileira
 
 A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas. Os colégios foram separados da seguinte formar:
@@ -65,6 +54,17 @@ A partir de 2018, as diversas áreas da pós-graduação brasileira foram organi
 - Colégio de Humanidades - que contempla as grandes áreas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
 
 Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
+
+##A UnB dentro do Sistema Nacional de Pós-Graduação
+
+A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
+
+![production](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem1.jpg)
+
+![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem2.jpg)
+ 
+Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global. 
+Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [fonte]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
 
 #Resultados
 
