@@ -9,21 +9,22 @@ output:
 
 # Resumo
 
-Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada um modelo metodolágco de mineração de dados denominado CRISP-DM e foram dispostas diversas informações sobre a evolução dos programas de pós-graduação entre os anos de 2010 e 2017.
+Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada o modelo metodológico de mineração de dados denominado CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017.
 
 # Introdução
 
-
-# Objetivo
-
-Este trabalho vem então - a partir do contexto da pós-graduação do sentido amplo e restrito do Brasil e em especial da Universidade de Brasília - buscar relações entre os Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular para sintetizar o panorama e o paradigma da pós-graduação nestes programas.
+Este trabalho visa, no contexto da pós-graduação do sentido amplo e restrito do Brasil, buscar relações e comparações entre os Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular da Universidade de Brasília para sintetizar o panorama e o paradigma da pós-graduação nestes programas.
 
 # CRISP-DM:
 
-A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). Este modelo é caracterizado por um projeto dividido
+A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). Este modelo é caracterizado por um projeto dividido em seis fases, as quais serão tratadas ao longo das seções seguintes.
 
-<...>
-
+- Fase 1) Entendimento do negócio: Busca definir um problema de mineração de dados com base nos objetivos e necessidades do projeto.
+- Fase 2) Entendimento dos dados: Consiste na coleta e descrição dos dados, incluindo uma análise de qualidade e quantidade dos mesmos - necessários para avaliar a viabilidade do projeto.
+- Fase 3) Preparação dos dados: Consiste na estruturação dos dados capturados, incluindo uma fase de limpeza de dados indesejados ou inconsistentes. Esta fase tem como objetivo produzir datasets prontos para análises estatísticas e produção de gráficos.
+- Fase 4) Modelagem: Envolve a construção e revisão de modelos estatísticos de interesse para o projeto, além de testes para descarte dos modelos produzidos que não atingirem o grau desejado de confiabilidade.
+- Fase 5) Avaliação: Consiste na avaliação dos resultados e do processo como um todo, revisando se todas as questões relevantes para o projeto foram abordadas adequadamente.
+- Fase 6) Implementação: Consiste no planejamento e implementação dos entregáveis finais desenvolvidos pelo projeto, incluindo monitoramento e manutenção dos mesmos.
 
 ##CRISP-DM Fase 1 - Entendimento do Negócio
 ##O que é o Sistema Nacional de Pós-Graduação?
@@ -66,9 +67,7 @@ A produção científica da Universidade de Brasília despontou como uma das mai
 Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global. 
 Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [fonte]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
 
-#Resultados
-
-###Definir JSONS
+###Captura dos dados - Definir JSONS
 ```{r}
 library(jsonlite) #Importado para carga dos arquivos JSON para o R
 perfil <- fromJSON("240BiologiaAnimal/240profile.json")
@@ -88,7 +87,7 @@ Os arquivos utilizados são provenientes da plataforma Elattes e compilam inform
 
 Os __datasets__ que serão trabalhados consistem em: perfil profissional; orientações de mestrado e doutorado realizadas; produções bibliográficas e redes de colaboração entre os pesquisadores.
 
-##Arquivos Analisados
+###Arquivos Analisados
 
 Os arquivos com informações sobre os pesquisadores do Programa de __Biologia Animal__:
 
@@ -101,7 +100,7 @@ Os arquivos com informações sobre os pesquisadores do Programa de __Biologia A
 * __240BiologiaAnimal/240graph.json__: apresenta dados sobre __produções bibliográficas coolaborativas__ feitas entre os pesquisadores.
 
 
-##Análise estrutural dos dados
+###Análise estrutural dos dados
 
 Para continuar com as análises, as seguintes bibliotecas são selecionadas:
 
@@ -204,7 +203,7 @@ table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CON
 table(unlist(sapply(perfil, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 ```
 
-# Análise dos dataframes:
+###Análise dos dataframes:
 
 *Extrai perfis dos professores:*
 ```{r}
@@ -280,14 +279,12 @@ Por fim, ocorre a tarefa de formatação dos dados, que é a realização de mod
 
 Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a realização de comparações ao final, os mesmos procedimentos foram realizados para os três programas de pós-graduação. Além disso, é importante ressaltar que as variáveis e estruturas montadas foram nomeados de forma mnemônica permitindo a distinção de diferentes programas e aspectos, como orientações, publicações, entre outros.
 
-Para a limpeza dos dados temos:
-
 ##Análise dos dados no formato lista
-*numero de Publicacoes em periódicos*
+*Número de Publicacoes em periódicos*
 ```{r}
 sum(sapply(public$PERIODICO, function(x) length(x$natureza)))
 ```
-*anos analisados*
+*Anos analisados*
 ```{r}
 names(public$PERIODICO)
 ```
@@ -297,30 +294,28 @@ head(sort(table(as.data.frame(unlist
     (sapply(public$PERIODICO, function(x) unlist(x$periodico)))
   )), decreasing = TRUE),20)
 ```
-*Análise dos dados no formato DF*
+*Análise dos dados no formato dataframe*
 ```{r}
 public.periodico.df <- pub.ls2df(public, 1) #artigos
 public.livros.df <- pub.ls2df(public, 2) #livros
 public.eventos.df <- pub.ls2df(public, 5) #eventos
 ```
-*Publicação por ano*
+*Publicações por ano*
 ```{r}
 table(public.periodico.df$ano)
 ```
-*20 revistas mais publicadas*
-*Mesma visao que anterior mas agora trabalhando no DataFrame*
+*20 revistas mais publicadas (análise com dataframe)*
 ```{r}
 head(sort(table(public.periodico.df$periodico), decreasing = TRUE), 20)
 ```
-####
-#Orientacao
-#Análise dos dados em formato lista
+
 *Número de Orientações de Mestrado e Doutorado*
 ```{r}
 sum(sapply(orient$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
   sum(sapply(orient$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
 ```
-*Análise dos dados no formato DF*
+
+*Construição de dataframe de orientações*
 ```{r}
 orient.posdoutorado.df <- ori.ls2df(orient, 6) #pos-Doutorado concluido
 orient.doutorado.df <- ori.ls2df(orient, 7) #Doutorado concluido
@@ -329,14 +324,14 @@ orient.mestrado.df <- ori.ls2df(orient, 8) #Mestrado concluido
 orient.df <- rbind(rbind(orient.posdoutorado.df, orient.doutorado.df), orient.mestrado.df)
 ```
 ###
-*Grafo*
+*Construção de Grafo de Colaborações*
 ```{r}
 g <- g.ls2ig(graphl)
 df <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
 df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
 ```
 
-Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa.
+Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa, vide código abaixo.
 
 ```{r}
 df <- df %>% group_by(Idlattes) %>% 
@@ -348,7 +343,7 @@ V(g)$publicacao <- perfil.df$PERIODICO
 V(g)$eventos <- perfil.df$EVENTO
 ```
 
-#Resultados e visualizações:
+##CRISP-DM Fases 4 a 6 - Resultados e visualizações:
 Foram escolhidos alguns resultados, em relação aos dados encontrados durante o processo, para serem plotados em gráficos.
 
 ### Grafico de barras; periodicos por ano
@@ -415,6 +410,7 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 32))
 ```
+
 Observando a evolução do número de orientações completas ao longo dos anos,
 percebe-se que o Programa de Pós-Graduação cresceu consideravelmente na
 natureza de mestrado após 2010, com uma regressão em 2016.
@@ -435,6 +431,7 @@ ggplot(aes(ano,fill=natureza)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 32))
 ```
+
 Comparando os gráficos de orientações completas e de bolsas, é possível
 perceber que o número de bolsas oferecidas para o Programa acompanhou o
 total de orientações de maneira satisfatória ao longo dos anos.
@@ -512,12 +509,5 @@ los no Brasil e demais países.
 ##Bibliografia
 
 - _SciVal Metrics Guidebook._ ELSEVIER, 2014.
-- Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e
-Rüdiger Wirth. “CRISP-DM 1.0: Step-by-Step Data Mining Guide”. USA: CRISP-DM Consortium,
-2000. https://www.the-modeling-agency.com/crisp-dm.pdf.
-- Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência
-de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da
-Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação
-da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do
-Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de
-junho de 2018.
+- Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e Rüdiger Wirth. “CRISP-DM 1.0: Step-by-Step Data Mining Guide”. USA: CRISP-DM Consortium, 2000. https://www.the-modeling-agency.com/crisp-dm.pdf.
+- Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo Avelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
