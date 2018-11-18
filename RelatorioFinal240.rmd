@@ -1,10 +1,74 @@
 ---
+title: Análise da Produção Científica e Acadêmica da Universidade de Brasília - Relatório Parcial sobre Pós-Graduação em Ciências Biológicas
+author: Emanuel Victor Araújo 14/0137475, Jonas Prado 13/0117277 , Maria Júlia Gonçalves 14/0153713
+date: 18/11/2018
 output:
   pdf_document: default
   html_document: default
 ---
 
-#Definir JSONS
+# Resumo
+
+Este documento apresenta o relat?rio final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. 
+A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010).
+
+# Introdução
+
+##O que é o Sistema Nacional de Pós-Graduação?
+
+A produção do conhecimento científico, no Brasil, é predominantemente efetuada por meio do Sistema Nacional de Pós-Graduação - SNPG, e mais fortemente relacionada com a formação de doutores nesse sistema (Pátaro e Mezzomo, 2013), por meio de cursos de pós-graduação _strictu sensu_. 
+
+Fernandes e Sampaio (2017) já indicaram que a ciência é reconhecidamente um elemento essencial para o desenvolvimento social e econômico de qualquer nação.
+Assim sendo, faz-se mister aprimorar o SNPG como forma de promoção desse crescimento, visando maximizar o retorno decorrente do emprego dos recursos nele aplicados. 
+A promoção do crescimento do SNPG se dá predominantemente por meio de avaliações regulares de seus programas de pós-graduação, sob responsabilidade da CAPES, que realiza a cada quatro anos um complexo (Leite, 2018, p. 13) e custoso processo de coleta de dados, análise e deliberação sobre as pós-graduações _strictu sensu_, em coerência com o estabelecido no Plano Nacional de Pós-Graduação (PNPG) 2012-2020 (CAPES, 2010) e nos diversos documentos que definem os critérios de organização da pós-graduação em cada área do conhecimento (CAPES, 2018).
+Leite (2018) faz uma apresentação geral  de como se organizam e são avaliadas as pós-graduações no Brasil.
+
+O Plano Nacional de Pós-Graduação (PNPG), por outro lado, define diretrizes estratégicas para desenvolvimento da pós-graduação brasileira, que deve abordar prioritariamente grandes temas de interesse nacional, tais como a redução das assimetrias de desenvolvimento entre as regiões do Brasil, a formação de professores para a educação básica, a formação de recursos humanos para as empresas, a resposta aos grandes desafios brasileiros sobre Água, Energia, Transporte, Controle de Fronteiras, Agronegócio, Amazônia, Amazônia Azul (Mar), Saúde, Defesa, Programa Espacial, além de Justiça, Segurança Pública, Criminologia e Desequilíbrio Regional.
+O PNPG também traça as diretrizes para financiamento da pós-graduação e sua internacionalização, apresentando conclusões e recomendações.
+
+As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
+Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
+Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).
+
+Não há solução simples, mas postula-se, nesta disciplina, que uma maior agilidade na avaliação e a utilização de critérios mais objetivos, poderá facilitar a melhoria do sistema. [indicacao da fonte ]
+
+
+## Os Colégios, Grandes reas e áreas da Pós-Graduação Brasileira
+
+A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas. Os colégios foram separados da seguinte formar:
+
+- Colégio de Ciências da Vida que contempla as grandes áreas de Ciências Agrárias, Ciências Biológicas e Ciências da Saúde. 
+
+- Colégio de Ciências Exatas, Tecnológicas e Multidisciplinar que contempla as grandes áreas de Ciencias Exatas e da Terra, Engenharias e Multidisciplinar.
+
+-  Colégio de Humanidades que contempla as grandes ?reas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
+
+Cada um desses colégios, grandes ?reas e ?reas de conhecimento possuem din?micas pr?prias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
+
+
+##A UnB dentro do Sistema Nacional de Pós-Graduação
+
+A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Os dados apresentados abaixo, mostram que, em um período de seis anos, o impacto das citações de pesquisadores vinculados à UnB aumentou mais de 100%.[inserir fonte]
+
+[Colocar imagem 1]
+[colcoar imagem 2]
+
+[1] Um impacto normalizado de 1,00 significa que a produção teve comportamento similar a média global. Um impacto superior a 1,00 indica maior citação que a m?dia (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média.
+ 
+Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, 0.85 aproximadamente, o que indica que os pesquisadores da UnB foram 8,5% menos citados do que a média global. Similarmente em 2013, ouve uma diminuição branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado, ficam assim os pesquisadores da UnB com um impacto por citação de 1.45,em 2016, o que caracteriza 45% mais citados que a média global. 
+
+Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, um aumento de 32%. Entre 2013 e 2016, foram 185 docentes (8%).[inserir fonte]. Esse aumento ajuda a consolidar o quadro de professores permanentes na instituição e isso gera maior produção de artigos e outros matérias científicos pela UnB.
+
+## Objetivo
+
+Este trabalho vem então - a partir do contexto da pós-graduação do sentido amplo e restrito do Brasil e em especial da Universidade de Brasília com enfoque nos Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular - buscar relações entre os programas estudados para sintetizar o panorama e o paradigma da pós-graduação em áreas específicas já mencionadas nesta introdução.
+
+# Metodologia:
+
+Para a realização deste trabalho, utilizou-se da metodologia base de CRISP-DM...
+#<<< ____ COMPLETAR COM URGÊNCIA ____ >>>
+
+###Definir JSONS
 ```{r}
 library(jsonlite) #Importado para carga dos arquivos JSON para o R
 perfil <- fromJSON("240BiologiaAnimal/240profile.json")
@@ -15,8 +79,7 @@ df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",",
                       colClasses = "character", encoding = "UTF-8", header = TRUE)
 ```
 
-
-#CRISP-DM Fase 2 - Entendimento dos Dados
+##CRISP-DM Fase 2 - Entendimento dos Dados
 
 A segunda parte do CRISP-DM consiste no entendimento dos dados. Para realizar análises significativas
 com os __datasets__ disponíveis, é essencial ter um bom entendimento sobre a forma que estão organizados. 
@@ -274,9 +337,7 @@ g <- g.ls2ig(graphl)
 df <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
 df <- left_join(df, df.prog, by = c("Idlattes" = "idLattes")) #
 ```
-#Apenas para fins de analise inicial, foram retiradas as observacoes 
-#com duplicacao de pesquisadores no caso de haver professores em mais 
-#de um programa
+Apenas para fins de analise inicial, foram retiradas as observacoes com duplicacao de pesquisadores no caso de haver professores em mais de um programa
 ```{r}
 df <- df %>% group_by(Idlattes) %>% 
   slice(1L)
@@ -286,10 +347,10 @@ V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
 V(g)$publicacao <- perfil.df$PERIODICO
 V(g)$eventos <- perfil.df$EVENTO
 ```
-##Resultados e visualizações:
+#Resultados e visualizações:
 Foram escolhidos alguns resultados, em relação aos dados encontrados durante o processo, para serem plotados em gráficos.
 
-# Grafico de barras; periodicos por ano
+### Grafico de barras; periodicos por ano
 ```{r}
 public.periodico.df %>%
   group_by(ano) %>%
@@ -304,7 +365,7 @@ public.periodico.df %>%
 Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
 de Biologia Animal mantém se estável com flutuações normais, mas apresentou uma queda considerável de 2014 para 2015, diminuindo o número de publicações em cerca de 18% mas recuperando em anos posteriores.
 
-#Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
 ```{r}
 perfil.df %>%
   ggplot(aes(idLattes,PERIODICO)) +
@@ -318,7 +379,7 @@ perfil.df %>%
 ```
 O gráfico acima demonstra o total de publicações para cada pesquisador, demonstrando relativa homogeneidade entre a quantidade de pesquisadores em média, porém há aqueles que deslocam a média para cima por estarem fora do desvio padrão acima ou abaixo, sendo que há destaque para dois pesquisadores que tem um número de publicação que corresponde cerca de quatro vezes o valor da média.
 
-#Publicação de livros por pais/ano
+###Publicação de livros por pais/ano
 ```{r}
 public.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
@@ -328,7 +389,7 @@ public.livros.df %>%
 ```
 Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal
 
-#Eventos nacionais e internacionais
+###Eventos nacionais e internacionais
 ```{r}
 public.eventos.df %>%
   filter(pais_do_evento %in% 
@@ -344,7 +405,7 @@ em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
 que o programa esteve presente em eventos de sede internacional em 
 todos os anos registrados na base de dados, principalmente nos Estados Unidos.
 
-#Orientacoes completas por ano e natureza
+###Orientacoes completas por ano e natureza
 ```{r}
 ggplot(orient.df,aes(ano,fill=natureza)) +
   geom_bar(stat = "count", position="dodge") +
@@ -363,7 +424,7 @@ de mestrado do Programa parecem bem estabelecidas, as supervisões de
 pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
 em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
 
-#Bolsas distribuidas por ano
+###Bolsas distribuidas por ano
 ```{r}
 orient.df %>% filter(bolsa == "SIM") %>%
 ggplot(aes(ano,fill=natureza)) +
@@ -384,7 +445,7 @@ não recebeu bolsa. Por fim, é possível observar que o pico no número de
 orientações de mestrado registrado em 2014 não foi tão expressivo em número
 de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
-#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
+###Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
 ```{r}
 plot(g, vertex.label = NA)
 ```
@@ -396,7 +457,7 @@ grande cooperatividade, gerando um complexo emaranhado de arestas para cada vér
 Existem, claro, excessões tais como os vértices mais afastados e o vértice único que 
 não tem nenhuma aresta com adjacentes.
 
-#Natureza das orientações por tipo de orientação
+###Natureza das orientações por tipo de orientação
 ```{r}
 ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
   geom_bar(stat = 'count') +
@@ -406,7 +467,7 @@ ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
   theme(axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
 ```
-# Orientações por ano:
+### Orientações por ano:
 ```{r}
 ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
   geom_bar(stat = 'count') +
@@ -421,7 +482,7 @@ conduzidas por PPG por ano, até sua volta em 2015, onde o número
 de pós graduações no sentido restrito foram maiores que outras
 orientações.
 
-# Mestrados e cursos que mais ocorrem por ano
+### Mestrados e cursos que mais ocorrem por ano
 ```{r}
 ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
   geom_bar(stat = 'count') +
@@ -434,7 +495,7 @@ o grande domínio em volume da pós graduação em Biologia Animal, que na maior
 dos anos corresponde a quase metade das orientações de pós graduação por ano
 dentre os PPG estudados.
 
-# Publicações em países:
+### Publicações em países:
 ```{r}
 perfil.df.publicacoes %>%
   filter(!(tipo_producao %in% c('EVENTO','TEXTO_EM_JORNAIS','PERIODICO','ARTIGO_ACEITO'))) %>%
@@ -447,3 +508,4 @@ Observa-se deficiência de dados quanto ao país de publicação para periódico
 textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
 gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
 los no Brasil e demais países.
+
