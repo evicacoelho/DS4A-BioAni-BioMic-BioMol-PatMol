@@ -1,17 +1,23 @@
 ---
-title: Análise da Produção Científica e Acadêmica da Universidade de Brasília - Relatório Parcial sobre Pós-Graduação em Ciências Biológicas
-author: Emanuel Victor Araújo 14/0137475, Jonas Prado 13/0117277 , Maria Júlia Gonçalves 14/0153713
-date: 18/11/2018
+title: Análise da Produção Científica e Acadêmica da Universidade de Brasília - Relatório
+  Parcial sobre Pós-Graduação em Ciências Biológicas
+author: Emanuel Victor Araújo 14/0137475, Jonas Prado 13/0117277 , Maria Júlia Gonçalves
+  14/0153713
+date: "18/11/2018"
 output:
   pdf_document: default
+  word_document: default
   html_document: default
 ---
 
+\documentclass{article}
+\DeclareUnicodeCharacter{U+FB01}
+\begin{document}
+\end{document}
+
 # Resumo
 
-Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada o modelo metodológico de mineração de dados denominado CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017.[1]
-
-[1] Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
+Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada o modelo metodológico de mineração de dados denominado CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017 (Fernandes et. al., 2018).
 
 # Introdução
 
@@ -43,9 +49,7 @@ O PNPG também traça as diretrizes para financiamento da pós-graduação e sua
 
 As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
 Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
-Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).[1]
-[1] Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
-
+Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016; Fernandes et. al., 2018).
 
 ### Os Colégios, Grandes áreas e áreas da Pós-Graduação Brasileira
 
@@ -57,20 +61,19 @@ A partir de 2018, as diversas áreas da pós-graduação brasileira foram organi
 
 - Colégio de Humanidades - que contempla as grandes áreas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
 
-Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).[2]
-[2]Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
+Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018) (SeCom, 2018).
 
 ##A UnB dentro do Sistema Nacional de Pós-Graduação
 
 A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
 
-![production](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem1.jpg)
+![production](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
 
-![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol/Imagem2.jpg)
+![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
  
 Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global. 
-Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) [3]. Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
-[3]https://www.noticias.unb.br/publicacoes/117-pesquisa/2267-impacto-da-producao-cientifica-da-unb-aumenta-mais-de-100-em-seis-anos
+Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) (SeCom, 2018. Adaptado). Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
+(SeCom, 2018. Adaptado).
 
 ###Captura dos dados - Definir JSONS
 ```{r}
@@ -117,7 +120,7 @@ library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
 
-setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
+setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master")
 source("elattes.ls2df.R")
 ```
 
@@ -513,6 +516,20 @@ los no Brasil e demais países.
 
 ##Bibliografia
 
-- _SciVal Metrics Guidebook._ ELSEVIER, 2014.
-- Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e Rüdiger Wirth. “CRISP-DM 1.0: Step-by-Step Data Mining Guide”. USA: CRISP-DM Consortium, 2000. https://www.the-modeling-agency.com/crisp-dm.pdf.
-- Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo Avelar Filho. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
+"SciVal Metrics Guidebook." ELSEVIER, 2014.
+
+Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e Rüdiger Wirth. “CRISP-DM 1.0: Step-by-Step Data Mining Guide”. USA: CRISP-DM Consortium, 2000. Disponível em: https://www.the-modeling-agency.com/, visitado em Novembro, 2019.
+
+Fernandes, Jorge H C, Ricardo Barros Sampaio, e João Ribas de Moura. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Cientíﬁca e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018
+
+Secretaria de Comunicação da UnB (SeCom). 2018. "Impacto da produção científica da UnB aumenta mais de 100% em seis anos." Universidade de Brasília, Junho de 2018, Disponível em https://www.noticias.unb.br/, visitado em Novembro de 2018. 
+
+Azevedo, Mário Luiz Neves de, João Ferreira de Oliveira, e Afrânio Mendes Catani. “O Sistema Nacional de Pós-Graduação (SNPG) e o Plano Nacional de Educação (PNE 2014-2024): regulação, avaliação e ﬁnanciamento”. Revista Brasileira de Política e Administração da Educação 32, nº 3 (2016). http://dx.doi.org/10.21573/vol32n32016.68576.
+
+Leite, Fernando César Lima. “Considerações básicas sobre a Avaliação do Sistema Nacional de PósGraduação”. Comunicação Pessoal (slides). Universidade de Brasília, abril de 2018.
+
+CAPES. “Documentos de Área”. CAPES.gov.br. Acessado 12 de junho de 2018. Disponível em: http://avaliacaoquadrienal.capes.gov.br/, visitado em Dezembro de 2018.
+
+Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. “Sistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desaﬁos para política de Estado - Lívio Amaral”. Revista Educação e Linguagens 2, nº 3 (julho de 2013): 11–17.
+
+Fernandes, Jorge H C, e Ricardo Barros Sampaio. “DataScienceForAll”. Zotero, 13 de junho de 2018
