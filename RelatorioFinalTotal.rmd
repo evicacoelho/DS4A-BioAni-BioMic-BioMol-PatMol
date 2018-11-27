@@ -1,0 +1,930 @@
+---
+title: Análise da Produção Científica e Acadêmica da Universidade de Brasília - Relatório
+  Parcial sobre Pós-Graduação em Ciências Biológicas
+author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júlia G. R. Rodrigues
+  14/0153713
+date: "18/11/2018"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+\documentclass{article}
+\DeclareUnicodeCharacter{U+FB01}
+\begin{document}
+\end{document}
+
+# Resumo
+
+Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada o modelo metodológico de mineração de dados denominado CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017 (Fernandes et. al., 2018).
+
+# Introdução
+
+Este trabalho visa, no contexto da pós-graduação do sentido amplo e restrito do Brasil, buscar relações e comparações entre os Programas de Pós-Graduação em Biologia Molecular, Biologia Animal, Biologia Microbiana e Patologia Molecular da Universidade de Brasília para sintetizar o panorama e o paradigma da pós-graduação nestes programas.
+
+# CRISP-DM:
+
+A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). Este modelo é caracterizado por um projeto dividido em seis fases, as quais serão tratadas ao longo das seções seguintes.
+
+- Fase 1) Entendimento do negócio: Busca definir um problema de mineração de dados com base nos objetivos e necessidades do projeto.
+- Fase 2) Entendimento dos dados: Consiste na coleta e descrição dos dados, incluindo uma análise de qualidade e quantidade dos mesmos - necessários para avaliar a viabilidade do projeto.
+- Fase 3) Preparação dos dados: Consiste na estruturação dos dados capturados, incluindo uma fase de limpeza de dados indesejados ou inconsistentes. Esta fase tem como objetivo produzir datasets prontos para análises estatísticas e produção de gráficos.
+- Fase 4) Modelagem: Envolve a construção e revisão de modelos estatísticos de interesse para o projeto, além de testes para descarte dos modelos produzidos que não atingirem o grau desejado de confiabilidade.
+- Fase 5) Avaliação: Consiste na avaliação dos resultados e do processo como um todo, revisando se todas as questões relevantes para o projeto foram abordadas adequadamente.
+- Fase 6) Implementação: Consiste no planejamento e implementação dos entregáveis finais desenvolvidos pelo projeto, incluindo monitoramento e manutenção dos mesmos.
+
+##CRISP-DM Fase 1 - Entendimento do Negócio
+##O que é o Sistema Nacional de Pós-Graduação?
+
+A produção do conhecimento científico, no Brasil, é predominantemente efetuada por meio do Sistema Nacional de Pós-Graduação - SNPG, e mais fortemente relacionada com a formação de doutores nesse sistema (Pátaro e Mezzomo, 2013), por meio de cursos de pós-graduação _strictu sensu_. 
+
+Fernandes e Sampaio (2017) já indicaram que a ciência é reconhecidamente um elemento essencial para o desenvolvimento social e econômico de qualquer nação.
+Assim sendo, faz-se mister aprimorar o SNPG como forma de promoção desse crescimento, visando maximizar o retorno decorrente do emprego dos recursos nele aplicados. 
+A promoção do crescimento do SNPG se dá predominantemente por meio de avaliações regulares de seus programas de pós-graduação, sob responsabilidade da CAPES, que realiza a cada quatro anos um complexo (Leite, 2018, p. 13) e custoso processo de coleta de dados, análise e deliberação sobre as pós-graduações _strictu sensu_, em coerência com o estabelecido no Plano Nacional de Pós-Graduação (PNPG) 2012-2020 (CAPES, 2010) e nos diversos documentos que definem os critérios de organização da pós-graduação em cada área do conhecimento (CAPES, 2018).
+Leite (2018) faz uma apresentação geral  de como se organizam e são avaliadas as pós-graduações no Brasil.
+
+O Plano Nacional de Pós-Graduação (PNPG), por outro lado, define diretrizes estratégicas para desenvolvimento da pós-graduação brasileira, que deve abordar prioritariamente grandes temas de interesse nacional, tais como a redução das assimetrias de desenvolvimento entre as regiões do Brasil, a formação de professores para a educação básica, a formação de recursos humanos para as empresas, a resposta aos grandes desafios brasileiros sobre Água, Energia, Transporte, Controle de Fronteiras, Agronegócio, Amazônia, Amazônia Azul (Mar), Saúde, Defesa, Programa Espacial, além de Justiça, Segurança Pública, Criminologia e Desequilíbrio Regional.
+O PNPG também traça as diretrizes para financiamento da pós-graduação e sua internacionalização, apresentando conclusões e recomendações.
+
+As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
+Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
+Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016; Fernandes et. al., 2018).
+
+### Os Colégios, Grandes áreas e áreas da Pós-Graduação Brasileira
+
+A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas. Os colégios foram separados da seguinte formar:
+
+- Colégio de Ciências da Vida - que contempla as grandes áreas de Ciências Agrárias, Ciências Biológicas e Ciências da Saúde. 
+
+- Colégio de Ciências Exatas, Tecnológicas e Multidisciplinar - que contempla as grandes áreas de Ciencias Exatas e da Terra, Engenharias e Multidisciplinar.
+
+- Colégio de Humanidades - que contempla as grandes áreas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
+
+Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018) (Fernandes et. al., 2018).
+
+##A UnB dentro do Sistema Nacional de Pós-Graduação
+
+A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
+
+![production](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
+
+![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
+Um impacto normalizado de 1,00 significa que a produção teve comportamento similar à média global. Um impacto superior a 1,00 indica maior citação que a média (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média (SeCom, 2018, Adaptado).
+
+Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global.(SeCom, 2018).
+
+Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) (SeCom, 2018). Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
+(SeCom, 2018).
+
+###Captura dos dados: Definindo bancos de dados para as PPGs a partir de arquivos JSON e CSV
+```{r, warning=FALSE, message=FALSE}
+library(jsonlite) #Importado para carga dos arquivos JSON para o R
+# Perfis
+perfil.240 <- fromJSON("240BiologiaAnimal/240profile.json")
+perfil.242 <- fromJSON("242BiologiaMicrobiana/242profile.json")
+perfil.243 <- fromJSON("243BiologiaMolecular/243profile.json")
+perfil.313 <- fromJSON("313PatologiaMolecular/313profile.json")
+
+# Publicações
+public.240 <- fromJSON("240BiologiaAnimal/240publication.json")
+public.242 <- fromJSON("242BiologiaMicrobiana/242publication.json")
+public.243 <- fromJSON("243BiologiaMolecular/243publication.json")
+public.313 <- fromJSON("313PatologiaMolecular/313publication.json")
+
+
+# Orientações
+orient.240 <- fromJSON("240BiologiaAnimal/240advise.json")
+orient.242 <- fromJSON("242BiologiaMicrobiana/242advise.json")
+orient.243 <- fromJSON("243BiologiaMolecular/243advise.json")
+orient.313 <- fromJSON("313PatologiaMolecular/313advise.json")
+
+
+# Grafos
+graphl.240 <- fromJSON("240BiologiaAnimal/240graph.json")
+graphl.242 <- fromJSON("242BiologiaMicrobiana/242graph.json")
+graphl.243 <- fromJSON("243BiologiaMolecular/243graph.json")
+graphl.313 <- fromJSON("313PatologiaMolecular/313graph.json")
+
+# Todas PPGs
+df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",", 
+                      colClasses = "character", encoding = "UTF-8", header = TRUE)
+```
+
+##CRISP-DM Fase 2 - Entendimento dos Dados
+
+A segunda parte do CRISP-DM consiste no entendimento dos dados. Para realizar análises significativas
+com os __datasets__ disponíveis, é essencial ter um bom entendimento sobre a forma que estão organizados. 
+
+Os arquivos utilizados são provenientes da plataforma Elattes e compilam informações sobre aa produção científica dos professores do __Programa de Pós-graduação em Biologia Animal__ no período de 2010 a 2017.
+
+Os __datasets__ que serão trabalhados consistem em: perfil profissional; orientações de mestrado e doutorado realizadas; produções bibliográficas e redes de colaboração entre os pesquisadores.
+
+###Arquivos Analisados
+
+Os arquivos com informações sobre os pesquisadores do Programa de __Biologia Animal__:
+
+* __240BiologiaAnimal/240profile.json__: apresenta dados sobre o __perfil__ de todos os pesquisadores.
+
+* __240BiologiaAnimal/240publication.json__: apresenta dados sobre as __publicações__ e __produções bibliográficas__ geradas por todos os pesquisadores.
+
+* __240BiologiaAnimal/240advise.json__: apresenta dados sobre __orientações de mestrado e doutorado__ feitas por todos os pesquisadores.
+
+* __240BiologiaAnimal/240graph.json__: apresenta dados sobre __produções bibliográficas coolaborativas__ feitas entre os pesquisadores.
+
+
+###Análise estrutural dos dados
+
+Para continuar com as análises, as seguintes bibliotecas são selecionadas:
+
+```{r, warning=FALSE, message=FALSE,error=FALSE}
+#library(tidyverse) #Importado para manipulação de tibbles
+library(listviewer) #Importado para análise dos arquivos JSON
+library(igraph) #Importado para manipulação de grafo
+library(dplyr) #Importado para uso do Operador Pipe
+library(tidyr) #Importado para uso da função spread()
+library(ggplot2) #Importado para visualizações com ggplot()
+
+setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master")
+source("elattes.ls2df.R")
+```
+
+Após a importação e definição das bibliotecas utilizadas, podemos utilizar funções de tais pacotes para análise sistêmica dos dados, mas para isto, estes deves sem primeiramente descritos por meio de funções de descrição do pacote `dplyr` que facilita a visualização e manipulação dos dados:
+
+*SEPARACAO DOS CAMPOS DE DF.PROG*
+```{r}
+
+df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.Avaliacao.Codigo.AreaPos.Programa,
+                     c("idLattes", "Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
+                     sep = ";", extra = "drop", fill = "right")
+```
+
+*Número de docentes na base e a construção das listas dos mesmos:*
+```{r}
+print(length(perfil.240))
+ProfileList.240 <- list()
+for (i in 1:length(perfil.240)) {
+  ProfileList <- rbind(ProfileList, perfil.240[[i]]$nome)
+}
+
+length(perfil.242)
+ProfileLists.242 <- list()
+for (i in 1:length(perfil.242)) {
+  ProfileList <- rbind(ProfileList, perfil.242[[i]]$nome)
+}
+
+length(perfil.243)
+ProfileLists.243 <- list()
+for (i in 1:length(perfil.243)) {
+  ProfileList <- rbind(ProfileList, perfil.243[[i]]$nome)
+}
+
+length(perfil.313)
+ProfileLists.313 <- list()
+for (i in 1:length(perfil.313)) {
+  ProfileList <- rbind(ProfileList, perfil.313[[i]]$nome)
+}
+```
+
+# Análise das listas:
+*Número de áreas de atuação cumulativas:*
+```{r}
+sum(sapply(perfil.240, function(x) nrow(x$areas_de_atuacao)))
+
+sum(sapply(perfil.242, function(x) nrow(x$areas_de_atuacao)))
+
+sum(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao)))
+
+sum(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao)))
+```
+*Numero de areas de atuacao por pessoa*
+```{r}
+table(unlist(sapply(perfil.240, function(x) nrow(x$areas_de_atuacao))))
+
+table(unlist(sapply(perfil.242, function(x) nrow(x$areas_de_atuacao))))
+
+table(unlist(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao))))
+
+table(unlist(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao))))
+```
+*Numero de pessoas por grande area*
+```{r}
+table(unlist(sapply(perfil.240, function(x) (x$areas_de_atuacao$grande_area))))
+
+table(unlist(sapply(perfil.242, function(x) (x$areas_de_atuacao$grande_area))))
+
+table(unlist(sapply(perfil.243, function(x) (x$areas_de_atuacao$grande_area))))
+
+table(unlist(sapply(perfil.313, function(x) (x$areas_de_atuacao$grande_area))))
+```
+*Numero de pessoas que produziram os especificos tipos de producao*
+```{r}
+table(unlist(sapply(perfil.240, function(x) names(x$producao_bibiografica))))
+
+table(unlist(sapply(perfil.242, function(x) names(x$producao_bibiografica))))
+
+table(unlist(sapply(perfil.243, function(x) names(x$producao_bibiografica))))
+
+table(unlist(sapply(perfil.313, function(x) names(x$producao_bibiografica))))
+
+```
+*Numero de publicacoes por tipo*
+```{r}
+sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+
+sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+
+sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+
+sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+```
+*Número de pessoas por quantitativo de produções por pessoa*
+```{r}
+table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+```
+*Número de produções por ano*
+```{r}
+table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+```
+*Número de pessoas que realizaram diferentes tipos de orientações*
+```{r}
+length(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))
+
+length(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))
+
+length(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))
+
+length(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))
+```
+*Número de pessoas por tipo de orientação*
+```{r}
+table(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))
+
+table(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))
+
+table(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))
+
+table(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))
+```
+*Número de orientacões concluídas*
+```{r}
+sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+
+sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+
+sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+
+sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+```
+*Número de pessoas por quantitativo de orientacões por pessoa*
+```{r}
+table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+```
+*Número de orientações por ano*
+```{r}
+table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+```
+
+###Análise dos dataframes:
+
+*Extrai perfis dos professores:*
+```{r}
+perfil.240.df.professores <- extrai.perfis(perfil.240)
+
+perfil.242.df.professores <- extrai.perfis(perfil.242)
+
+perfil.243.df.professores <- extrai.perfis(perfil.243)
+
+perfil.313.df.professores <- extrai.perfis(perfil.313)
+
+```
+*Extrai produção bibliográfica de todos os professores*
+```{r}
+perfil.240.df.publicacoes <- extrai.producoes(perfil.240) %>%
+  select(tipo_producao, everything()) %>% arrange(tipo_producao)
+
+perfil.242.df.publicacoes <- extrai.producoes(perfil.242) %>%
+  select(tipo_producao, everything()) %>% arrange(tipo_producao)
+
+perfil.243.df.publicacoes <- extrai.producoes(perfil.243) %>%
+  select(tipo_producao, everything()) %>% arrange(tipo_producao)
+
+perfil.313.df.publicacoes <- extrai.producoes(perfil.313) %>%
+  select(tipo_producao, everything()) %>% arrange(tipo_producao)
+```
+*Extrai orientações*
+```{r}
+perfil.240.df.orientacoes <- extrai.orientacoes(perfil.240) %>%
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+
+perfil.242.df.orientacoes <- extrai.orientacoes(perfil.242) %>%
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+
+perfil.243.df.orientacoes <- extrai.orientacoes(perfil.243) %>%
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+
+perfil.313.df.orientacoes <- extrai.orientacoes(perfil.313) %>%
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+```
+*Extrai áreas de atuação *
+```{r}
+perfil.240.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.240) %>%
+  select(idLattes, everything())
+
+perfil.242.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.242) %>%
+  select(idLattes, everything())
+
+perfil.243.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.243) %>%
+  select(idLattes, everything())
+
+perfil.313.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.313) %>%
+  select(idLattes, everything())
+```
+*Cria arquivo com dados quantitativos para análise*
+```{r}
+perfil.240.df <- data.frame()
+perfil.240.df <- perfil.240.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    perfil.240.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.240.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.240.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes")
+
+glimpse(perfil.240.df)
+
+perfil.242.df <- data.frame()
+perfil.242.df <- perfil.242.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    perfil.242.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.242.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.242.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes")
+
+glimpse(perfil.242.df)
+
+perfil.243.df <- data.frame()
+perfil.243.df <- perfil.243.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    perfil.243.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.243.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.243.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes")
+glimpse(perfil.243.df)
+
+perfil.313.df <- data.frame()
+perfil.313.df <- perfil.313.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    perfil.313.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.313.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    perfil.313.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes")
+
+glimpse(perfil.313.df)
+
+```
+
+##CRISP-DM Fase 3 - Preparação dos Dados
+A terceira fase do CRISP é conhecida por ser a parte de preparação dos dados. Tal fase possui como
+característica a execução de atividades para construir o conjunto final de dados a partir dos dados brutos iniciais. 
+Pode-se separar essa etapa em cinco momentos que serão descritos nessa seção.
+
+• Seleção dos dados
+
+• Limpeza dos dados
+
+• Construção dos dados
+
+• Integração dos dados
+
+• Formatação dos dados
+
+Na etapa de seleção dos dados a entrada é o conjunto de dados bruto e nela ocorre a decisão dos dados a serem usados para análise. Os critérios incluem relevância para as metas de mineração de dados, qualidade e restrições técnicas, como limites no volume de dados ou tipos de dados.
+Então vem a fase da limpeza que recebe a seleção de dados úteis efetuada anteriormente e é efetuado um aumento na qualidade dos dados para o nível exigido pelas técnicas de análise selecionadas. Aqui pode haver o uso de técnicas mais elaboradas, como a estimativa de dados ausentes por modelagem e inserção de padrões adequados.
+
+O terceiro passo é a construção dos dados. Essa tarefa inclui operações de preparação de dados construtivos, como a produção de atributos derivados, novos registros ou valores transformados para atributos existentes.
+A penúltima atividade é a integração dos dados. Este é o momento no qual as informações são combinadas de vários bancos de dados, tabelas ou registros para criar novos registros ou valores.
+Por fim, ocorre a tarefa de formatação dos dados, que é a realização de modificações na estrutura dos dados de forma que as operações planejadas possam ser efetuadas de forma conveniente.
+
+Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a realização de comparações ao final, os mesmos procedimentos foram realizados para os três programas de pós-graduação. Além disso, é importante ressaltar que as variáveis e estruturas montadas foram nomeados de forma mnemônica permitindo a distinção de diferentes programas e aspectos, como orientações, publicações, entre outros.
+
+##Análise dos dados no formato lista
+*Número de Publicacoes em periódicos*
+```{r}
+sum(sapply(public.240$PERIODICO, function(x) length(x$natureza)))
+
+sum(sapply(public.242$PERIODICO, function(x) length(x$natureza)))
+
+sum(sapply(public.243$PERIODICO, function(x) length(x$natureza)))
+
+sum(sapply(public.313$PERIODICO, function(x) length(x$natureza)))
+```
+*Anos analisados*
+```{r}
+names(public.240$PERIODICO)
+
+names(public.242$PERIODICO)
+
+names(public.243$PERIODICO)
+
+names(public.313$PERIODICO)
+```
+*20 revistas mais publicadas*
+```{r}
+head(sort(table(as.data.frame(unlist
+    (sapply(public.240$PERIODICO, function(x) unlist(x$periodico)))
+  )), decreasing = TRUE),20)
+
+head(sort(table(as.data.frame(unlist
+    (sapply(public.242$PERIODICO, function(x) unlist(x$periodico)))
+  )), decreasing = TRUE),20)
+
+head(sort(table(as.data.frame(unlist
+    (sapply(public.243$PERIODICO, function(x) unlist(x$periodico)))
+  )), decreasing = TRUE),20)
+
+head(sort(table(as.data.frame(unlist
+    (sapply(public.313$PERIODICO, function(x) unlist(x$periodico)))
+  )), decreasing = TRUE),20)
+```
+*Análise dos dados no formato dataframe*
+```{r}
+public.240.periodico.df <- pub.ls2df(public.240, 1) #artigos
+public.240.livros.df <- pub.ls2df(public.240, 2) #livros
+public.240.eventos.df <- pub.ls2df(public.240, 5) #eventos
+
+public.242.periodico.df <- pub.ls2df(public.242, 1) #artigos
+public.242.livros.df <- pub.ls2df(public.242, 2) #livros
+public.242.eventos.df <- pub.ls2df(public.242, 5) #eventos
+
+public.243.periodico.df <- pub.ls2df(public.243, 1) #artigos
+public.243.livros.df <- pub.ls2df(public.243, 2) #livros
+public.243.eventos.df <- pub.ls2df(public.243, 5) #eventos
+
+public.313.periodico.df <- pub.ls2df(public.313, 1) #artigos
+public.313.livros.df <- pub.ls2df(public.313, 2) #livros
+public.313.eventos.df <- pub.ls2df(public.313, 5) #eventos
+```
+*Publicações por ano*
+```{r}
+table(public.240.periodico.df$ano)
+
+table(public.242.periodico.df$ano)
+
+table(public.243.periodico.df$ano)
+
+table(public.313.periodico.df$ano)
+```
+*20 revistas mais publicadas (análise com dataframe)*
+```{r}
+head(sort(table(public.240.periodico.df$periodico), decreasing = TRUE), 20)
+
+head(sort(table(public.242.periodico.df$periodico), decreasing = TRUE), 20)
+
+head(sort(table(public.243.periodico.df$periodico), decreasing = TRUE), 20)
+
+head(sort(table(public.313.periodico.df$periodico), decreasing = TRUE), 20)
+```
+
+*Número de Orientações de Mestrado e Doutorado*
+```{r}
+sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
+
+sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
+
+sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
+
+sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
+```
+
+*Construição de dataframe de orientações*
+```{r}
+orient.240.posdoutorado.df <- ori.ls2df(orient.240, 6) #pos-Doutorado concluido
+orient.240.doutorado.df <- ori.ls2df(orient.240, 7) #Doutorado concluido
+orient.240.mestrado.df <- ori.ls2df(orient.240, 8) #Mestrado concluido
+orient.240.df <- rbind(rbind(orient.240.posdoutorado.df, orient.240.doutorado.df), orient.240.mestrado.df)
+
+orient.242.posdoutorado.df <- ori.ls2df(orient.242, 6) #pos-Doutorado concluido
+orient.242.doutorado.df <- ori.ls2df(orient.242, 7) #Doutorado concluido
+orient.242.mestrado.df <- ori.ls2df(orient.242, 8) #Mestrado concluido
+orient.242.df <- rbind(rbind(orient.242.posdoutorado.df, orient.242.doutorado.df), orient.242.mestrado.df)
+
+orient.243.posdoutorado.df <- ori.ls2df(orient.243, 6) #pos-Doutorado concluido
+orient.243.doutorado.df <- ori.ls2df(orient.243, 7) #Doutorado concluido
+orient.243.mestrado.df <- ori.ls2df(orient.243, 8) #Mestrado concluido
+orient.243.df <- rbind(rbind(orient.243.posdoutorado.df, orient.243.doutorado.df), orient.243.mestrado.df)
+
+orient.313.posdoutorado.df <- ori.ls2df(orient.313, 6) #pos-Doutorado concluido
+orient.313.doutorado.df <- ori.ls2df(orient.313, 7) #Doutorado concluido
+orient.313.mestrado.df <- ori.ls2df(orient.313, 8) #Mestrado concluido
+orient.313.df <- rbind(rbind(orient.313.posdoutorado.df, orient.313.doutorado.df), orient.313.mestrado.df)
+```
+###
+*Construção de Grafo de Colaborações*
+```{r, warning=FALSE,message=FALSE}
+g.240 <- g.ls2ig(graphl.240)
+df.240 <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
+df.240 <- left_join(df.240, df.prog, by = c("Idlattes" = "idLattes"))
+
+g.242 <- g.ls2ig(graphl.242)
+df.242 <- as.data.frame(V(g.242)$name); colnames(df.242) <- "Idlattes"
+df.242 <- left_join(df.242, df.prog, by = c("Idlattes" = "idLattes"))
+
+g.243 <- g.ls2ig(graphl.243)
+df.243 <- as.data.frame(V(g.243)$name); colnames(df.243) <- "Idlattes"
+df.243 <- left_join(df.243, df.prog, by = c("Idlattes" = "idLattes"))
+
+g.313 <- g.ls2ig(graphl.313)
+df.313 <- as.data.frame(V(g.313)$name); colnames(df.313f) <- "Idlattes"
+df.313 <- left_join(df.313, df.prog, by = c("Idlattes" = "idLattes"))
+```
+
+Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa, vide código abaixo.
+
+```{r}
+df.240 <- df.240 %>% group_by(Idlattes) %>% 
+  slice(1L)
+V(g.240)$programa <- df.240$Programa
+V(g.240)$orient_dout <- perfil.240.df$ORIENTACAO_CONCLUIDA_DOUTORADO
+V(g.240)$orient_mest <- perfil.240.df$ORIENTACAO_CONCLUIDA_MESTRADO
+V(g.240)$publicacao <- perfil.240.df$PERIODICO
+V(g.240)$eventos <- perfil.240.df$EVENTO
+
+df.242 <- df.242 %>% group_by(Idlattes) %>% 
+  slice(1L)
+V(g.242)$programa <- df$Programa
+V(g.242)$orient_dout <- perfil.242.df$ORIENTACAO_CONCLUIDA_DOUTORADO
+V(g.242)$orient_mest <- perfil.242.df$ORIENTACAO_CONCLUIDA_MESTRADO
+V(g.242)$publicacao <- perfil.242.df$PERIODICO
+V(g.242)$eventos <- perfil.242.df$EVENTO
+
+df.243 <- df.243 %>% group_by(Idlattes) %>% 
+  slice(1L)
+V(g.243)$programa <- df.243$Programa
+V(g.243)$orient_dout <- perfil.243.df$ORIENTACAO_CONCLUIDA_DOUTORADO
+V(g.243)$orient_mest <- perfil.243.df$ORIENTACAO_CONCLUIDA_MESTRADO
+V(g.243)$publicacao <- perfil.243.df$PERIODICO
+V(g.243)$eventos <- perfil.243.df$EVENTO
+
+df.313 <- df.313 %>% group_by(Idlattes) %>% 
+  slice(1L)
+V(g.313)$programa <- df.313$Programa
+V(g.313)$orient_dout <- perfil.313.df$ORIENTACAO_CONCLUIDA_DOUTORADO
+V(g.313)$orient_mest <- perfil.313.df$ORIENTACAO_CONCLUIDA_MESTRADO
+V(g.313)$publicacao <- perfil.313.df$PERIODICO
+V(g.313)$eventos <- perfil.313.df$EVENTO
+```
+
+##CRISP-DM Fases 4 a 6 - Resultados e visualizações:
+Foram escolhidos alguns resultados, em relação aos dados encontrados durante o processo, para serem plotados em gráficos.
+
+### Grafico de barras; periodicos por ano
+```{r}
+public.240.periodico.df %>%
+  group_by(ano) %>%
+  summarise(Quantidade = n()) %>%
+  ggplot(aes(x = ano, y = Quantidade)) +
+  geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
+  ggtitle("Periodicos publicados por ano") +
+  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+  theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+```
+
+Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
+de Biologia Animal mantém se estável com flutuações normais, mas apresentou uma queda considerável de 2014 para 2015, diminuindo o número de publicações em cerca de 18% mas recuperando em anos posteriores.
+
+###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+```{r}
+perfil.240.df %>%
+  ggplot(aes(idLattes,PERIODICO)) +
+  geom_col(fill = "purple") +
+  ggtitle("Periodicos publicados por pesquisador") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Numero de publicacoes") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.240.df %>% summarize(x = median(PERIODICO))), color = "red")
+```
+O gráfico acima demonstra o total de publicações para cada pesquisador, demonstrando relativa homogeneidade entre a quantidade de pesquisadores em média, porém há aqueles que deslocam a média para cima por estarem fora do desvio padrão acima ou abaixo, sendo que há destaque para dois pesquisadores que tem um número de publicação que corresponde cerca de quatro vezes o valor da média.
+
+###Publicação de livros por pais/ano
+```{r}
+public.240.livros.df %>%
+  group_by(ano,pais_de_publicacao) %>%
+  ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  ggtitle("Livros publicados por ano") +
+  xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+```
+Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal
+
+###Eventos nacionais e internacionais
+```{r}
+public.240.eventos.df %>%
+  filter(pais_do_evento %in% 
+           c(names(head(sort(table(public.240.eventos.df$pais_do_evento)
+                             , decreasing = TRUE), 10)))) %>%
+  group_by(ano_do_trabalho,pais_do_evento) %>%
+  ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
+  ggtitle("Participacoes em eventos") +
+  xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+```
+Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
+em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
+que o programa esteve presente em eventos de sede internacional em 
+todos os anos registrados na base de dados, principalmente nos Estados Unidos.
+
+###Orientacoes completas por ano e natureza
+```{r}
+ggplot(orient.240.df,aes(ano,fill=natureza)) +
+  geom_bar(stat = "count", position="dodge") +
+  ggtitle("Natureza das Orientacoes Completas Por Ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 32))
+```
+
+Observando a evolução do número de orientações completas ao longo dos anos,
+percebe-se que o Programa de Pós-Graduação cresceu consideravelmente na
+natureza de mestrado após 2010, com uma regressão em 2016.
+Entretanto, não há um comportamento linear na evolução do número de orientações
+finalizadas. 2014 despontou no número de dissertações de mestrado, mas
+este comportamento não se repetiu posteriormente. Enquanto as orientações
+de mestrado do Programa parecem bem estabelecidas, as supervisões de
+pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
+em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
+
+###Bolsas distribuidas por ano
+```{r}
+orient.240.df %>% filter(bolsa == "SIM") %>%
+ggplot(aes(ano,fill=natureza)) +
+  geom_bar(stat = "count", position = "dodge") +
+  ggtitle("Bolsas disponibilizadas por ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 32))
+```
+
+Comparando os gráficos de orientações completas e de bolsas, é possível
+perceber que o número de bolsas oferecidas para o Programa acompanhou o
+total de orientações de maneira satisfatória ao longo dos anos.
+Durante todo o período, todas as naturezas apresentaram um índice de pelo menos
+50% de bolsas, chegando a 100% em alguns casos.
+Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
+contemplada pelas agências financiadoras, visto que apenas uma das observações
+não recebeu bolsa. Por fim, é possível observar que o pico no número de
+orientações de mestrado registrado em 2014 não foi tão expressivo em número
+de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
+
+###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
+```{r}
+plot(g.240, vertex.label = NA)
+```
+
+O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices e a existência de cooperação entre eles em suas arestas. É possível observar um grau profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em  grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. Existem excessões tais como os vértices mais afastados e o vértice único que não tem nenhuma aresta com adjacentes.
+
+###Natureza das orientações por tipo de orientação
+```{r}
+ggplot(perfil.240.df.orientacoes, aes(natureza,fill=orientacao)) +
+  geom_bar(stat = 'count') +
+  theme(legend.position = 'right') +
+  ggtitle('Natureza das orientações por tipo de orientação') +
+  labs(x='Natureza',y='Quantidade de orientações') +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+### Orientações por ano:
+```{r}
+ggplot(perfil.240.df.orientacoes, aes(ano, fill=orientacao)) +
+  geom_bar(stat = 'count') +
+  ggtitle('Orientações por ano') +
+  theme(legend.position = 'right') +
+  labs(x='Ano',y='Quantidade de orientações')
+```
+
+A partir do número de orientações por ano e pela natureza destas,
+percebe-se que a quantidade de orientações de pós graduações no
+sentido restrito era pequena em proporção a outras orientações
+conduzidas por PPG por ano, até sua volta em 2015, onde o número
+de pós graduações no sentido restrito foram maiores que outras
+orientações.
+
+### Mestrados e cursos que mais ocorrem por ano
+```{r}
+ggplot(orient.240.mestrado.df, aes(ano, fill=curso)) +
+  geom_bar(stat = 'count') +
+  ggtitle('Orientações por ano') +
+  theme(legend.position = 'right') +
+  labs(x='Ano',y='Cursos')
+```
+
+Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
+o grande domínio em volume da pós graduação em Biologia Animal, que na maioria
+dos anos corresponde a quase metade das orientações de pós graduação por ano
+dentre os PPG estudados.
+
+### Publicações em países:
+```{r}
+perfil.240.df.publicacoes %>%
+  filter(!(tipo_producao %in% c('EVENTO','TEXTO_EM_JORNAIS','PERIODICO','ARTIGO_ACEITO'))) %>%
+  group_by(tipo_producao,pais_de_publicacao) %>%
+  ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
+  geom_point(alpha = 0.7) + geom_jitter() +
+  labs(x='Tipo de produção',y='País')
+```
+
+Observa-se deficiência de dados quanto ao país de publicação para periódicos,
+textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
+gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
+los no Brasil e demais países.
+
+##Bibliografia
+
+"SciVal Metrics Guidebook." ELSEVIER, 2014.
+
+Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e Rüdiger Wirth. “CRISP-DM 1.0: Step-by-Step Data Mining Guide”. USA: CRISP-DM Consortium, 2000. Disponível em: https://www.the-modeling-agency.com/, visitado em Novembro, 2019.
+
+Fernandes, Jorge H C, Ricardo Barros Sampaio, e João Ribas de Moura. “Ciência de Dados para Todos (Data Science For All) - 2018.1 - Análise da Produção Cientíﬁca e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018
+
+Secretaria de Comunicação da UnB (SeCom). 2018. "Impacto da produção científica da UnB aumenta mais de 100% em seis anos." Universidade de Brasília, Junho de 2018, Disponível em https://www.noticias.unb.br/, visitado em Novembro de 2018. 
+
+Azevedo, Mário Luiz Neves de, João Ferreira de Oliveira, e Afrânio Mendes Catani. “O Sistema Nacional de Pós-Graduação (SNPG) e o Plano Nacional de Educação (PNE 2014-2024): regulação, avaliação e ﬁnanciamento”. Revista Brasileira de Política e Administração da Educação 32, nº 3 (2016). http://dx.doi.org/10.21573/vol32n32016.68576.
+
+Leite, Fernando César Lima. “Considerações básicas sobre a Avaliação do Sistema Nacional de PósGraduação”. Comunicação Pessoal (slides). Universidade de Brasília, abril de 2018.
+
+CAPES. “Documentos de Área”. CAPES.gov.br. Acessado 12 de junho de 2018. Disponível em: http://avaliacaoquadrienal.capes.gov.br/, visitado em Dezembro de 2018.
+
+Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. “Sistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desaﬁos para política de Estado - Lívio Amaral”. Revista Educação e Linguagens 2, nº 3 (julho de 2013): 11–17.
+
+Fernandes, Jorge H C, e Ricardo Barros Sampaio. “DataScienceForAll”. Zotero, 13 de junho de 2018
