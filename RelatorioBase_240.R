@@ -203,7 +203,7 @@ V(g)$eventos <- perfil.df$EVENTO
 public.periodico.df %>%
   group_by(ano) %>%
   summarise(Quantidade = n()) %>%
-  ggplot(aes(x = ano, y = Quantidade)) +
+  ggplot(aes(ano, Quantidade)) +
   geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
   ggtitle("Periodicos publicados por ano") +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
@@ -352,3 +352,25 @@ perfil.df.publicacoes %>%
 # textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
 # gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
 # los no Brasil e demais países.
+
+#Perfil-Areas - Questao 12
+
+perfil.areas <- perfil.df.areas.de.atuacao %>%
+  left_join(perfil.df, by = "idLattes") %>%
+  rowwise() %>%
+  mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
+        ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
+        OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
+  mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
+        LIVRO, TEXTO_EM_JORNAIS, DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA, na.rm = TRUE)) %>%
+  select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
+class(perfil.areas) <- c("tbl_df", "data.frame") #desfazer rowwise
+
+#Cada pesquisador (ponto) tem mais de uma grande_area; como mostrar isso
+perfil.areas %>%
+  group_by(publicacoes) %>%
+  filter(grande_area == "CIENCIAS_BIOLOGICAS") %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, colour = area)) +
+  geom_point() + geom_jitter()
+  ggtitle('Relação de Orientações x Publicações') +
+  labs(x='Publicações',y='Orientações')
