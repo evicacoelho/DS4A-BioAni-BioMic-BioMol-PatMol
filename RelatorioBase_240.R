@@ -366,11 +366,12 @@ perfil.areas <- perfil.df.areas.de.atuacao %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.areas) <- c("tbl_df", "data.frame") #desfazer rowwise
 
-#Cada pesquisador (ponto) tem mais de uma grande_area; como mostrar isso
+#Graficos ignorando especialidade e subarea, como incluir estas variaveis?
 perfil.areas %>%
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
   group_by(publicacoes) %>%
-  filter(grande_area == "CIENCIAS_BIOLOGICAS") %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, colour = area)) +
-  geom_point() + geom_jitter()
+  geom_point(shape = 20, size = .8) + geom_jitter() +
   ggtitle('Relação de Orientações x Publicações') +
-  labs(x='Publicações',y='Orientações')
+  labs(x='Publicações',y='Orientações') + facet_wrap( ~ grande_area)
