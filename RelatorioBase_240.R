@@ -135,8 +135,9 @@ perfil.df <- perfil.df.professores %>%
     perfil.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
-      summarise(n_distinct(area)), 
-    by = "idLattes")
+      summarise(num_areas = n_distinct(area)), 
+    by = "idLattes") %>%
+  rename(OUTRAS_PRODUCOES = DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA)
 
 glimpse(perfil.df)
 
@@ -227,7 +228,7 @@ public.periodico.df %>%
 perfil.df %>%
   ggplot(aes(idLattes,PERIODICO)) +
   geom_col(fill = "purple") +
-  ggtitle("Periodicos publicados por pesquisador") +
+  ggtitle("Periodicos publicados por pesquisador (incluindo mediana)") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Pesquisador(a)",y="Numero de publicacoes") +
@@ -296,6 +297,8 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
 #  theme(legend.position="right",legend.text=element_text(size=7)) +
 #  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
 #  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 25))
+
+#Índice de bolsas entre naturezas e evolução temporal
 
 bolsas.df %>%
   ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
@@ -380,7 +383,7 @@ perfil.areas <- perfil.df.areas.de.atuacao %>%
         ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
         OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
   mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
-        LIVRO, TEXTO_EM_JORNAIS, DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA, na.rm = TRUE)) %>%
+        LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.areas) <- c("tbl_df", "data.frame") #desfazer rowwise
 
@@ -393,6 +396,19 @@ perfil.areas %>%
   geom_point(shape = 2, size = .8) + geom_jitter() +
   ggtitle('Relação de Orientações Concluídas x Publicações') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ grande_area, ncol = 2)
+
+#Relação de produção-orientação pelo número de áreas
+#Quem trabalha em mais áreas diferentes publica/orienta mais?
+
+perfil.areas %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
+  geom_point() +
+  ggtitle('Orientações e Publicações pelo Número de Áreas') +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 
 #Perfil-Areas - Questao 14
 
@@ -426,5 +442,3 @@ V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
 V(g)$publicacao <- perfil.df$PERIODICO
 E(g)$eventos <- perfil.df$EVENTO
 plot(g, vertex.label = NA,vertex.color=V(g)$publicacao,edge.color=E(g)$eventos)
-
-#Indice de bolsas
