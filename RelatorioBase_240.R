@@ -357,7 +357,7 @@ perfil.df.publicacoes %>%
 
 perfil.areas <- perfil.df.areas.de.atuacao %>%
   left_join(perfil.df, by = "idLattes") %>%
-  rowwise() %>%
+  rowwise() %>% #realizar sum() corretamente
   mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
         ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
         OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
@@ -371,7 +371,40 @@ perfil.areas %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
   group_by(publicacoes) %>%
-  ggplot(aes(publicacoes, orientacoes_concluidas, colour = area)) +
-  geom_point(shape = 20, size = .8) + geom_jitter() +
-  ggtitle('Relação de Orientações x Publicações') +
-  labs(x='Publicações',y='Orientações') + facet_wrap( ~ grande_area)
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
+  geom_point(shape = 2, size = .8) + geom_jitter() +
+  ggtitle('Relação de Orientações Concluídas x Publicações') +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap( ~ grande_area, ncol = 2)
+
+#Perfil-Areas - Questao 14
+
+public.eventos.df$`autores-endogeno` <- gsub('\\s+', '', public.eventos.df$`autores-endogeno`)
+especialidade.orient <- public.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.areas, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+
+especialidade.orient[is.na(especialidade.orient)] <- 0 #Remove NAs do dataframe
+especialidade.orient$especialidade <- sub("^$", "Não informada", especialidade.orient$especialidade)
+especialidade.orient$internacional <- sub(0, "Não", especialidade.orient$internacional)
+
+especialidade.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_point(size = .8) + geom_jitter() +
+  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
+  labs(x='Participacao internacional',y='Orientações concluídas')
+
+#Grafo - Questao 15
+
+V(g)$programa <- df$Programa
+V(g)$orient_dout <- perfil.df$ORIENTACAO_CONCLUIDA_DOUTORADO
+V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
+V(g)$publicacao <- perfil.df$PERIODICO
+E(g)$eventos <- perfil.df$EVENTO
+plot(g, vertex.label = NA,vertex.color=V(g)$publicacao,edge.color=E(g)$eventos)
