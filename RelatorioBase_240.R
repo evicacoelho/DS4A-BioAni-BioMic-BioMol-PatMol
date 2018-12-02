@@ -9,6 +9,7 @@ library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
+library(stringr) #str_to_upper
 
 #CONFIGURAR - DIRETORIO DOS .R
 setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
@@ -105,7 +106,18 @@ perfil.df.publicacoes <- extrai.producoes(perfil) %>%
 
 #extrai orientacoes 
 perfil.df.orientacoes <- extrai.orientacoes(perfil) %>%
-  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
+  mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
+  mutate(Natureza = case_when(grepl("MESTRADO", str_to_upper(natureza)) ~ "Mestrado",
+                              grepl("PÓS-DOUTORADO", str_to_upper(natureza)) ~ "Pós-doutorado",
+                              grepl("DOUTORADO", str_to_upper(natureza)) ~ "Doutorado",
+                              grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              TRUE ~ "Outros"))           
+
+perfil.df.orientacoes %>% select(natureza, Natureza) %>% distinct() %>% arrange(Natureza)
+
+str_to_upper("pós-doutorado")
 
 #extrai areas de atuacao 
 perfil.df.areas.de.atuacao <- extrai.areas.atuacao(perfil) %>%
@@ -225,9 +237,11 @@ public.periodico.df %>%
 #de 60 a 70 publicações por ano em grande parte da amostra.
 
 #Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+#Numero de areas de pesquisa do professor
+
 perfil.df %>%
-  ggplot(aes(idLattes,PERIODICO)) +
-  geom_col(fill = "purple") +
+  ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
+  geom_point() +
   ggtitle("Periodicos publicados por pesquisador (incluindo mediana)") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
@@ -326,21 +340,18 @@ plot(g, vertex.label = NA)
 #observar uma considerável cooperação entre os membros do Programa, mas
 #alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
 
-#Natureza das orientações por tipo de orientação
-ggplot(perfil.df.orientacoes, aes(natureza,fill=orientacao)) +
-  geom_bar(stat = 'count') +
-  theme(legend.position = 'right') +
-  ggtitle('Natureza das orientações por tipo de orientação') +
-  labs(x='Natureza',y='Quantidade de orientações') +
-  theme(axis.text.x=element_blank(),
-        axis.ticks.x=element_blank())
+# Orientações por ano - DEPRECIADA; GRAFICO ABAIXO APRESENTA MELHOR A INFORMAÇÃO
+#ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
+#  geom_bar(stat = 'count') +
+#  ggtitle('Orientações por ano') +
+#  theme(legend.position = 'right') +
+#  labs(x='Ano',y='Quantidade de orientações')
 
-# Orientações por ano:
-ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
-  geom_bar(stat = 'count') +
-  ggtitle('Orientações por ano') +
-  theme(legend.position = 'right') +
-  labs(x='Ano',y='Quantidade de orientações')
+#Natureza das orientações por tipo de orientação, ano e andamento
+
+perfil.df.orientacoes %>% group_by(ano, situacao) %>%
+  ggplot(aes(x=ano,y=situacao,color=situacao)) +
+  geom_point(shape = 1) + geom_jitter(shape = 1) + facet_wrap(. ~ Natureza)
 
 # A partir do número de orientações por ano e pela natureza destas,
 # percebe-se que a quantidade de orientações de pós graduações no
@@ -393,11 +404,11 @@ perfil.areas %>%
   distinct() %>%
   group_by(publicacoes) %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
-  geom_point(shape = 2, size = .8) + geom_jitter() +
+  geom_point(shape = 2, size = .8) + geom_jitter(shape = 2, size = .8) +
   ggtitle('Relação de Orientações Concluídas x Publicações') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ grande_area, ncol = 2)
 
-#Relação de produção-orientação pelo número de áreas
+#Relação de produção-orientação pelo número de áreas do pesquisador
 #Quem trabalha em mais áreas diferentes publica/orienta mais?
 
 perfil.areas %>% 
