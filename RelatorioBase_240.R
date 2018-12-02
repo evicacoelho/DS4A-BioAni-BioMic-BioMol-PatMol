@@ -103,6 +103,9 @@ perfil.df.professores <- extrai.perfis(perfil)
 # extrai producao bibliografica de todos os professores 
 perfil.df.publicacoes <- extrai.producoes(perfil) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
+perfil.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.df.publicacoes$tipo_producao)] <- "OUTROS"
+
+perfil.df.publicacoes %>% select(pais_de_publicacao) %>% distinct()
 
 #extrai orientacoes 
 perfil.df.orientacoes <- extrai.orientacoes(perfil) %>%
@@ -283,13 +286,29 @@ public.eventos.df %>%
 # que o programa esteve presente em pelo menos um evento de sede internacional em 
 #todos os anos registrados na base de dados.
 
-#Orientacoes completas por ano e natureza
-ggplot(orient.df,aes(ano,fill=natureza)) +
-  geom_bar(stat = "count", position="dodge") +
-  ggtitle("Natureza das Orientacoes Completas Por Ano") +
+#Orientacoes completas por ano e natureza - DEPRECIADA POR VERSÃO GEOM_LINE()
+
+#ggplot(orient.df,aes(ano,fill=natureza)) +
+#  geom_bar(stat = "count", position="dodge") +
+#  ggtitle("Natureza das Orientacoes Completas Por Ano") +
+#  theme(legend.position="right",legend.text=element_text(size=7)) +
+#  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+#  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 25))
+
+orient.df %>%
+  group_by(ano, natureza) %>% summarise(total = n()) %>%
+  ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
+  geom_line() +
+  ggtitle("Número de orientações finalizadas por ano") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 25))
+  labs(x="Ano",y="Quantidade de Orientações")
+
+#Evolução temporal de orientações em andamento e concluídas
+
+perfil.df.orientacoes %>% group_by(ano, situacao) %>%
+  ggplot(aes(x=ano,y=situacao,color=situacao)) +
+  geom_point(shape = 1) + geom_jitter(shape = 1) + facet_wrap(. ~ Natureza)
 
 #Observando a evolução do número de orientações completas ao longo dos anos,
 #percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
@@ -360,21 +379,27 @@ perfil.df.orientacoes %>% group_by(ano, situacao) %>%
 # de pós graduações no sentido restrito foram maiores que outras
 # orientações.
 
-# Mestrados e cursos que mais ocorrem por ano
-ggplot(orient.mestrado.df, aes(ano, fill=curso)) +
+# Mestrados e cursos que mais ocorrem por ano - NÃO VAI ROLAR LEGENDA PRA TODOS OS CURSOS
+orient.mestrado.df %>%
+ggplot(aes(ano, fill=curso)) +
   geom_bar(stat = 'count') +
   ggtitle('Orientações por ano') +
   theme(legend.position = 'right') +
   labs(x='Ano',y='Cursos')
+
+temp <- orient.df %>%
+  select(natureza, curso) %>%
+  filter(grepl("MESTRADO", str_to_upper(natureza))) %>%
+  distinct()
 
 # Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
 # o grande domínio em volume da pós graduação em Biologia animal, que na maioria
 # dos anos corresponde a quase metade das orientações de pós graduação por ano
 # dentre os PPG estudados.
 
-# Publicações em países:
+# Publicações de capítulos de livros por ano/país
 perfil.df.publicacoes %>%
-  filter(!(tipo_producao %in% c('EVENTO','TEXTO_EM_JORNAIS','PERIODICO','ARTIGO_ACEITO'))) %>%
+  filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
   group_by(tipo_producao,pais_de_publicacao) %>%
   ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
   geom_point(alpha = 0.7) + geom_jitter() +
