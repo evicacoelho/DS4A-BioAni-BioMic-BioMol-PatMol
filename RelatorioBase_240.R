@@ -196,6 +196,16 @@ V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
 V(g)$publicacao <- perfil.df$PERIODICO
 V(g)$eventos <- perfil.df$EVENTO
 
+#Indice de bolsas
+
+bolsas.df <- orient.df %>% filter(bolsa == "SIM") %>%
+  group_by(natureza, ano) %>%
+  summarise(num_bolsas = n()) %>%
+  inner_join((orient.df %>%
+                group_by(natureza, ano) %>%
+                summarise(num_orients = n())), by = c("natureza", "ano")) %>%
+  mutate(ratio = num_bolsas/num_orients)
+
 ###
 
 #Visualizacao
@@ -277,15 +287,23 @@ ggplot(orient.df,aes(ano,fill=natureza)) +
 #demais naturezas de orientações - sugerindo uma mudança brusca nas bases
 #do programa.
 
-#Bolsas distribuidas por ano
+#Bolsas distribuidas por ano - DEPRECIADO; GRÁFICO MELHOR FOI PRODUZIDO
 
-orient.df %>% filter(bolsa == "SIM") %>%
-ggplot(aes(ano,fill=natureza)) +
-  geom_bar(stat = "count", position = "dodge") +
-  ggtitle("Bolsas disponibilizadas por ano") +
+#orient.df %>% filter(bolsa == "SIM") %>%
+#ggplot(aes(ano,fill=natureza)) +
+#  geom_bar(stat = "count", position = "dodge") +
+#  ggtitle("Bolsas disponibilizadas por ano") +
+#  theme(legend.position="right",legend.text=element_text(size=7)) +
+#  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+#  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 25))
+
+bolsas.df %>%
+  ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
+  geom_line() + #facet_wrap(. ~ natureza) + #CASO PREFIRA DIVIDIR AS NATUREZAS
+  ggtitle("Porcentagem de orientações contempladas por bolsas") +
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 25))
+  labs(x="Ano",y="Índice de bolsas")
 
 #Comparando os gráficos de orientações completas e de bolsas, é possível
 #perceber que o número de bolsas oferecidas
@@ -374,7 +392,7 @@ perfil.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_point(shape = 2, size = .8) + geom_jitter() +
   ggtitle('Relação de Orientações Concluídas x Publicações') +
-  labs(x='Publicações',y='Orientações concluídas') + facet_wrap( ~ grande_area, ncol = 2)
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ grande_area, ncol = 2)
 
 #Perfil-Areas - Questao 14
 
@@ -408,3 +426,5 @@ V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
 V(g)$publicacao <- perfil.df$PERIODICO
 E(g)$eventos <- perfil.df$EVENTO
 plot(g, vertex.label = NA,vertex.color=V(g)$publicacao,edge.color=E(g)$eventos)
+
+#Indice de bolsas
