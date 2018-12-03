@@ -2,6 +2,7 @@
 #LEMBRAR DE CONFIGURAR O DIRETORIO NO COMANDO setwd()
 
 #Pacotes para serem ativados
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 library(tidyverse) #Importado para manipulação de tibbles
 library(jsonlite) #Importado para carga dos arquivos JSON para o R
 library(listviewer) #Importado para análise dos arquivos JSON
@@ -220,11 +221,15 @@ bolsas.df <- orient.df %>% filter(bolsa == "SIM") %>%
                 group_by(natureza, ano) %>%
                 summarise(num_orients = n())), by = c("natureza", "ano")) %>%
   mutate(ratio = num_bolsas/num_orients)
+```
 
 ###
 
 #Visualizacao
-# Grafico de barras; periodicos por ano
+
+Grafico de barras; periodicos por ano
+
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 public.periodico.df %>%
   group_by(ano) %>%
   summarise(Quantidade = n()) %>%
@@ -233,14 +238,16 @@ public.periodico.df %>%
   ggtitle("Periodicos publicados por ano") +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+```
 
-#Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-#de Biologia Animal apresentou pouco crescimento entre 2010 e 2017, registrando
-#de 60 a 70 publicações por ano em grande parte da amostra.
+Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
+de Biologia Animal apresentou pouco crescimento entre 2010 e 2017, registrando
+de 60 a 70 publicações por ano em grande parte da amostra.
 
-#Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
-#Numero de areas de pesquisa do professor
+Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+Numero de areas de pesquisa do professor
 
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 perfil.df %>%
   ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
   geom_point() +
@@ -250,27 +257,32 @@ perfil.df %>%
   labs(x="Pesquisador(a)",y="Numero de publicacoes") +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
   geom_hline(yintercept = sum(perfil.df %>% summarize(x = median(PERIODICO))), color = "red")
+```
 
-#Investigando o comportamento dos pesquisadores do programa, os professores
-#foram ordenados pelo número total de publicações em periódicos entre 2010 e 2017, 
-#cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
-#26 publicações no período total. O gráfico indica que, dos 19 pesquisadores
-#inclusos na base de dados, dois totalizaram publicações que duplicaram este valor
-#e outros dois quadruplicaram este valor, com mais de 104 publicações em periódicos.
+Investigando o comportamento dos pesquisadores do programa, os professores
+foram ordenados pelo número total de publicações em periódicos entre 2010 e 2017, 
+cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
+26 publicações no período total. O gráfico indica que, dos 19 pesquisadores
+inclusos na base de dados, dois totalizaram publicações que duplicaram este valor
+e outros dois quadruplicaram este valor, com mais de 104 publicações em periódicos.
 
-#publicacao de livros por pais/ano
+publicacao de livros por pais/ano
+
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 public.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+```
 
-#Apenas três anos apresentaram registros de publicação de livros por parte
-#do Programa no período de 2010 a 2017. Entretanto, uma observação notável
-#é um maior número de publicações em países estrangeiros que no Brasil, o que
-#sinaliza um bom grau de internacionalização do programa.
+Apenas três anos apresentaram registros de publicação de livros por parte
+do Programa no período de 2010 a 2017. Entretanto, uma observação notável
+é um maior número de publicações em países estrangeiros que no Brasil, o que
+sinaliza um bom grau de internacionalização do programa.
 
-#Eventos nacionais e internacionais
+Eventos nacionais e internacionais
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 public.eventos.df %>%
   filter(pais_do_evento %in% 
            c(names(head(sort(table(public.eventos.df$pais_do_evento)
@@ -279,21 +291,16 @@ public.eventos.df %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacoes em eventos") +
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+```
 
-#Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
-#em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
-# que o programa esteve presente em pelo menos um evento de sede internacional em 
-#todos os anos registrados na base de dados.
+Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
+em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
+ que o programa esteve presente em pelo menos um evento de sede internacional em 
+todos os anos registrados na base de dados.
 
-#Orientacoes completas por ano e natureza - DEPRECIADA POR VERSÃO GEOM_LINE()
+#Orientacoes completas por ano e natureza
 
-#ggplot(orient.df,aes(ano,fill=natureza)) +
-#  geom_bar(stat = "count", position="dodge") +
-#  ggtitle("Natureza das Orientacoes Completas Por Ano") +
-#  theme(legend.position="right",legend.text=element_text(size=7)) +
-#  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-#  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 25))
-
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 orient.df %>%
   group_by(ano, natureza) %>% summarise(total = n()) %>%
   ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
@@ -302,36 +309,30 @@ orient.df %>%
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade de Orientações")
+```
 
-#Evolução temporal de orientações em andamento e concluídas
+Evolução temporal de orientações em andamento e concluídas
 
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 perfil.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=ano,y=situacao,color=situacao)) +
   geom_point(shape = 1) + geom_jitter(shape = 1) + facet_wrap(. ~ Natureza)
+```
 
-#Observando a evolução do número de orientações completas ao longo dos anos,
-#percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
-#naturezas de doutorado e pós-doutorado após 2010.
-#Entretanto, não há um comportamento linear na evolução do número de orientações
-#finalizadas. A partir de 2011, todos os anos pares apresentaram um aumento no
-#número de pós-doutorados enquanto os anos ímpares seguintes mostram
-#retrocesso neste número. Além disso, o ano de 2017 apresentou um aumento
-#considerável no número de teses de doutorado, mas uma queda vertiginosa nas
-#demais naturezas de orientações - sugerindo uma mudança brusca nas bases
-#do programa.
+Observando a evolução do número de orientações completas ao longo dos anos,
+percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
+naturezas de doutorado e pós-doutorado após 2010.
+Entretanto, não há um comportamento linear na evolução do número de orientações
+finalizadas. A partir de 2011, todos os anos pares apresentaram um aumento no
+número de pós-doutorados enquanto os anos ímpares seguintes mostram
+retrocesso neste número. Além disso, o ano de 2017 apresentou um aumento
+considerável no número de teses de doutorado, mas uma queda vertiginosa nas
+demais naturezas de orientações - sugerindo uma mudança brusca nas bases
+do programa.
 
-#Bolsas distribuidas por ano - DEPRECIADO; GRÁFICO MELHOR FOI PRODUZIDO
+Índice de bolsas entre naturezas e evolução temporal
 
-#orient.df %>% filter(bolsa == "SIM") %>%
-#ggplot(aes(ano,fill=natureza)) +
-#  geom_bar(stat = "count", position = "dodge") +
-#  ggtitle("Bolsas disponibilizadas por ano") +
-#  theme(legend.position="right",legend.text=element_text(size=7)) +
-#  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
-#  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 25))
-
-#Índice de bolsas entre naturezas e evolução temporal
-
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 bolsas.df %>%
   ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
   geom_line() + #facet_wrap(. ~ natureza) + #CASO PREFIRA DIVIDIR AS NATUREZAS
@@ -339,78 +340,78 @@ bolsas.df %>%
   theme(legend.position="right",legend.text=element_text(size=7)) +
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Índice de bolsas")
+```
 
-#Comparando os gráficos de orientações completas e de bolsas, é possível
-#perceber que o número de bolsas oferecidas
-#para o Programa não apresentou um comportamento linear ao longo dos anos.
-#Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
-#contemplada pelas agências financiadoras, visto que quase todas as observações
-#receberam bolsa. Por fim, é possível observar que os anos com maior
-#número de orientações de mestrado e doutorado também consistem nos
-#anos com maior número de bolsas distribuídas entre o programa, mas a ocorrência
-#de pesquisas realizadas sem este apoio financeiro foi marcante em todo o período.
+É possível perceber que o número de bolsas oferecidas
+para o Programa não apresentou um comportamento linear ao longo dos anos.
+Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
+contemplada pelas agências financiadoras, visto que quase todas as observações
+receberam bolsa. Por fim, é possível observar que os anos com maior
+número de orientações de mestrado e doutorado também consistem nos
+anos com maior número de bolsas distribuídas entre o programa, mas a ocorrência
+de pesquisas realizadas sem este apoio financeiro foi marcante em todo o período.
 
-#Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
+Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
+
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 plot(g, vertex.label = NA)
+```
 
-#O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
-#e a existência de cooperação entre eles em suas arestas. Portanto, é possível
-#observar uma considerável cooperação entre os membros do Programa, mas
-#alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
+O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
+e a existência de cooperação entre eles em suas arestas. Portanto, é possível
+observar uma considerável cooperação entre os membros do Programa, mas
+alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
 
-# Orientações por ano - DEPRECIADA; GRAFICO ABAIXO APRESENTA MELHOR A INFORMAÇÃO
-#ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
-#  geom_bar(stat = 'count') +
-#  ggtitle('Orientações por ano') +
-#  theme(legend.position = 'right') +
-#  labs(x='Ano',y='Quantidade de orientações')
+Natureza das orientações por tipo de orientação, ano e andamento
 
-#Natureza das orientações por tipo de orientação, ano e andamento
-
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 perfil.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=ano,y=situacao,color=situacao)) +
   geom_point(shape = 1) + geom_jitter(shape = 1) + facet_wrap(. ~ Natureza)
+```
 
-# A partir do número de orientações por ano e pela natureza destas,
-# percebe-se que a quantidade de orientações de pós graduações no
-# sentido restrito era pequena em proporção a outras orientações
-# conduzidas por PPG por ano, até sua volta em 2015, onde o número
-# de pós graduações no sentido restrito foram maiores que outras
-# orientações.
+A partir do número de orientações por ano e pela natureza destas,
+percebe-se que a quantidade de orientações de pós graduações no
+sentido restrito era pequena em proporção a outras orientações
+conduzidas por PPG por ano, até sua volta em 2015, onde o número
+de pós graduações no sentido restrito foram maiores que outras
+orientações.
 
-# Mestrados e cursos que mais ocorrem por ano - NÃO VAI ROLAR LEGENDA PRA TODOS OS CURSOS
+Mestrados e cursos que mais ocorrem por ano - NÃO CONSEGUI LEGENDA PRA TODOS OS CURSOS
+
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 orient.mestrado.df %>%
 ggplot(aes(ano, fill=curso)) +
   geom_bar(stat = 'count') +
   ggtitle('Orientações por ano') +
   theme(legend.position = 'right') +
   labs(x='Ano',y='Cursos')
+```
 
-temp <- orient.df %>%
-  select(natureza, curso) %>%
-  filter(grepl("MESTRADO", str_to_upper(natureza))) %>%
-  distinct()
+Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
+o grande domínio em volume da pós graduação em Biologia animal, que na maioria
+dos anos corresponde a quase metade das orientações de pós graduação por ano
+dentre os PPG estudados.
 
-# Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
-# o grande domínio em volume da pós graduação em Biologia animal, que na maioria
-# dos anos corresponde a quase metade das orientações de pós graduação por ano
-# dentre os PPG estudados.
+Publicações de capítulos de livros por ano/país
 
-# Publicações de capítulos de livros por ano/país
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 perfil.df.publicacoes %>%
   filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
   group_by(tipo_producao,pais_de_publicacao) %>%
   ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
   geom_point(alpha = 0.7) + geom_jitter() +
   labs(x='Tipo de produção',y='País')
+```
 
-# Observa-se deficiência de dados quanto ao país de publicação para periódicos,
-# textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
-# gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
-# los no Brasil e demais países.
+Observa-se deficiência de dados quanto ao país de publicação para periódicos,
+textos em jornais e artigos aceitos para os PPG analizados. Ainda assim, este
+gráfico demonstra bem a heterogeniedade das publicações de livros e/ou capítu-
+los no Brasil e demais países.
 
-#Perfil-Areas - Questao 12
+Perfil-Areas - Questao 12
 
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 perfil.areas <- perfil.df.areas.de.atuacao %>%
   left_join(perfil.df, by = "idLattes") %>%
   rowwise() %>% #realizar sum() corretamente
@@ -422,7 +423,7 @@ perfil.areas <- perfil.df.areas.de.atuacao %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.areas) <- c("tbl_df", "data.frame") #desfazer rowwise
 
-#Graficos ignorando especialidade e subarea, como incluir estas variaveis?
+#Graficos ignorando especialidade e subarea
 perfil.areas %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
@@ -431,10 +432,12 @@ perfil.areas %>%
   geom_point(shape = 2, size = .8) + geom_jitter(shape = 2, size = .8) +
   ggtitle('Relação de Orientações Concluídas x Publicações') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ grande_area, ncol = 2)
+```
 
-#Relação de produção-orientação pelo número de áreas do pesquisador
-#Quem trabalha em mais áreas diferentes publica/orienta mais?
+Relação de produção-orientação pelo número de áreas do pesquisador
+Quem trabalha em mais áreas diferentes publica/orienta mais?
 
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 perfil.areas %>% 
   select(-sub_area, -especialidade) %>%
   distinct() %>%
@@ -444,9 +447,11 @@ perfil.areas %>%
   geom_point() +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
+```
 
-#Perfil-Areas - Questao 14
+Perfil-Areas - Questao 14
 
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 public.eventos.df$`autores-endogeno` <- gsub('\\s+', '', public.eventos.df$`autores-endogeno`)
 especialidade.orient <- public.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
@@ -468,12 +473,15 @@ especialidade.orient %>%
   geom_point(size = .8) + geom_jitter() +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
+```
 
-#Grafo - Questao 15
+Grafo - Questao 15
 
+```{r, warning=FALSE, message=FALSE,error=FALSE}
 V(g)$programa <- df$Programa
 V(g)$orient_dout <- perfil.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g)$orient_mest <- perfil.df$ORIENTACAO_CONCLUIDA_MESTRADO
 V(g)$publicacao <- perfil.df$PERIODICO
 E(g)$eventos <- perfil.df$EVENTO
 plot(g, vertex.label = NA,vertex.color=V(g)$publicacao,edge.color=E(g)$eventos)
+```
