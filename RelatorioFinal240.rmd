@@ -1,9 +1,9 @@
 ---
 title: Análise da Produção Científica e Acadêmica da Universidade de Brasília - Relatório
-  Parcial sobre Pós-Graduação em Ciências Biológicas
+  Final sobre Pós-Graduação em Ciências Biológicas
 author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júlia G. R. Rodrigues
   14/0153713
-date: "18/11/2018"
+date: "05/12/2018"
 output:
   pdf_document: default
   word_document: default
