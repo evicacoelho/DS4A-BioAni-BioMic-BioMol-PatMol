@@ -186,6 +186,8 @@ head(sort(table(as.data.frame(unlist
 public.periodico.df <- pub.ls2df(public, 1) #artigos
 public.livros.df <- pub.ls2df(public, 2) #livros
 public.eventos.df <- pub.ls2df(public, 5) #eventos
+public.eventos.df$`autores-endogeno` <- gsub('\\s+', '', public.eventos.df$`autores-endogeno`)
+
 #Publicacao por ano
 table(public.periodico.df$ano)
 #20 revistas mais publicadas
@@ -433,14 +435,14 @@ orient.mestrado.df %>%
 #Perfil-Areas - Questao 12
 
 #Graficos ignorando especialidade e subarea, como incluir estas variaveis?
+#Lembrando que um pesquisador possui mais de uma grande ares, se repete entre graficos
 perfil.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
-  group_by(publicacoes) %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_jitter(shape = 2, size = .8) +
   ggtitle('Relação de Orientações Concluídas x Publicações') +
-  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ grande_area, ncol = 2)
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ grande_area)
 
 #Relação de produção-orientação pelo número de áreas do pesquisador
 #Quem trabalha em mais áreas diferentes publica/orienta mais?
@@ -457,7 +459,6 @@ perfil.df.areas.de.atuacao %>%
 
 #Perfil-Areas - Questao 14
 
-public.eventos.df$`autores-endogeno` <- gsub('\\s+', '', public.eventos.df$`autores-endogeno`)
 especialidade.orient <- public.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
   select (`autores-endogeno`) %>%
