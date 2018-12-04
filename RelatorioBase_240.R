@@ -346,8 +346,8 @@ orient.df %>%
 #Evolução temporal de orientações em andamento e concluídas
 
 perfil.df.orientacoes %>% group_by(ano, situacao) %>%
-  ggplot(aes(x=ano,y=situacao,color=situacao)) +
-  geom_jitter(shape = 1) + facet_wrap(. ~ Natureza)
+  ggplot(aes(x=situacao,y=ano,color=ano)) +
+  geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza)
 
 #Observando a evolução do número de orientações completas ao longo dos anos,
 #percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
