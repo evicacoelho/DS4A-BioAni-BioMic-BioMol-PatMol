@@ -1,13 +1,13 @@
 ---
 title: Análise da Produção Científica e Acadêmica da Universidade de Brasília - Relatório
   Parcial sobre Pós-Graduação em Ciências Biológicas
-author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júlia G. R. Rodrigues
-  14/0153713
+author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júlia
+  G. R. Rodrigues 14/0153713
 date: "18/11/2018"
 output:
+  html_document: default
   pdf_document: default
   word_document: default
-  html_document: default
 ---
 
 \documentclass{article}
@@ -144,6 +144,7 @@ library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
+library(stringr) #str_to_upper
 
 setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master")
 source("elattes.ls2df.R")
@@ -571,21 +572,6 @@ perfil.313.df <- perfil.313.df.professores %>%
 
 glimpse(perfil.313.df)
 
-especialidade.240.orient <- public.240.eventos.df %>%
-  filter (classificacao == "INTERNACIONAL") %>%
-  select (`autores-endogeno`) %>%
-  separate_rows(`autores-endogeno`, sep = ";") %>%
-  distinct() %>%
-  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
-  right_join(perfil.240.df, by = c("autores-endogeno" = "idLattes")) %>%
-  left_join(perfil.240.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
-  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
-  rename(idLattes = `autores-endogeno`)
-
-especialidade.240.orient[is.na(especialidade.240.orient)] <- 0 #Remove NAs do dataframe
-especialidade.240.orient$especialidade <- sub("^$", "Não informada", especialidade.240.orient$especialidade)
-especialidade.240.orient$internacional <- sub(0, "Não", especialidade.240.orient$internacional)
-
 ```
 
 ##CRISP-DM Fase 3 - Preparação dos Dados
@@ -668,6 +654,22 @@ public.243.eventos.df <- pub.ls2df(public.243, 5) #eventos
 public.313.periodico.df <- pub.ls2df(public.313, 1) #artigos
 public.313.livros.df <- pub.ls2df(public.313, 2) #livros
 public.313.eventos.df <- pub.ls2df(public.313, 5) #eventos
+
+#Dataframe específico para análise de especialidades
+especialidade.240.orient <- public.240.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.240.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.240.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+
+especialidade.240.orient[is.na(especialidade.240.orient)] <- 0 #Remove NAs do dataframe
+especialidade.240.orient$especialidade <- sub("^$", "Não informada", especialidade.240.orient$especialidade)
+especialidade.240.orient$internacional <- sub(0, "Não", especialidade.240.orient$internacional)
 ```
 *Publicações por ano*
 ```{r}
