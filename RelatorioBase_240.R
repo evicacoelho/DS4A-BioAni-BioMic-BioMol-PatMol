@@ -302,7 +302,7 @@ perfil.df.publicacoes %>%
   filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
   group_by(tipo_producao,pais_de_publicacao) %>%
   ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
-  geom_jitter() +
+  geom_jitter() + ggtitle("Publicações de capítulos de livros por ano/país") +
   labs(x='Tipo de produção',y='País')
 
 # Observa-se deficiência de dados quanto ao país de publicação para periódicos,
@@ -347,7 +347,8 @@ orient.df %>%
 
 perfil.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
-  geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza)
+  geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  ggtitle("Disposição de orientações por ano")
 
 #Observando a evolução do número de orientações completas ao longo dos anos,
 #percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
