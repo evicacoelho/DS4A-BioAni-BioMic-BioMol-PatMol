@@ -1,8 +1,3 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 #Analise inicial dos arquivos geraos pelo e-Lattes
 #LEMBRAR DE CONFIGURAR O DIRETORIO NO COMANDO setwd()
 
@@ -22,10 +17,10 @@ setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
 source("elattes.ls2df.R")
 
 #CONFIGURAR - DIRETORIO DOS .JSON (Arquivos eLattes)
-perfil <- fromJSON("240BiologiaAnimal/240profile.json")
-public <- fromJSON("240BiologiaAnimal/240publication.json")
-orient <- fromJSON("240BiologiaAnimal/240advise.json")
-graphl <- fromJSON("240BiologiaAnimal/240graph.json")
+perfil <- fromJSON("242BiologiaMicrobiana/242profile.json")
+public <- fromJSON("242BiologiaMicrobiana/242publication.json")
+orient <- fromJSON("242BiologiaMicrobiana/242advise.json")
+graphl <- fromJSON("242BiologiaMicrobiana/242graph.json")
 
 #Arquivos Sucupira? Pesquisar
 #res.area <- fromJSON("UnBPosGeral/researchers_by_area.json") #NÃO UTILIZADO
@@ -246,8 +241,9 @@ public.periodico.df %>%
 ```
 
 Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-de Biologia Animal apresentou pouco crescimento entre 2010 e 2017, registrando
-de 60 a 70 publicações por ano em grande parte da amostra.
+de Biologia Microbiana apresentou um crescimento considerável de 2013 para 2014,
+aumentando o número de publicações em mais de 25% e mantendo esta média a partir
+de então.
 
 Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
 Numero de areas de pesquisa do professor
@@ -265,11 +261,11 @@ perfil.df %>%
 ```
 
 Investigando o comportamento dos pesquisadores do programa, os professores
-foram ordenados pelo número total de publicações em periódicos entre 2010 e 2017, 
+foram ordenados pelo número total de publicações em periódicos entre 2010 e 2017,
 cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
-26 publicações no período total. O gráfico indica que, dos 19 pesquisadores
-inclusos na base de dados, dois totalizaram publicações que duplicaram este valor
-e outros dois quadruplicaram este valor, com mais de 104 publicações em periódicos.
+11 publicações no período total. O gráfico indica que, dos 23 pesquisadores
+inclusos na base de dados, cinco se destacaram com publicações que mais que
+duplicaram este valor - com um deles chegando a 52 publicações em periódicos.
 
 publicacao de livros por pais/ano
 
@@ -281,12 +277,12 @@ public.livros.df %>%
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 ```
 
-Apenas três anos apresentaram registros de publicação de livros por parte
-do Programa no período de 2010 a 2017. Entretanto, uma observação notável
-é um maior número de publicações em países estrangeiros que no Brasil, o que
-sinaliza um bom grau de internacionalização do programa.
+Apenas cinco anos apresentaram registros de publicação de livros por parte
+do Programa no período de 2010 a 2017. Além disso, é possível notar uma grande
+concentração destas publicações em território nacional.
 
 Eventos nacionais e internacionais
+
 ```{r, warning=FALSE, message=FALSE,error=FALSE}
 public.eventos.df %>%
   filter(pais_do_evento %in% 
@@ -298,14 +294,21 @@ public.eventos.df %>%
   xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
 ```
 
-Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
+Considerando eventos, o Programa de Biologia Microbiana teve comparecimento maior
 em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
- que o programa esteve presente em pelo menos um evento de sede internacional em 
-todos os anos registrados na base de dados.
+que o programa esteve presente em eventos de sede internacional em 
+todos os anos registrados na base de dados, principalmente nos Estados Unidos.
 
-#Orientacoes completas por ano e natureza
+Orientacoes completas por ano e natureza
 
 ```{r, warning=FALSE, message=FALSE,error=FALSE}
+#ggplot(orient.df,aes(ano,fill=natureza)) +
+#  geom_bar(stat = "count", position="dodge") +
+#  ggtitle("Natureza das Orientacoes Completas Por Ano") +
+#  theme(legend.position="right",legend.text=element_text(size=7)) +
+#  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+#  labs(x="Ano",y="Quantidade") + scale_y_continuous(limits = c(0, 25))
+
 orient.df %>%
   group_by(ano, natureza) %>% summarise(total = n()) %>%
   ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
@@ -325,19 +328,28 @@ perfil.df.orientacoes %>% group_by(ano, situacao) %>%
 ```
 
 Observando a evolução do número de orientações completas ao longo dos anos,
-percebe-se que o Programa de Pós-Graduação cresceu consideravelmente nas
-naturezas de doutorado e pós-doutorado após 2010.
+percebe-se que o Programa de Pós-Graduação cresceu consideravelmente na
+natureza de mestrado após 2010, com uma regressão em 2016.
 Entretanto, não há um comportamento linear na evolução do número de orientações
-finalizadas. A partir de 2011, todos os anos pares apresentaram um aumento no
-número de pós-doutorados enquanto os anos ímpares seguintes mostram
-retrocesso neste número. Além disso, o ano de 2017 apresentou um aumento
-considerável no número de teses de doutorado, mas uma queda vertiginosa nas
-demais naturezas de orientações - sugerindo uma mudança brusca nas bases
-do programa.
+finalizadas. 2014 despontou no número de dissertações de mestrado, mas
+este comportamento não se repetiu posteriormente. Enquanto as orientações
+de mestrado do Programa parecem bem estabelecidas, as supervisões de
+pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
+em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
 
-Índice de bolsas entre naturezas e evolução temporal
+Bolsas distribuidas por ano
 
 ```{r, warning=FALSE, message=FALSE,error=FALSE}
+#orient.df %>% filter(bolsa == "SIM") %>%
+#ggplot(aes(ano,fill=natureza)) +
+#  geom_bar(stat = "count", position = "dodge") +
+#  ggtitle("Bolsas disponibilizadas por ano") +
+#  theme(legend.position="right",legend.text=element_text(size=7)) +
+#  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+#  labs(x="Ano",y="Quantidade de bolsas") + scale_y_continuous(limits = c(0, 25))
+
+#Índice de bolsas entre naturezas e evolução temporal
+
 bolsas.df %>%
   ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
   geom_line() + #facet_wrap(. ~ natureza) + #CASO PREFIRA DIVIDIR AS NATUREZAS
@@ -347,14 +359,16 @@ bolsas.df %>%
   labs(x="Ano",y="Índice de bolsas")
 ```
 
-É possível perceber que o número de bolsas oferecidas
-para o Programa não apresentou um comportamento linear ao longo dos anos.
+Comparando os gráficos de orientações completas e de bolsas, é possível
+perceber que o número de bolsas oferecidas para o Programa acompanhou o
+total de orientações de maneira satisfatória ao longo dos anos.
+Durante todo o período, todas as naturezas apresentaram um índice de pelo menos
+50% de bolsas, chegando a 100% em alguns casos.
 Além disso, as teses de pós-doutorado se mostram a natureza de pesquisa melhor
-contemplada pelas agências financiadoras, visto que quase todas as observações
-receberam bolsa. Por fim, é possível observar que os anos com maior
-número de orientações de mestrado e doutorado também consistem nos
-anos com maior número de bolsas distribuídas entre o programa, mas a ocorrência
-de pesquisas realizadas sem este apoio financeiro foi marcante em todo o período.
+contemplada pelas agências financiadoras, visto que apenas uma das observações
+não recebeu bolsa. Por fim, é possível observar que o pico no número de
+orientações de mestrado registrado em 2014 não foi tão expressivo em número
+de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
 Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
 
@@ -362,14 +376,19 @@ Grafo de proximidade entre pesquisadores do Programa de Pos-Graduacao
 plot(g, vertex.label = NA)
 ```
 
-O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices
-e a existência de cooperação entre eles em suas arestas. Portanto, é possível
-observar uma considerável cooperação entre os membros do Programa, mas
-alguns pesquisadores relatam baixa diversidade em suas colaborações no período (2010 a 2017).
+O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices e a existência de cooperação entre eles em suas arestas. Portanto, é possível observar que grande parte dos membros do Programa possui um grau de cooperação pequeno, limitado a até dois outros pesquisadores.
 
-Natureza das orientações por tipo de orientação, ano e andamento
+Orientações por ano - DEPRECIADA; GRAFICO ABAIXO APRESENTA MELHOR A INFORMAÇÃO
 
 ```{r, warning=FALSE, message=FALSE,error=FALSE}
+#ggplot(perfil.df.orientacoes, aes(ano, fill=orientacao)) +
+#  geom_bar(stat = 'count') +
+#  ggtitle('Orientações por ano') +
+#  theme(legend.position = 'right') +
+#  labs(x='Ano',y='Quantidade de orientações')
+
+#Natureza das orientações por tipo de orientação, ano e andamento
+
 perfil.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=ano,y=situacao,color=situacao)) +
   geom_point(shape = 1) + geom_jitter(shape = 1) + facet_wrap(. ~ Natureza)
@@ -382,7 +401,8 @@ conduzidas por PPG por ano, até sua volta em 2015, onde o número
 de pós graduações no sentido restrito foram maiores que outras
 orientações.
 
-Mestrados e cursos que mais ocorrem por ano - NÃO CONSEGUI LEGENDA PRA TODOS OS CURSOS
+
+Mestrados e cursos que mais ocorrem por ano
 
 ```{r, warning=FALSE, message=FALSE,error=FALSE}
 orient.mestrado.df %>%
@@ -391,10 +411,15 @@ ggplot(aes(ano, fill=curso)) +
   ggtitle('Orientações por ano') +
   theme(legend.position = 'right') +
   labs(x='Ano',y='Cursos')
+
+temp <- orient.df %>%
+  select(natureza, curso) %>%
+  filter(grepl("MESTRADO", str_to_upper(natureza))) %>%
+  distinct()
 ```
 
 Dentre os mestrados nos programas de pós graduação estudados, pode se perceber
-o grande domínio em volume da pós graduação em Biologia animal, que na maioria
+o grande domínio em volume da pós graduação em Biologia Microbiana, que na maioria
 dos anos corresponde a quase metade das orientações de pós graduação por ano
 dentre os PPG estudados.
 
@@ -428,7 +453,7 @@ perfil.areas <- perfil.df.areas.de.atuacao %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.areas) <- c("tbl_df", "data.frame") #desfazer rowwise
 
-#Graficos ignorando especialidade e subarea
+#Graficos ignorando especialidade e subarea, como incluir estas variaveis?
 perfil.areas %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
@@ -481,7 +506,6 @@ especialidade.orient %>%
 ```
 
 Grafo - Questao 15
-
 ```{r, warning=FALSE, message=FALSE,error=FALSE}
 V(g)$programa <- df$Programa
 V(g)$orient_dout <- perfil.df$ORIENTACAO_CONCLUIDA_DOUTORADO

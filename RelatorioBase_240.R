@@ -465,7 +465,7 @@ especialidade.orient$internacional <- sub(0, "Não", especialidade.orient$intern
 
 especialidade.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
-  geom_point(size = .8) + geom_jitter() +
+  geom_point(size = .8) + geom_jitter(size = .8) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 
