@@ -144,6 +144,7 @@ library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
+library(stringr) #Importado para manipulações de strings
 
 setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master")
 source("elattes.ls2df.R")
