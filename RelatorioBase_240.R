@@ -12,7 +12,7 @@ library(ggplot2) #Importado para visualizações com ggplot()
 library(stringr) #str_to_upper
 
 #CONFIGURAR - DIRETORIO DOS .R
-setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol")
+setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master")
 source("elattes.ls2df.R")
 
 #CONFIGURAR - DIRETORIO DOS .JSON (Arquivos eLattes)
@@ -104,8 +104,6 @@ perfil.df.professores <- extrai.perfis(perfil)
 perfil.df.publicacoes <- extrai.producoes(perfil) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
 perfil.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
-
-perfil.df.publicacoes %>% select(pais_de_publicacao) %>% distinct()
 
 #extrai orientacoes 
 perfil.df.orientacoes <- extrai.orientacoes(perfil) %>%
@@ -244,8 +242,8 @@ bolsas.df <- orient.df %>% filter(bolsa == "SIM") %>%
 public.periodico.df %>%
   group_by(ano) %>%
   summarise(Quantidade = n()) %>%
-  ggplot(aes(ano, Quantidade)) +
-  geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
+  ggplot(aes(ano, Quantidade, fill = ano)) +
+  geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periodicos publicados por ano") +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
@@ -273,7 +271,7 @@ perfil.df %>%
 #inclusos na base de dados, dois totalizaram publicações que duplicaram este valor
 #e outros dois quadruplicaram este valor, com mais de 104 publicações em periódicos.
 
-#Quantidade de eventos por professor(a) e o seu Numero de areas de pesquisa
+#Número de areas de pesquisa e quantidade de eventos por pesquisador
 
 perfil.df %>%
   ggplot(aes(idLattes,EVENTO, color = num_areas)) +
@@ -317,7 +315,7 @@ public.eventos.df %>%
                              , decreasing = TRUE), 10)))) %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
-  ggtitle("Paericipação em eventos por localização") +
+  ggtitle("Participação em eventos por localização") +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 
 #Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
@@ -421,6 +419,7 @@ plot(g, vertex.label = NA)
 #  theme(legend.position = 'right') +
 #  labs(x='Ano',y='Cursos')
 
+#Cursos de Mestrado e total de alunos no período (2011-2017)
 orient.mestrado.df %>%
   group_by(curso) %>%
   summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
@@ -436,14 +435,14 @@ orient.mestrado.df %>%
 #Perfil-Areas - Questao 12
 
 #Graficos ignorando especialidade e subarea, como incluir estas variaveis?
-#Lembrando que um pesquisador possui mais de uma grande ares, se repete entre graficos
+#Lembrando que um pesquisador possui mais de uma grande area, se repete entre graficos
 perfil.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_jitter(shape = 2, size = .8) +
   ggtitle('Relação de Orientações Concluídas x Publicações') +
-  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ grande_area)
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 
 #Relação de produção-orientação pelo número de áreas do pesquisador
 #Quem trabalha em mais áreas diferentes publica/orienta mais?
@@ -459,6 +458,7 @@ perfil.df.areas.de.atuacao %>%
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 
 #Perfil-Areas - Questao 14
+#Presença em congressos internacionais por número de orientações:
 
 especialidade.orient <- public.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
