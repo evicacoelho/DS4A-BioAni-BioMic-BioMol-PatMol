@@ -695,7 +695,7 @@ orient.313.df <- rbind(rbind(orient.313.posdoutorado.df, orient.313.doutorado.df
 *Construção de Grafo de Colaborações*
 ```{r, warning=FALSE,message=FALSE}
 g.240 <- g.ls2ig(graphl.240)
-df.240 <- as.data.frame(V(g)$name); colnames(df) <- "Idlattes"
+df.240 <- as.data.frame(V(g.240)$name); colnames(df.240) <- "Idlattes"
 df.240 <- left_join(df.240, df.prog, by = c("Idlattes" = "idLattes"))
 
 g.242 <- g.ls2ig(graphl.242)
@@ -707,13 +707,13 @@ df.243 <- as.data.frame(V(g.243)$name); colnames(df.243) <- "Idlattes"
 df.243 <- left_join(df.243, df.prog, by = c("Idlattes" = "idLattes"))
 
 g.313 <- g.ls2ig(graphl.313)
-df.313 <- as.data.frame(V(g.313)$name); colnames(df.313f) <- "Idlattes"
+df.313 <- as.data.frame(V(g.313)$name); colnames(df.313) <- "Idlattes"
 df.313 <- left_join(df.313, df.prog, by = c("Idlattes" = "idLattes"))
 ```
 
 Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa, vide código abaixo.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 df.240 <- df.240 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.240)$programa <- df.240$Programa
@@ -732,7 +732,7 @@ V(g.242)$orient_dout <- perfil.242.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.242)$orient_mest <- perfil.242.df$ORIENTACAO_CONCLUIDA_MESTRADO
 E(g.242)$publicacao <- perfil.242.df$PERIODICO
 E(g.242)$eventos <- perfil.242.df$EVENTO
-V(g.243)$color = 'yellow'
+V(g.242)$color = 'yellow'
 V(g.242)$name = df.242$Docente
 V(g.242)$name = str_extract(V(g.242)$name, '[^ ]+$')
 
