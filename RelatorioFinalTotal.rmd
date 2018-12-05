@@ -5,15 +5,11 @@ author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júl
   G. R. Rodrigues 14/0153713
 date: "18/11/2018"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document:
+    latex_engine: xelatex
   word_document: default
 ---
-
-\documentclass{article}
-\DeclareUnicodeCharacter{U+FB01}
-\begin{document}
-\end{document}
 
 # Resumo
 
@@ -67,9 +63,10 @@ Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâm
 
 A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
 
-![production](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
+![production](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
 
-![impact](~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
+![impact](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
+
 Um impacto normalizado de 1,00 significa que a produção teve comportamento similar à média global. Um impacto superior a 1,00 indica maior citação que a média (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média (SeCom, 2018, Adaptado).
 
 Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global.(SeCom, 2018).
@@ -832,6 +829,7 @@ perfil.240.df %>%
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
   geom_hline(yintercept = sum(perfil.240.df %>% summarize(x = median(PERIODICO))), color = "red")
 ```
+
 O gráfico acima demonstra o total de publicações para cada pesquisador, demonstrando relativa homogeneidade entre a quantidade de pesquisadores em média, porém há aqueles que deslocam a média para cima por estarem fora do desvio padrão acima ou abaixo, sendo que há destaque para dois pesquisadores que tem um número de publicação que corresponde cerca de quatro vezes o valor da média.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
@@ -857,6 +855,7 @@ public.240.livros.df %>%
   ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
+
 Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal
 
 ###Publicações de capítulos de livros por ano/país
@@ -882,6 +881,7 @@ public.240.eventos.df %>%
   ggtitle("Participacão em eventos por localização") +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
+
 Considerando eventos, o Programa de Biologia Animal teve comparecimento maior
 em eventos no Brasil que em países estrangeiros. Ainda assim, o gráfico mostra
 que o programa esteve presente em eventos de sede internacional em 
