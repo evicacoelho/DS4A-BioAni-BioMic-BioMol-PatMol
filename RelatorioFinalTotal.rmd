@@ -1035,7 +1035,7 @@ public.240.livros.df %>%
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
-Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal.
+Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os Estados Unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal. Ainda assim, é curioso notar que menos da metade dos oito anos da base de dados registraram publicações de livros (2013, 2014, 2016).
 
 ###Publicações de capítulos de livros por ano/país
 ```{r}
@@ -1047,7 +1047,7 @@ perfil.240.df.publicacoes %>%
   labs(x='Tipo de produção',y='País')
 ```
 
-AAAAAA
+Trazendo a análise de publicações de capítulos de livros, há um aumento expressivo no número de amostras. Todos os anos analisados (2010-2017) registraram mais de um capítulo de livro publicado pelo PPG em Biologia Animal. Entretanto, a publicação de capítulos não apresenta o mesmo nível de internacionalização que o gráfico anterior. Uma observação curiosa é a grande participação de países estrangeiros no início da amostra, enquanto os anos 2016 e 2017 tem publicações majoritariamente nacionais.
 
 ###Eventos nacionais e internacionais
 ```{r}
