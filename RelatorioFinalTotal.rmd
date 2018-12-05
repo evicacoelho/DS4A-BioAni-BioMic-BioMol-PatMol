@@ -989,6 +989,7 @@ O gráfico acima demonstra o total de eventos registrados por cada pesquisador, 
 public.240.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  guides(color = FALSE) +
   ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
@@ -1016,6 +1017,7 @@ public.240.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1051,6 +1053,7 @@ em nenhum dos anos pesquisados e chegaram a zero registros em 2017 - enquanto o 
 perfil.240.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
@@ -1091,14 +1094,14 @@ orient.240.mestrado.df %>%
 
 AAAAAAA
 
-###Relação de Orientações Concluídas x Publicações por área:
+###Concentração de áreas por grandes áreas:
 ```{r echo=FALSE}
 perfil.240.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_jitter(shape = 2, size = .8) +
-  ggtitle('Relação de Orientações Concluídas x Publicações') +
+  ggtitle('Concentração de áreas por grandes áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 ```
 
@@ -1109,11 +1112,22 @@ AAAAAAAA Lembrando que um pesquisador possui mais de uma grande area, o pesquisa
 perfil.240.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
+  guides(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
 
 AAAAA Quem trabalha em mais áreas diferentes publica/orienta mais?
+  
+  ###Presença em congressos internacionais por número de orientações:
+  ```{r echo=FALSE}
+especialidade.240.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_jitter(size = .8) +
+  guides(color = FALSE) +
+  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
+  labs(x='Participacao internacional',y='Orientações concluídas')
+```
 
 ## Biologia Microbiana
 
@@ -1125,6 +1139,7 @@ public.242.periodico.df %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periodicos publicados por ano") +
+  guides(color = FALSE) +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 ```
@@ -1167,6 +1182,7 @@ public.242.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   ggtitle("Livros publicados por ano") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1193,6 +1209,7 @@ public.242.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1217,6 +1234,7 @@ BBBBBBBBB
 perfil.242.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
@@ -1248,14 +1266,14 @@ orient.242.mestrado.df %>%
 
 BBBBBBB
 
-###Relação de Orientações Concluídas x Publicações por área:
+###Concentração de áreas por grandes áreas:
 ```{r}
 perfil.242.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_jitter(shape = 2, size = .8) +
-  ggtitle('Relação de Orientações Concluídas x Publicações') +
+  ggtitle('Concentração de áreas por grandes áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 ```
 
@@ -1266,11 +1284,25 @@ BBBBB Lembrando que um pesquisador possui mais de uma grande area, o pesquisador
 perfil.242.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
+  gudies(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
 
 BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
+
+
+###Presença em congressos internacionais por número de orientações:
+```{r}
+especialidade.242.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_jitter(size = .8) +
+  guides(color = FALSE) +
+  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
+  labs(x='Participacao internacional',y='Orientações concluídas')
+```
+
+BBBBBBBB
 
 ##Biologia Molecular
 
@@ -1281,12 +1313,13 @@ public.243.periodico.df %>%
   summarise(Quantidade = n()) %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
-  ggtitle("Periodicos publicados por ano") +
+  ggtitle("Periódicos publicados por ano") +
+  guides(color = FALSE)
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
-  theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+  theme_minimal() + labs(x="Ano",y="Quantidade de Periódicos")
 ```
 
-CCCCCCCCC
+Este gráfico demonstra a quantidade de periódicos por ano para a PPG de Biologia molecular. É possível notar que por uma margem, as publicações tem uma quantidade constante, a despeito de 2012 que foi significativamente menor que os outros anos.
 
 ###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
 ```{r}
@@ -1301,7 +1334,7 @@ perfil.243.df %>%
   geom_hline(yintercept = sum(perfil.243.df %>% summarize(x = median(PERIODICO))), color = "red")
 ```
 
-CCCCCCC
+Este gráfico de dispersão demonstra para quantas área pertence (indicada pelas cores dos pontos), há uma homogeinidade na quantidade de publicações, exceto para alguns poucos pontos que deslocam a média para cima. A barra vermelha demonstra a mediana da quantidade de publicações.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
 ```{r}
@@ -1316,7 +1349,7 @@ perfil.243.df %>%
   geom_hline(yintercept = sum(perfil.243.df %>% summarize(x = median(EVENTO))), color = "red")
 ```
 
-CCCCCC
+Como o gráfico anterior, para cada pesquisador e pela quantidade de áreas, mostra-se em quantos eventos foram presentes. Nesta figura, denota-se a heterogeneidade, onde há uma grande quantidade de pesquisadores que participam de poucos eventos, bem como pesquisadores que participam de muitos, porém com uma dispersão muito maior e menor agrupamento em torno da mediana. 
 
 ###Publicação de livros por pais/ano
 ```{r}
@@ -1324,10 +1357,11 @@ public.243.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   ggtitle("Livros publicados por ano") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
-CCCCCCCCC
+Perce-be por esta figura, que para a PPG de Biologia Molecular, há uma predominancia de livros publicados no Brasil e uma carência de difusão de informação para outros países, uma vez que poucos livros foram publicados no exterior.
 
 ###Publicações de capítulos de livros por ano/país
 ```{r}
@@ -1339,7 +1373,7 @@ perfil.243.df.publicacoes %>%
   labs(x='Tipo de produção',y='País')
 ```
 
-CCCCCCCCC
+Esta figura como a anterior, mostra que a maioria de capítulos de livos e a maioria de livros inteiros é publicada no Brasil. Porém para a quantidade de capítulos, há uma maior homogeneidade de publicações no esterior, uma vez que há uma boa quantidade de publicações na Holanda e nos Estados Unidos.
 
 ###Eventos nacionais e internacionais
 ```{r}
@@ -1350,10 +1384,11 @@ public.243.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
-CCCCCCCCC
+Dos eventos participados, a maioria exorbitante foi no Brasil com uma expressividade no exterior quase constante para os Estados Unidos, e temporária para outros países, como a Bélgica e a Espanha (que tiveram eventos somente no ano de 2011), Grã-Bretanha (que tiveram eventos nos anos de 2011 e 2014 somente), a Suíça (que teve eventos somente em 2010) e a Colômbia (que teve eventos somente em 2014).
 
 ###Orientacoes completas por ano e natureza
 ```{r}
@@ -1367,17 +1402,18 @@ orient.243.df %>%
   labs(x="Ano",y="Quantidade de Orientações")
 ```
 
-CCCCCCCCC
+Este gráfico de tendência compara a quantidade de orientações e a natureza destes por ano para a PPG de Biologia Molecular. É notável que o aumento até o ano de 2014 era expressivo para as dissetações de mestrado e supervisões de doutorado, tendencia que se alterou para a queda a partir de 2014, onde em 2014 houveram mais que 40 dissertações de mestrado, enqunato em 2017 caiu para 11. A quantidade de teses de doutorado caiu desde 2012 e manteve-se constante em uma margem até 2017.
 
 ###Evolução temporal de orientações em andamento e concluídas
 ```{r}
 perfil.243.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
-CCCCCCCCC
+A disposição das orientações e das naturezas de orientações é descrita na figura acima. Nesta figura, percebe-se a tendencia de aumento de orientações em andamento em todas as naturezas de pós-graduações. É notável também que mesmo não houvendo orientações em andamento para alguns anos, ainda haviam dissertações concluídas. Este fato se deve pela a recepção dos docentes para alunos de outras instituições, nas quais estes participavam das bancas e das orientações destes alunos.
 
 ###Índice de bolsas entre naturezas e evolução temporal
 ```{r}
@@ -1390,7 +1426,7 @@ bolsas.243.df %>%
   labs(x="Ano",y="Índice de bolsas")
 ```
 
-CCCCCCCCCCCC
+Na figura acima, demonstra-se a quantidade de bolsas por ano para cada natureza de orientação. É notável a queda para 2011 nas teses de doutorado e superviões de pós doutorado, algo que não se repetiu em nenhum dos outros anos, que continuaram em sua margem de variação normal.
 
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
 ```{r}
@@ -1402,30 +1438,32 @@ orient.243.mestrado.df %>%
   ggtitle('Total de orientações de mestrado') +
   labs(x='Quantidade de alunos',y='Curso do mestrando')
 ```
+A figura acima demonstra no eixo ordenado que um mesmo orientador pode ter alunos em diversos PPGs e compara a quantidade de alunos para cada PPG. Há uma concentração para uma grande quantidade de alunos no programa de Biologia Molecular - o que era esperado e de áreas correlacionadas, que por coincidência são justamente os programas de Biologia Animal e Patologia Molecular. Observe que no eixo abcisso, os números são tomados como fatores para uma quebra de escala, que não seria possível em valores numéricos.
 
-CCCCCCCCC
-
-###Relação de Orientações Concluídas x Publicações por área:
+###Concentração de áreas por grandes áreas:
 ```{r}
 perfil.243.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_jitter(shape = 2, size = .8) +
-  ggtitle('Relação de Orientações Concluídas x Publicações') +
+  ggtitle('Concentração de áreas por grandes áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 ```
 
-CCCCCCC Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
+A figura de gráficos acima explicita que a maior concentração de publicações é dentro da grande área de Ciências Biológicas, como o esperado, dado que ainda ocorrem orientações em outras grandes areas. É visto que os números das áreas que se destacam em cada grande área condiz com sua natureza, uma vez que psicologia é de fato mais presente em Ciencias Humanas, como exemplo. Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
 ```{r}
 perfil.243.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
+  guides(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
+
+Quem trabalha em mais áreas diferentes publica/orienta mais? A figura acima mostra que não, uma vez que quem trabalha em mais áreas orienta mais pessoas, porém publica menosn em relação a quem trabalha em menos áreas.
 
 CCCCCCCCCC Quem trabalha em mais áreas diferentes publica/orienta mais?
 
@@ -1439,6 +1477,7 @@ public.313.periodico.df %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periodicos publicados por ano") +
+  guides(color = FALSE)
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 ```
@@ -1465,7 +1504,6 @@ mediana (26 publicações em periódicos). É curioso observar que, apesar de os
 
 Nota-se aqui um grande destaque para um pesquisador que apresentou 233 publicações, quase 9 vezes o valor obtido pela mediana. Além disso, 22 dos 23 pesquisadores do PPG de Patologia estão relacionados a mais de uma área de pesquisa - revelando um foco menor do programa em especialização e maior em multidisciplinaridade.
 
-
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
 ```{r}
 perfil.313.df %>%
@@ -1489,6 +1527,7 @@ public.313.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   ggtitle("Livros publicados por ano") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1518,6 +1557,7 @@ public.313.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  gudies(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1549,6 +1589,7 @@ mesmo os índices de doutorado apresentaram ao menos 15 observações/ano. Ainda
 perfil.313.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
@@ -1586,15 +1627,15 @@ orient.313.mestrado.df %>%
 
 A análise de cursos dos alunos de mestrado orientados pelos professores do PGG de Patologia Molecular apresenta um grande índice de correlação com outras áreas. O curso com maior número de orientações do programa é ele mesmo, como esperado (49 orientações). Entretanto, é visível a relação íntima dos docentes com o Programa de Biologia Molecular, com 40 orientações. Em seguida, são listados diversos outros programas de pós-graduação com quantidade significativa de orientados cadastrados - não se limitando aos que foram analisados neste trabalho.
 
-###Relação de Orientações Concluídas x Publicações por área:
+###Concentração de áreas por grandes áreas:
 ```{r}
 perfil.313.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_jitter(shape = 2, size = .8) +
-  ggtitle('Relação de Orientações Concluídas x Publicações') +
-  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
+  ggtitle('Concentração de áreas por grandes áreas') +
+  labs(x='Publicações',y='Orientações concluídas') #+ facet_wrap(grande_area ~ ., ncol = 2)
 #Comentei o Facet pois ele oculta a amostra diferenciada
 ```
 
@@ -1606,7 +1647,8 @@ perfil.313.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
-  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
+  gudies(color = FALSE) +
+  labs(x='Publicações',y='Orientações concluídas') #+ facet_wrap(. ~ num_areas)
 #Comentei o Facet pois ele oculta a amostra diferenciada
 ```
 
@@ -1615,9 +1657,10 @@ DDDDDDDDDD Quem trabalha em mais áreas diferentes publica/orienta mais?
 ###Quantidade de Orientações e Participação internacional por PPG
 
 ```{r}
-especialidade.total.orient %>%
-  ggplot(aes(internacional, orientacoes_concluidas, color = programa, shape = programa)) +
-  geom_jitter(size = 1.1) +
+especialidade.313.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_jitter(size = .8) +
+  guides(color = FALSE) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
@@ -1628,7 +1671,8 @@ EEEEEEEE
 ```{r fig.height=9.375, fig.width=12.5}
 plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
       edge.arrow.width = 0.3,
-      edge.size = 3,
+
+edge.size = 3,
       edge.arrow.size = 0.5,
       vertex.size2 = 3,
       vertex.label.cex = 0.7,
