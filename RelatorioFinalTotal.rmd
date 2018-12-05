@@ -994,7 +994,7 @@ public.240.periodico.df %>%
 ```
 
 Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-de Biologia Animal apresentou pouca variação entre os anos de 2011 e 2017, exceto pela presença de um vale no ano de 2015, com número de publicações 18% menor que o ano anterior. Ainda assim, este comportamento não foi propagado nos anos seguintes, caracterizando um ano atípico na amostra.
+de Biologia Animal apresentou pouca variação entre os anos de 2011 e 2017, registrando valores entre 60 e 72 publicações por ano. Um vale único vlae foi encontrado fora deste intervalo, com número de publicações 18% menor que o ano anterior (2015). Ainda assim, este comportamento não foi propagado nos anos seguintes, caracterizando um ano atípico na amostra.
 
 ###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
 ```{r}
@@ -1079,14 +1079,14 @@ orient.240.df %>%
 ```
 
 Observando a evolução do número de orientações completas ao longo dos anos,
-percebe-se que o Programa de Pós-Graduação cresceu consideravelmente na
-natureza de mestrado após 2010, com uma regressão em 2016.
+percebe-se que o Programa de Pós-Graduação em Biologia Animal cresceu na
+natureza de mestrado após 2010, mas teve regressões em 2015 e 2017.
 Entretanto, não há um comportamento linear na evolução do número de orientações
-finalizadas. 2014 despontou no número de dissertações de mestrado, mas
-este comportamento não se repetiu posteriormente. Enquanto as orientações
+Além disso, 2013 despontou no número de dissertações de mestrado, mas
+teve queda vertiginosa nas demais naturezas. Enquanto as orientações
 de mestrado do Programa parecem bem estabelecidas, as supervisões de
 pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
-em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
+em nenhum dos anos pesquisados e chegaram a zero registros em 2017 - enquanto o doutorado atingiu valor máximo neste mesmo ano.
 
 ###Evolução temporal de orientações em andamento e concluídas
 ```{r}
@@ -1096,7 +1096,7 @@ perfil.240.df.orientacoes %>% group_by(ano, situacao) %>%
   ggtitle("Disposição de orientações por ano")
 ```
 
-AAAAAAAAA
+Observou-se uma quantidade praticamente linear no número de iniciações científicas, mestrados e doutorados concluídos no período 2010 – 2017. Conjuntamente a isso, verifica-se um aumento significativo no número de pós-graduações e iniciações científicas em andamento a partir de 2012. Em contrapartida, os pós-doutorados e outros tipos de especialidades tiveram queda no período em questão. Este comportamento, com diversas orientações finalizadas e poucas em andamento, sugere que o PPG em Biologia Animal contemplava poucos cadastros de orientações em andamento e está intensificando esta prática nos anos mais recentes - o que tornará análises futuras ainda mais enriquecedoras.
 
 ###Índice de bolsas entre naturezas e evolução temporal
 ```{r}
