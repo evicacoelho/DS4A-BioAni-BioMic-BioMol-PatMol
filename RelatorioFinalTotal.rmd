@@ -578,7 +578,7 @@ perfil.313.df.areas.de.atuacao <- perfil.313.df.areas.de.atuacao %>%
 class(perfil.313.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
 print("Patologia Molecular")
 summary(perfil.313.df)
-
+```
 
 ##CRISP-DM Fase 3 - Preparação dos Dados
 A terceira fase do CRISP é conhecida por ser a parte de preparação dos dados. Tal fase possui como
