@@ -656,6 +656,7 @@ public.243.eventos.df <- pub.ls2df(public.243, 5) #eventos
 public.313.periodico.df <- pub.ls2df(public.313, 1) #artigos
 public.313.livros.df <- pub.ls2df(public.313, 2) #livros
 public.313.eventos.df <- pub.ls2df(public.313, 5) #eventos
+
 #Dataframe específico para análise de especialidades
 especialidade.240.orient <- public.240.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
@@ -670,6 +671,8 @@ especialidade.240.orient <- public.240.eventos.df %>%
 especialidade.240.orient[is.na(especialidade.240.orient)] <- 0 #Remove NAs do dataframe
 especialidade.240.orient$especialidade <- sub("^$", "Não informada", especialidade.240.orient$especialidade)
 especialidade.240.orient$internacional <- sub(0, "Não", especialidade.240.orient$internacional)
+especialidade.240.orient$programa <- "Biologia Animal" 
+
 especialidade.242.orient <- public.242.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
   select (`autores-endogeno`) %>%
@@ -683,6 +686,8 @@ especialidade.242.orient <- public.242.eventos.df %>%
 especialidade.242.orient[is.na(especialidade.242.orient)] <- 0 #Remove NAs do dataframe
 especialidade.242.orient$especialidade <- sub("^$", "Não informada", especialidade.242.orient$especialidade)
 especialidade.242.orient$internacional <- sub(0, "Não", especialidade.242.orient$internacional)
+especialidade.242.orient$programa <- "Biologia Microbiana"
+
 especialidade.243.orient <- public.243.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
   select (`autores-endogeno`) %>%
@@ -696,6 +701,8 @@ especialidade.243.orient <- public.243.eventos.df %>%
 especialidade.243.orient[is.na(especialidade.243.orient)] <- 0 #Remove NAs do dataframe
 especialidade.243.orient$especialidade <- sub("^$", "Não informada", especialidade.243.orient$especialidade)
 especialidade.243.orient$internacional <- sub(0, "Não", especialidade.243.orient$internacional)
+especialidade.243.orient$programa <- "Biologia Molecular"
+
 especialidade.313.orient <- public.313.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
   select (`autores-endogeno`) %>%
@@ -709,6 +716,10 @@ especialidade.313.orient <- public.313.eventos.df %>%
 especialidade.313.orient[is.na(especialidade.313.orient)] <- 0 #Remove NAs do dataframe
 especialidade.313.orient$especialidade <- sub("^$", "Não informada", especialidade.313.orient$especialidade)
 especialidade.313.orient$internacional <- sub(0, "Não", especialidade.313.orient$internacional)
+especialidade.313.orient$programa <- "Patologia Molecular"
+
+especialidade.total.orient = bind_rows(especialidade.240.orient, especialidade.242.orient, especialidade.243.orient, especialidade.313.orient) 
+
 #Dataframe especifico para análise de áreas de atuação
 perfil.240.areas <- perfil.240.df.areas.de.atuacao %>% 
   select(-sub_area, -especialidade) %>%
@@ -1063,17 +1074,6 @@ perfil.240.areas %>%
 ```
 
 AAAAA Quem trabalha em mais áreas diferentes publica/orienta mais?
-  
-  ###Presença em congressos internacionais por número de orientações:
-  ```{r echo=FALSE}
-especialidade.240.orient %>%
-  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
-  geom_jitter(size = .8) +
-  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
-  labs(x='Participacao internacional',y='Orientações concluídas')
-```
-
-AAAA
 
 ### Grafico de barras; periodicos por ano; Biologia 242
 ```{r}
@@ -1230,17 +1230,6 @@ perfil.242.areas %>%
 
 BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
 
-###Presença em congressos internacionais por número de orientações:
-```{r}
-especialidade.242.orient %>%
-  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
-  geom_jitter(size = .8) +
-  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
-  labs(x='Participacao internacional',y='Orientações concluídas')
-```
-
-BBBBBBBB
-
 ### Grafico de barras; periodicos por ano; Biologia 243
 ```{r}
 public.243.periodico.df %>%
@@ -1396,17 +1385,6 @@ perfil.243.areas %>%
 
 CCCCCCCCCC Quem trabalha em mais áreas diferentes publica/orienta mais?
 
-###Presença em congressos internacionais por número de orientações:
-```{r}
-especialidade.243.orient %>%
-  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
-  geom_jitter(size = .8) +
-  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
-  labs(x='Participacao internacional',y='Orientações concluídas')
-```
-
-CCCCCCCCCCCCC
-
 ### Grafico de barras; periodicos por ano; Biologia 313
 ```{r}
 public.313.periodico.df %>%
@@ -1434,7 +1412,9 @@ perfil.313.df %>%
   geom_hline(yintercept = sum(perfil.313.df %>% summarize(x = median(PERIODICO))), color = "red")
 ```
 
-DDDDDDD
+Investigando o comportamento dos pesquisadores do programa, os professores
+foram ordenados pelo número total de publicações em periódicos entre 2010 e 2017, cuja mediana foi apresentada pela linha vermelha do gráfico acima, que sinaliza
+26 publicações no período total. O gráfico indica que, dos 23 pesquisadores inclusos no Programa de Patologia Molecular, dois se destacaram com publicações que mais que triplicaram este valor - com um deles chegando a 88 e outro atingindo 233 publicações em periódicos. Outra característica notável no PPG é a grande pluralidade de áreas de pesquisa dos pesquisadores - apenas um deles tem uma única linha de trabalho.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
 ```{r}
@@ -1449,7 +1429,7 @@ perfil.313.df %>%
   geom_hline(yintercept = sum(perfil.313.df %>% summarize(x = median(EVENTO))), color = "red")
 ```
 
-DDDDDD
+O gráfico acima indica o índice de participação dos pesquisadores do PPG de Patologia Molecular em eventos
 
 ###Publicação de livros por pais/ano
 ```{r}
@@ -1564,16 +1544,17 @@ perfil.313.areas %>%
 
 DDDDDDDDDD Quem trabalha em mais áreas diferentes publica/orienta mais?
 
-###Presença em congressos internacionais por número de orientações:
+###Quantidade de Orientações e Participação internacional por PPG
+
 ```{r}
-especialidade.313.orient %>%
-  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
-  geom_jitter(size = .8) +
+especialidade.total.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = programa, shape = programa)) +
+  geom_jitter(size = 1.1) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
 
-DDDDDDDDDDDDD
+EEEEEEEE
 
 ###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
 ```{r fig.height=9.375, fig.width=12.5}
