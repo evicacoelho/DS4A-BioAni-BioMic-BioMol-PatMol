@@ -5,15 +5,15 @@ author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júl
   G. R. Rodrigues 14/0153713
 date: "18/11/2018"
 output:
+  html_document: default
   pdf_document:
     latex_engine: xelatex
-  html_document: default
   word_document: default
 ---
 
 # Resumo
 
-Este documento apresenta o relatório final da disciplina Tópicos Avançados em Computadores - Turma D - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de ciências biológicas. Para isso, foi aplicada o modelo metodológico de mineração de dados denominado CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017 (Fernandes et. al., 2018).
+Este documento apresenta o relatório final da disciplina de tópicos Avançados em computadores - Turma D - 2018.2 do departamento de Ciência da Computação da universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, na área de Ciências Biológicas. Para isso, foi aplicado o modelo metodológigo de mineração de dados CRISP-DM e através dele foram dispostas diversas informações sobre a evolução destes programas de pós-graduação entre os anos de 2010 e 2017 (Fernandes et. al., 2018).
 
 # Introdução
 
@@ -63,9 +63,9 @@ Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâm
 
 A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
 
-![Produção Científica](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
+![production](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
 
-![Impacto da Produção](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
+![impact](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
 
 Um impacto normalizado de 1,00 significa que a produção teve comportamento similar à média global. Um impacto superior a 1,00 indica maior citação que a média (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média (SeCom, 2018, Adaptado).
 
@@ -74,7 +74,10 @@ Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de a
 Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) (SeCom, 2018). Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
 (SeCom, 2018).
 
-###Captura dos dados: Definindo bancos de dados para as PPGs a partir de arquivos JSON e CSV
+###Captura dos dados: Definindo bancos de dados para as PPGs a partir de arquivos JSON e CSV:
+
+Aqui define-se todas as variáveis base que contém todos os dados utilizados para a realização deste trabalho. Este código estará explícito logo abaixo para demonstrar que utilizou-se dos perfis, dos dados de publicações e orientações de cada um dos docentes. Além disso utilizou-se dados de correlação para a geração de um grafo de correlação ao fim deste trabalho.
+
 ```{r, warning=FALSE, message=FALSE}
 library(jsonlite) #Importado para carga dos arquivos JSON para o R
 # Perfis
@@ -101,7 +104,6 @@ graphl.313 <- fromJSON("313PatologiaMolecular/313graph.json")
 df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",", 
                       colClasses = "character", encoding = "UTF-8", header = TRUE)
 ```
-
 ##CRISP-DM Fase 2 - Entendimento dos Dados
 
 A segunda parte do CRISP-DM consiste no entendimento dos dados. Para realizar análises significativas
@@ -236,122 +238,156 @@ print('------ Patologia Molecular:', quote=FALSE)
   print(c('Textos em jornais:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))),quote=FALSE)
 ```
 *Número de pessoas por quantitativo de produções por pessoa*
-```{r}
-table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+```{r pessoas quantitativo, echo=FALSE, message=FALSE, warning=FALSE}
+
+print('------ Biologia Animal:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Periódicos:',table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
+  print(c('Textos em jornais:',sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))),quote=FALSE)
+
+print('------ Biologia Microbiana:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$LIVRO$ano)))),quote=FALSE)
+  print(c('Periódicos:',sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$PERIODICO$ano)))),quote=FALSE)
+  print(c('Textos em jornais:',table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
+  
+print('------ Biologia Molecular:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Periódicos:',table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
+  print(c('Textos em jornais:',table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
+
+print('------ Patologia Molecular:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Periódicos:',table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
+  print(c('Textos em jornais:',table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
 ```
 *Número de produções por ano*
-```{r}
-table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+```{r produções por ano, echo=FALSE, message=FALSE, warning=FALSE}
+
+print('------ Biologia Animal:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Periódicos:',table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
+  print(c('Textos em jornais:',table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
+  
+print('------ Biologia Microbiana:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Periódicos:',table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
+  print(c('Textos em jornais:',table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
+  
+print('------ Biologia Molecular:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Periódicos:',table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
+  print(c('Textos em jornais:',table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
+
+print('------ Patologia Molecular:', quote=FALSE)
+  print(c('Artigos Aceitos:',table(unlist(sapply(perfil.313, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))),quote=FALSE)
+  print(c('Capítulos de livros:',table(unlist(sapply(perfil.313, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))),quote=FALSE)
+  print(c('Livros:',table(unlist(sapply(perfil.313, function(x) (x$producao_bibiografica$LIVRO$ano))))),quote=FALSE)
+  print(c('Periódicos:',table(unlist(sapply(perfil.313, function(x) (x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
+  print(c('Textos em jornais:',table(unlist(sapply(perfil.313, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
 ```
 *Número de pessoas que realizaram diferentes tipos de orientações*
 ```{r}
-length(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))
-length(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))
-length(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))
-length(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))
+print(c('Biologia Animal:',length(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
+print(c('Biologia Microbiana:',length(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
+print(c('Biologia Molecular:',length(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
+print(c('Patologia Molecular:',length(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
 ```
 *Número de pessoas por tipo de orientação*
 ```{r}
-table(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))
-table(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))
-table(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))
-table(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))
+print(c('------ Biologia Animal:',table(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
+print(c('------ Biologia Microbiana:',table(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
+print(c('------ Biologia Molecular:',table(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
+print(c('------ Patologia Molecular:',table(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
 ```
 *Número de orientacões concluídas*
 ```{r}
-sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
-sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
-sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
-sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
-sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
-sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
-sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
-sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
-sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
-sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
-sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
-sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+
+print('------ Biologia Animal:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))),quote=FALSE)
+
+print('------ Biologia Microbiana:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))),quote=FALSE)
+  
+print('------ Biologia Molecular:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))),quote=FALSE)
+  
+print('------ Patologia Molecular:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))),quote=FALSE)
 ```
 *Número de pessoas por quantitativo de orientacões por pessoa*
-```{r}
-table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+```{r orientação quantitativo, echo=FALSE, message=FALSE, warning=FALSE}
+print('------ Biologia Animal:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.240, function(x) 
+length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
+
+print('------ Biologia Microbiana:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.242, function(x) 
+length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
+  
+print('------ Biologia Molecular:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.243, function(x) 
+length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
+  
+print('------ Patologia Molecular:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.313, function(x) 
+length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
 ```
 *Número de orientações por ano*
-```{r}
-table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+```{r orientações por ano, message=FALSE, warning=FALSE}
+print('------ Biologia Animal:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
+
+print('------ Biologia Microbiana:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
+  
+print('------ Biologia Molecular:', quote=FALSE)
+  print(c('Orientações concluídas de mestrados:',table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de doutorados:',table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))),quote=FALSE)
+  print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
 ```
 
-###Análise dos dataframes:
-
-*Extrai perfis dos professores:*
-```{r}
+```{r include=FALSE}
 perfil.240.df.professores <- extrai.perfis(perfil.240)
 perfil.242.df.professores <- extrai.perfis(perfil.242)
 perfil.243.df.professores <- extrai.perfis(perfil.243)
 perfil.313.df.professores <- extrai.perfis(perfil.313)
 ```
-*Extrai produção bibliográfica de todos os professores*
-```{r}
+
+```{r include=FALSE}
 perfil.240.df.publicacoes <- extrai.producoes(perfil.240) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
 perfil.240.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.240.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
@@ -365,8 +401,8 @@ perfil.313.df.publicacoes <- extrai.producoes(perfil.313) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
 perfil.313.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.313.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
 ```
-*Extrai orientações*
-```{r}
+
+```{r include=FALSE}
 perfil.240.df.orientacoes <- extrai.orientacoes(perfil.240) %>%
   select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
   mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
@@ -404,19 +440,16 @@ perfil.313.df.orientacoes <- extrai.orientacoes(perfil.313) %>%
                               grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
                               TRUE ~ "Outras naturezas"))
 ```
-*Extrai áreas de atuação *
-```{r}
+
+```{r include=FALSE}
 perfil.240.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.240) %>%
   select(idLattes, everything())
 perfil.242.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.242) %>%
   select(idLattes, everything())
 perfil.243.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.243) %>%
   select(idLattes, everything())
-
-perfil.243.df.areas.de.atuacao$area[grepl("Florestais",perfil.243.df.areas.de.atuacao$area)] <- "Recursos Florestais"
-
 perfil.313.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.313) %>%
-  select(idLattes, everything())
+  select(idLattes, everything())        
 ```
 *Cria arquivo com dados quantitativos para análise*
   ```{r echo=FALSE}
