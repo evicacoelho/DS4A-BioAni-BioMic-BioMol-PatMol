@@ -400,12 +400,15 @@ perfil.240.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.240.df.publicacoes
 
 perfil.242.df.publicacoes <- extrai.producoes(perfil.242) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
+perfil.242.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.242.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
 
 perfil.243.df.publicacoes <- extrai.producoes(perfil.243) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
+perfil.243.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.243.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
 
 perfil.313.df.publicacoes <- extrai.producoes(perfil.313) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
+perfil.313.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.313.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
 ```
 *Extrai orientações*
 ```{r}
@@ -420,13 +423,34 @@ perfil.240.df.orientacoes <- extrai.orientacoes(perfil.240) %>%
                               TRUE ~ "Outras naturezas"))
 
 perfil.242.df.orientacoes <- extrai.orientacoes(perfil.242) %>%
-  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
+  mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
+  mutate(Natureza = case_when(grepl("MESTRADO", str_to_upper(natureza)) ~ "Mestrado",
+                              grepl("PÓS-DOUTORADO", str_to_upper(natureza)) ~ "Pós-doutorado",
+                              grepl("DOUTORADO", str_to_upper(natureza)) ~ "Doutorado",
+                              grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              TRUE ~ "Outras naturezas"))
 
 perfil.243.df.orientacoes <- extrai.orientacoes(perfil.243) %>%
-  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
+  mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
+  mutate(Natureza = case_when(grepl("MESTRADO", str_to_upper(natureza)) ~ "Mestrado",
+                              grepl("PÓS-DOUTORADO", str_to_upper(natureza)) ~ "Pós-doutorado",
+                              grepl("DOUTORADO", str_to_upper(natureza)) ~ "Doutorado",
+                              grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              TRUE ~ "Outras naturezas"))
 
 perfil.313.df.orientacoes <- extrai.orientacoes(perfil.313) %>%
-  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
+  mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
+  mutate(Natureza = case_when(grepl("MESTRADO", str_to_upper(natureza)) ~ "Mestrado",
+                              grepl("PÓS-DOUTORADO", str_to_upper(natureza)) ~ "Pós-doutorado",
+                              grepl("DOUTORADO", str_to_upper(natureza)) ~ "Doutorado",
+                              grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              TRUE ~ "Outras naturezas"))
 ```
 *Extrai áreas de atuação *
 ```{r}
@@ -509,8 +533,22 @@ perfil.242.df <- perfil.242.df.professores %>%
     perfil.242.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
-      summarise(n_distinct(area)), 
-    by = "idLattes")
+      summarise(num_areas = n_distinct(area)), 
+    by = "idLattes") %>%
+  mutate(num_areas = factor(num_areas))
+
+perfil.242.df[is.na(perfil.242.df)] <- 0 #Remove NAs do dataframe
+
+perfil.242.df.areas.de.atuacao <- perfil.242.df.areas.de.atuacao %>%
+  left_join(perfil.242.df, by = "idLattes") %>%
+  rowwise() %>% #realizar sum() corretamente
+  mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
+                                      ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
+                                      OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
+  mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
+                           LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
+  select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
+class(perfil.242.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
 
 glimpse(perfil.242.df)
 
@@ -537,8 +575,23 @@ perfil.243.df <- perfil.243.df.professores %>%
     perfil.243.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
-      summarise(n_distinct(area)), 
-    by = "idLattes")
+      summarise(num_areas = n_distinct(area)), 
+    by = "idLattes") %>%
+  mutate(num_areas = factor(num_areas))
+
+perfil.243.df[is.na(perfil.243.df)] <- 0 #Remove NAs do dataframe
+
+perfil.243.df.areas.de.atuacao <- perfil.243.df.areas.de.atuacao %>%
+  left_join(perfil.243.df, by = "idLattes") %>%
+  rowwise() %>% #realizar sum() corretamente
+  mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
+                                      ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
+                                      OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
+  mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
+                           LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
+  select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
+class(perfil.243.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
+
 glimpse(perfil.243.df)
 
 perfil.313.df <- data.frame()
@@ -564,8 +617,22 @@ perfil.313.df <- perfil.313.df.professores %>%
     perfil.313.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
-      summarise(n_distinct(area)), 
-    by = "idLattes")
+      summarise(num_areas = n_distinct(area)), 
+    by = "idLattes") %>%
+  mutate(num_areas = factor(num_areas))
+
+perfil.313.df[is.na(perfil.313.df)] <- 0 #Remove NAs do dataframe
+
+perfil.313.df.areas.de.atuacao <- perfil.313.df.areas.de.atuacao %>%
+  left_join(perfil.313.df, by = "idLattes") %>%
+  rowwise() %>% #realizar sum() corretamente
+  mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
+                                      ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
+                                      OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
+  mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
+                           LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
+  select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
+class(perfil.313.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
 
 glimpse(perfil.313.df)
 
@@ -668,6 +735,53 @@ especialidade.240.orient[is.na(especialidade.240.orient)] <- 0 #Remove NAs do da
 especialidade.240.orient$especialidade <- sub("^$", "Não informada", especialidade.240.orient$especialidade)
 especialidade.240.orient$internacional <- sub(0, "Não", especialidade.240.orient$internacional)
 
+especialidade.242.orient <- public.242.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.242.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.242.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+
+especialidade.242.orient[is.na(especialidade.242.orient)] <- 0 #Remove NAs do dataframe
+especialidade.242.orient$especialidade <- sub("^$", "Não informada", especialidade.242.orient$especialidade)
+especialidade.242.orient$internacional <- sub(0, "Não", especialidade.242.orient$internacional)
+
+especialidade.243.orient <- public.243.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.243.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.243.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+
+especialidade.243.orient[is.na(especialidade.243.orient)] <- 0 #Remove NAs do dataframe
+especialidade.243.orient$especialidade <- sub("^$", "Não informada", especialidade.243.orient$especialidade)
+especialidade.243.orient$internacional <- sub(0, "Não", especialidade.243.orient$internacional)
+
+especialidade.313.orient <- public.313.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.313.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.313.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+
+especialidade.313.orient[is.na(especialidade.313.orient)] <- 0 #Remove NAs do dataframe
+especialidade.313.orient$especialidade <- sub("^$", "Não informada", especialidade.313.orient$especialidade)
+especialidade.313.orient$internacional <- sub(0, "Não", especialidade.313.orient$internacional)
+
+
+
 #Dataframe especifico para análise de áreas de atuação
 perfil.240.areas <- perfil.240.df.areas.de.atuacao %>% 
   select(-sub_area, -especialidade) %>%
@@ -675,6 +789,27 @@ perfil.240.areas <- perfil.240.df.areas.de.atuacao %>%
   group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
   summarise(num_areas = n()) %>% ungroup()
 perfil.240.areas$num_areas <- as.factor(perfil.240.areas$num_areas)
+
+perfil.242.areas <- perfil.242.df.areas.de.atuacao %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>% ungroup()
+perfil.242.areas$num_areas <- as.factor(perfil.242.areas$num_areas)
+
+perfil.243.areas <- perfil.243.df.areas.de.atuacao %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>% ungroup()
+perfil.243.areas$num_areas <- as.factor(perfil.243.areas$num_areas)
+
+perfil.313.areas <- perfil.313.df.areas.de.atuacao %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>% ungroup()
+perfil.313.areas$num_areas <- as.factor(perfil.313.areas$num_areas)
 
 ```
 *Publicações por ano*
@@ -733,15 +868,39 @@ orient.242.doutorado.df <- ori.ls2df(orient.242, 7) #Doutorado concluido
 orient.242.mestrado.df <- ori.ls2df(orient.242, 8) #Mestrado concluido
 orient.242.df <- rbind(rbind(orient.242.posdoutorado.df, orient.242.doutorado.df), orient.242.mestrado.df)
 
+bolsas.242.df <- orient.242.df %>% filter(bolsa == "SIM") %>%
+  group_by(natureza, ano) %>%
+  summarise(num_bolsas = n()) %>%
+  inner_join((orient.242.df %>%
+                group_by(natureza, ano) %>%
+                summarise(num_orients = n())), by = c("natureza", "ano")) %>%
+  mutate(ratio = num_bolsas/num_orients)
+
 orient.243.posdoutorado.df <- ori.ls2df(orient.243, 6) #pos-Doutorado concluido
 orient.243.doutorado.df <- ori.ls2df(orient.243, 7) #Doutorado concluido
 orient.243.mestrado.df <- ori.ls2df(orient.243, 8) #Mestrado concluido
 orient.243.df <- rbind(rbind(orient.243.posdoutorado.df, orient.243.doutorado.df), orient.243.mestrado.df)
 
+bolsas.243.df <- orient.243.df %>% filter(bolsa == "SIM") %>%
+  group_by(natureza, ano) %>%
+  summarise(num_bolsas = n()) %>%
+  inner_join((orient.243.df %>%
+                group_by(natureza, ano) %>%
+                summarise(num_orients = n())), by = c("natureza", "ano")) %>%
+  mutate(ratio = num_bolsas/num_orients)
+
 orient.313.posdoutorado.df <- ori.ls2df(orient.313, 6) #pos-Doutorado concluido
 orient.313.doutorado.df <- ori.ls2df(orient.313, 7) #Doutorado concluido
 orient.313.mestrado.df <- ori.ls2df(orient.313, 8) #Mestrado concluido
 orient.313.df <- rbind(rbind(orient.313.posdoutorado.df, orient.313.doutorado.df), orient.313.mestrado.df)
+
+bolsas.313.df <- orient.313.df %>% filter(bolsa == "SIM") %>%
+  group_by(natureza, ano) %>%
+  summarise(num_bolsas = n()) %>%
+  inner_join((orient.313.df %>%
+                group_by(natureza, ano) %>%
+                summarise(num_orients = n())), by = c("natureza", "ano")) %>%
+  mutate(ratio = num_bolsas/num_orients)
 ```
 ###
 *Construção de Grafo de Colaborações*
