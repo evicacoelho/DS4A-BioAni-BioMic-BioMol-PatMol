@@ -709,6 +709,8 @@ df.243 <- left_join(df.243, df.prog, by = c("Idlattes" = "idLattes"))
 g.313 <- g.ls2ig(graphl.313)
 df.313 <- as.data.frame(V(g.313)$name); colnames(df.313) <- "Idlattes"
 df.313 <- left_join(df.313, df.prog, by = c("Idlattes" = "idLattes"))
+
+perfil.total.df = bind_rows(perfil.240.df, perfil.242.df, perfil.243.df, perfil.313.df) 
 ```
 
 Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa, vide código abaixo.
