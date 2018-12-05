@@ -5,8 +5,8 @@ author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júl
   G. R. Rodrigues 14/0153713
 date: "18/11/2018"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
   word_document: default
 ---
 
@@ -670,6 +670,15 @@ especialidade.240.orient <- public.240.eventos.df %>%
 especialidade.240.orient[is.na(especialidade.240.orient)] <- 0 #Remove NAs do dataframe
 especialidade.240.orient$especialidade <- sub("^$", "Não informada", especialidade.240.orient$especialidade)
 especialidade.240.orient$internacional <- sub(0, "Não", especialidade.240.orient$internacional)
+
+#Dataframe especifico para análise de áreas de atuação
+perfil.240.areas <- perfil.240.df.areas.de.atuacao %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>% ungroup()
+perfil.240.areas$num_areas <- as.factor(perfil.240.areas$num_areas)
+
 ```
 *Publicações por ano*
 ```{r}
@@ -966,12 +975,8 @@ perfil.240.df.areas.de.atuacao %>%
 AAAAAAAA Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
-```{r warning = FALSE}
-perfil.240.df.areas.de.atuacao %>% 
-  select(-sub_area, -especialidade) %>%
-  distinct() %>%
-  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
-  summarise(num_areas = n()) %>% mutate(num_areas = factor(num_areas)) %>%
+```{r}
+perfil.240.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
