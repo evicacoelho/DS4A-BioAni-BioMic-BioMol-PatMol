@@ -1197,7 +1197,27 @@ perfil.242.df.areas.de.atuacao %>%
 
  Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
 
+###Quantidade de Orientações e Publicações pelo Número de Áreas
+{r}
+perfil.242.areas %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
+  geom_point() +
+  ggtitle('Orientações e Publicações pelo Número de Áreas') +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 
+
+BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
+  
+  ###Presença em congressos internacionais por número de orientações:
+  {r}
+especialidade.242.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_jitter(size = .8) +
+  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
+  labs(x='Participacao internacional',y='Orientações concluídas')
+
+
+BBBBBBBB
 
 ### Grafico de barras; periodicos por ano; Biologia 243
 ```{r}
