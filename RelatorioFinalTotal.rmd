@@ -5,9 +5,9 @@ author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júl
   G. R. Rodrigues 14/0153713
 date: "18/11/2018"
 output:
+  html_document: default
   pdf_document:
     latex_engine: xelatex
-  html_document: default
   word_document: default
 ---
 
@@ -82,27 +82,21 @@ perfil.240 <- fromJSON("240BiologiaAnimal/240profile.json")
 perfil.242 <- fromJSON("242BiologiaMicrobiana/242profile.json")
 perfil.243 <- fromJSON("243BiologiaMolecular/243profile.json")
 perfil.313 <- fromJSON("313PatologiaMolecular/313profile.json")
-
 # Publicações
 public.240 <- fromJSON("240BiologiaAnimal/240publication.json")
 public.242 <- fromJSON("242BiologiaMicrobiana/242publication.json")
 public.243 <- fromJSON("243BiologiaMolecular/243publication.json")
 public.313 <- fromJSON("313PatologiaMolecular/313publication.json")
-
-
 # Orientações
 orient.240 <- fromJSON("240BiologiaAnimal/240advise.json")
 orient.242 <- fromJSON("242BiologiaMicrobiana/242advise.json")
 orient.243 <- fromJSON("243BiologiaMolecular/243advise.json")
 orient.313 <- fromJSON("313PatologiaMolecular/313advise.json")
-
-
 # Grafos
 graphl.240 <- fromJSON("240BiologiaAnimal/240graph.json")
 graphl.242 <- fromJSON("242BiologiaMicrobiana/242graph.json")
 graphl.243 <- fromJSON("243BiologiaMolecular/243graph.json")
 graphl.313 <- fromJSON("313PatologiaMolecular/313graph.json")
-
 # Todas PPGs
 df.prog <- read.table("UnBPosGeral/prof_prog.csv", sep = ",", 
                       colClasses = "character", encoding = "UTF-8", header = TRUE)
@@ -141,43 +135,37 @@ library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
-library(stringr) #str_to_upper
-
+library(stringr) #Importado para manipulações de strings
 setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master")
 source("elattes.ls2df.R")
 ```
 
 Após a importação e definição das bibliotecas utilizadas, podemos utilizar funções de tais pacotes para análise sistêmica dos dados, mas para isto, estes deves sem primeiramente descritos por meio de funções de descrição do pacote `dplyr` que facilita a visualização e manipulação dos dados:
 
-*SEPARACAO DOS CAMPOS DE DF.PROG*
-```{r}
-
+```{r Separação do df.prog, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.Avaliacao.Codigo.AreaPos.Programa,
                      c("idLattes", "Docente", "Categoria", "GrandeArea", "AreaDeAvaliacao", "Codigo", "AreaPos", "Programa"),
                      sep = ";", extra = "drop", fill = "right")
 ```
 
 *Número de docentes na base e a construção das listas dos mesmos:*
-```{r}
-print(length(perfil.240))
+```{r número de docentes, echo=FALSE, message=FALSE, warning=FALSE}
+print(c('Biologia Animal:',length(perfil.240)),quote=FALSE)
 ProfileList.240 <- list()
 for (i in 1:length(perfil.240)) {
   ProfileList.240 <- rbind(ProfileList.240, perfil.240[[i]]$nome)
 }
-
-length(perfil.242)
+print(c('Biologia Microbiana:',length(perfil.242)),quote=FALSE)
 ProfileList.242 <- list()
 for (i in 1:length(perfil.242)) {
   ProfileList.242 <- rbind(ProfileList.242, perfil.242[[i]]$nome)
 }
-
-length(perfil.243)
+print(c('Biologia Molecular:',length(perfil.243)),quote=FALSE)
 ProfileList.243 <- list()
 for (i in 1:length(perfil.243)) {
   ProfileList.243 <- rbind(ProfileList.243, perfil.243[[i]]$nome)
 }
-
-length(perfil.313)
+print(c('Patologia Molecular:',length(perfil.313)),quote=FALSE)
 ProfileList.313 <- list()
 for (i in 1:length(perfil.313)) {
   ProfileList.313 <- rbind(ProfileList.313, perfil.313[[i]]$nome)
@@ -186,71 +174,66 @@ for (i in 1:length(perfil.313)) {
 
 # Análise das listas:
 *Número de áreas de atuação cumulativas:*
-```{r}
-sum(sapply(perfil.240, function(x) nrow(x$areas_de_atuacao)))
-
-sum(sapply(perfil.242, function(x) nrow(x$areas_de_atuacao)))
-
-sum(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao)))
-
-sum(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao)))
+```{r echo=FALSE, message=TRUE, warning=TRUE}
+print(c('Biologia Animal:',sum(sapply(perfil.240, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
+print(c('Biologia Microbiana:',sum(sapply(perfil.242, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
+print(c('Biologia Moleular:',sum(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
+print(c('Patologia Molecular:',sum(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
 ```
 *Numero de areas de atuacao por pessoa*
-```{r}
-table(unlist(sapply(perfil.240, function(x) nrow(x$areas_de_atuacao))))
-
-table(unlist(sapply(perfil.242, function(x) nrow(x$areas_de_atuacao))))
-
-table(unlist(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao))))
-
-table(unlist(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao))))
+```{r echo=FALSE, paged.print=FALSE}
+print('Biologia Animal:', quote=FALSE)
+print.table(table(unlist(sapply(perfil.240, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
+print('Biologia Microbiana:', quote=FALSE)
+print.table(table(unlist(sapply(perfil.242, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
+print('Biologia Molecular:', quote=FALSE)
+print.table(table(unlist(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
+print('Patologia Molecular:', quote=FALSE)
+print.table(table(unlist(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
 ```
 *Numero de pessoas por grande area*
-```{r}
-table(unlist(sapply(perfil.240, function(x) (x$areas_de_atuacao$grande_area))))
-
-table(unlist(sapply(perfil.242, function(x) (x$areas_de_atuacao$grande_area))))
-
-table(unlist(sapply(perfil.243, function(x) (x$areas_de_atuacao$grande_area))))
-
-table(unlist(sapply(perfil.313, function(x) (x$areas_de_atuacao$grande_area))))
+```{r Pessoas por grande área, echo=FALSE, message=FALSE, warning=FALSE}
+print('Biologia Animal:', quote=FALSE); table(unlist(sapply(perfil.240, function(x) (x$areas_de_atuacao$grande_area))))
+print('Biologia Microbiana:', quote=FALSE); table(unlist(sapply(perfil.242, function(x) (x$areas_de_atuacao$grande_area))))
+print('Biologia Molecular:', quote=FALSE); table(unlist(sapply(perfil.243, function(x) (x$areas_de_atuacao$grande_area))))
+print('Patologia Molecular:', quote=FALSE); table(unlist(sapply(perfil.313, function(x) (x$areas_de_atuacao$grande_area))))
 ```
 *Numero de pessoas que produziram os especificos tipos de producao*
-```{r}
-table(unlist(sapply(perfil.240, function(x) names(x$producao_bibiografica))))
-
-table(unlist(sapply(perfil.242, function(x) names(x$producao_bibiografica))))
-
-table(unlist(sapply(perfil.243, function(x) names(x$producao_bibiografica))))
-
-table(unlist(sapply(perfil.313, function(x) names(x$producao_bibiografica))))
-
+```{r produção por tipo por pessoa, echo=FALSE, message=FALSE, warning=FALSE}
+print('Biologia Animal:', quote=FALSE);table(unlist(sapply(perfil.240, function(x) names(x$producao_bibiografica))))
+print('Biologia Microbiana:', quote=FALSE);table(unlist(sapply(perfil.242, function(x) names(x$producao_bibiografica))))
+print('Biologia Molecular:', quote=FALSE);table(unlist(sapply(perfil.243, function(x) names(x$producao_bibiografica))))
+print('Patologia Molecular:', quote=FALSE); table(unlist(sapply(perfil.313, function(x) names(x$producao_bibiografica))))
 ```
 *Numero de publicacoes por tipo*
-```{r}
-sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
-sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
-sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano)))
-sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
-sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+```{r produção por tipo geral, echo=FALSE, message=FALSE, warning=FALSE}
+print('------ Biologia Animal:', quote=FALSE)
+  print(c('Artigos Aceitos:',sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))),quote=FALSE)
+  print(c('Capítulos de livros:',sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))),quote=FALSE)
+  print(c('Livros:',sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano)))),quote=FALSE)
+  print(c('Periódicos:',sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$PERIODICO$ano)))),quote=FALSE)
+  print(c('Textos em jornais:',sum(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))),quote=FALSE)
 
-sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
-sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
-sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$LIVRO$ano)))
-sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
-sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+print('------ Biologia Microbiana:', quote=FALSE)
+  print(c('Artigos Aceitos:',sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))),quote=FALSE)
+  print(c('Capítulos de livros:',sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))),quote=FALSE)
+  print(c('Livros:',sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$LIVRO$ano)))),quote=FALSE)
+  print(c('Periódicos:',sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$PERIODICO$ano)))),quote=FALSE)
+  print(c('Textos em jornais:',sum(sapply(perfil.242, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))),quote=FALSE)
+  
+print('------ Biologia Molecular:', quote=FALSE)
+  print(c('Artigos Aceitos:',sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))),quote=FALSE)
+  print(c('Capítulos de livros:',sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))),quote=FALSE)
+  print(c('Livros:',sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$LIVRO$ano)))),quote=FALSE)
+  print(c('Periódicos:',sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$PERIODICO$ano)))),quote=FALSE)
+  print(c('Textos em jornais:',sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))),quote=FALSE)
 
-sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
-sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
-sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$LIVRO$ano)))
-sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
-sum(sapply(perfil.243, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
-
-sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
-sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
-sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano)))
-sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
-sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+print('------ Patologia Molecular:', quote=FALSE)
+  print(c('Artigos Aceitos:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))),quote=FALSE)
+  print(c('Capítulos de livros:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))),quote=FALSE)
+  print(c('Livros:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano)))),quote=FALSE)
+  print(c('Periódicos:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano)))),quote=FALSE)
+  print(c('Textos em jornais:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))),quote=FALSE)
 ```
 *Número de pessoas por quantitativo de produções por pessoa*
 ```{r}
@@ -259,19 +242,16 @@ table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$CAPIT
 table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil.240, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-
 table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil.242, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-
 table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil.243, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-
 table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano))))
@@ -285,19 +265,16 @@ table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$CAPITULO_DE
 table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil.240, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-
 table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil.242, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-
 table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(perfil.243, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-
 table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$LIVRO$ano))))
@@ -307,21 +284,15 @@ table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO
 *Número de pessoas que realizaram diferentes tipos de orientações*
 ```{r}
 length(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))
-
 length(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))
-
 length(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))
-
 length(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))
 ```
 *Número de pessoas por tipo de orientação*
 ```{r}
 table(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))
-
 table(unlist(sapply(perfil.242, function(x) names(x$orientacoes_academicas))))
-
 table(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))
-
 table(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))
 ```
 *Número de orientacões concluídas*
@@ -329,15 +300,12 @@ table(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))
 sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
-
 sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
-
 sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
-
 sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
@@ -347,15 +315,12 @@ sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CO
 table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.240, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-
 table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.242, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-
 table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.243, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-
 table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
@@ -365,15 +330,12 @@ table(unlist(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIE
 table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.240, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-
 table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.242, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-
 table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.243, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
-
 table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
@@ -384,28 +346,24 @@ table(unlist(sapply(perfil.313, function(x) (x$orientacoes_academicas$ORIENTACAO
 *Extrai perfis dos professores:*
 ```{r}
 perfil.240.df.professores <- extrai.perfis(perfil.240)
-
 perfil.242.df.professores <- extrai.perfis(perfil.242)
-
 perfil.243.df.professores <- extrai.perfis(perfil.243)
-
 perfil.313.df.professores <- extrai.perfis(perfil.313)
-
 ```
 *Extrai produção bibliográfica de todos os professores*
 ```{r}
 perfil.240.df.publicacoes <- extrai.producoes(perfil.240) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
 perfil.240.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.240.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
-
 perfil.242.df.publicacoes <- extrai.producoes(perfil.242) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
-
+perfil.242.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.242.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
 perfil.243.df.publicacoes <- extrai.producoes(perfil.243) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
-
+perfil.243.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.243.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
 perfil.313.df.publicacoes <- extrai.producoes(perfil.313) %>%
   select(tipo_producao, everything()) %>% arrange(tipo_producao)
+perfil.313.df.publicacoes$tipo_producao[grepl("DEMAIS",perfil.313.df.publicacoes$tipo_producao)] <- "OUTRAS_PRODUCOES"
 ```
 *Extrai orientações*
 ```{r}
@@ -418,27 +376,42 @@ perfil.240.df.orientacoes <- extrai.orientacoes(perfil.240) %>%
                               grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
                               grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
                               TRUE ~ "Outras naturezas"))
-
 perfil.242.df.orientacoes <- extrai.orientacoes(perfil.242) %>%
-  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
-
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
+  mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
+  mutate(Natureza = case_when(grepl("MESTRADO", str_to_upper(natureza)) ~ "Mestrado",
+                              grepl("PÓS-DOUTORADO", str_to_upper(natureza)) ~ "Pós-doutorado",
+                              grepl("DOUTORADO", str_to_upper(natureza)) ~ "Doutorado",
+                              grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              TRUE ~ "Outras naturezas"))
 perfil.243.df.orientacoes <- extrai.orientacoes(perfil.243) %>%
-  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
-
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
+  mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
+  mutate(Natureza = case_when(grepl("MESTRADO", str_to_upper(natureza)) ~ "Mestrado",
+                              grepl("PÓS-DOUTORADO", str_to_upper(natureza)) ~ "Pós-doutorado",
+                              grepl("DOUTORADO", str_to_upper(natureza)) ~ "Doutorado",
+                              grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              TRUE ~ "Outras naturezas"))
 perfil.313.df.orientacoes <- extrai.orientacoes(perfil.313) %>%
-  select(id_lattes_orientadores, natureza, ano, orientacao, everything())
+  select(id_lattes_orientadores, natureza, ano, orientacao, everything()) %>%
+  mutate(situacao = ifelse(grepl("CONCLUIDA", orientacao), "Concluída", "Em andamento")) %>%
+  mutate(Natureza = case_when(grepl("MESTRADO", str_to_upper(natureza)) ~ "Mestrado",
+                              grepl("PÓS-DOUTORADO", str_to_upper(natureza)) ~ "Pós-doutorado",
+                              grepl("DOUTORADO", str_to_upper(natureza)) ~ "Doutorado",
+                              grepl("INICIACAO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              grepl("INICIAÇÃO", str_to_upper(natureza)) ~ "Iniciação Científica",
+                              TRUE ~ "Outras naturezas"))
 ```
 *Extrai áreas de atuação *
 ```{r}
 perfil.240.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.240) %>%
   select(idLattes, everything())
-
 perfil.242.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.242) %>%
   select(idLattes, everything())
-
 perfil.243.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.243) %>%
   select(idLattes, everything())
-
 perfil.313.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.313) %>%
   select(idLattes, everything())
 ```
@@ -470,9 +443,7 @@ perfil.240.df <- perfil.240.df.professores %>%
       summarise(num_areas = n_distinct(area)), 
     by = "idLattes") %>%
   mutate(num_areas = factor(num_areas))
-
 perfil.240.df[is.na(perfil.240.df)] <- 0 #Remove NAs do dataframe
-
 perfil.240.df.areas.de.atuacao <- perfil.240.df.areas.de.atuacao %>%
   left_join(perfil.240.df, by = "idLattes") %>%
   rowwise() %>% #realizar sum() corretamente
@@ -483,9 +454,7 @@ perfil.240.df.areas.de.atuacao <- perfil.240.df.areas.de.atuacao %>%
                            LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.240.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
-
 glimpse(perfil.240.df)
-
 perfil.242.df <- data.frame()
 perfil.242.df <- perfil.242.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -509,11 +478,21 @@ perfil.242.df <- perfil.242.df.professores %>%
     perfil.242.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
-      summarise(n_distinct(area)), 
-    by = "idLattes")
-
+      summarise(num_areas = n_distinct(area)), 
+    by = "idLattes") %>%
+  mutate(num_areas = factor(num_areas))
+perfil.242.df[is.na(perfil.242.df)] <- 0 #Remove NAs do dataframe
+perfil.242.df.areas.de.atuacao <- perfil.242.df.areas.de.atuacao %>%
+  left_join(perfil.242.df, by = "idLattes") %>%
+  rowwise() %>% #realizar sum() corretamente
+  mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
+                                      ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
+                                      OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
+  mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
+                           LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
+  select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
+class(perfil.242.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
 glimpse(perfil.242.df)
-
 perfil.243.df <- data.frame()
 perfil.243.df <- perfil.243.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -537,10 +516,21 @@ perfil.243.df <- perfil.243.df.professores %>%
     perfil.243.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
-      summarise(n_distinct(area)), 
-    by = "idLattes")
+      summarise(num_areas = n_distinct(area)), 
+    by = "idLattes") %>%
+  mutate(num_areas = factor(num_areas))
+perfil.243.df[is.na(perfil.243.df)] <- 0 #Remove NAs do dataframe
+perfil.243.df.areas.de.atuacao <- perfil.243.df.areas.de.atuacao %>%
+  left_join(perfil.243.df, by = "idLattes") %>%
+  rowwise() %>% #realizar sum() corretamente
+  mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
+                                      ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
+                                      OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
+  mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
+                           LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
+  select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
+class(perfil.243.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
 glimpse(perfil.243.df)
-
 perfil.313.df <- data.frame()
 perfil.313.df <- perfil.313.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -564,11 +554,21 @@ perfil.313.df <- perfil.313.df.professores %>%
     perfil.313.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
-      summarise(n_distinct(area)), 
-    by = "idLattes")
-
+      summarise(num_areas = n_distinct(area)), 
+    by = "idLattes") %>%
+  mutate(num_areas = factor(num_areas))
+perfil.313.df[is.na(perfil.313.df)] <- 0 #Remove NAs do dataframe
+perfil.313.df.areas.de.atuacao <- perfil.313.df.areas.de.atuacao %>%
+  left_join(perfil.313.df, by = "idLattes") %>%
+  rowwise() %>% #realizar sum() corretamente
+  mutate(orientacoes_concluidas = sum(ORIENTACAO_CONCLUIDA_DOUTORADO,
+                                      ORIENTACAO_CONCLUIDA_POS_DOUTORADO, ORIENTACAO_CONCLUIDA_MESTRADO,
+                                      OUTRAS_ORIENTACOES_CONCLUIDAS, na.rm = TRUE)) %>%
+  mutate(publicacoes = sum(CAPITULO_DE_LIVRO, EVENTO, PERIODICO,
+                           LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
+  select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
+class(perfil.313.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
 glimpse(perfil.313.df)
-
 ```
 
 ##CRISP-DM Fase 3 - Preparação dos Dados
@@ -599,21 +599,15 @@ Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a
 *Número de Publicacoes em periódicos*
 ```{r}
 sum(sapply(public.240$PERIODICO, function(x) length(x$natureza)))
-
 sum(sapply(public.242$PERIODICO, function(x) length(x$natureza)))
-
 sum(sapply(public.243$PERIODICO, function(x) length(x$natureza)))
-
 sum(sapply(public.313$PERIODICO, function(x) length(x$natureza)))
 ```
 *Anos analisados*
 ```{r}
 names(public.240$PERIODICO)
-
 names(public.242$PERIODICO)
-
 names(public.243$PERIODICO)
-
 names(public.313$PERIODICO)
 ```
 *20 revistas mais publicadas*
@@ -621,15 +615,12 @@ names(public.313$PERIODICO)
 head(sort(table(as.data.frame(unlist
     (sapply(public.240$PERIODICO, function(x) unlist(x$periodico)))
   )), decreasing = TRUE),20)
-
 head(sort(table(as.data.frame(unlist
     (sapply(public.242$PERIODICO, function(x) unlist(x$periodico)))
   )), decreasing = TRUE),20)
-
 head(sort(table(as.data.frame(unlist
     (sapply(public.243$PERIODICO, function(x) unlist(x$periodico)))
   )), decreasing = TRUE),20)
-
 head(sort(table(as.data.frame(unlist
     (sapply(public.313$PERIODICO, function(x) unlist(x$periodico)))
   )), decreasing = TRUE),20)
@@ -639,19 +630,15 @@ head(sort(table(as.data.frame(unlist
 public.240.periodico.df <- pub.ls2df(public.240, 1) #artigos
 public.240.livros.df <- pub.ls2df(public.240, 2) #livros
 public.240.eventos.df <- pub.ls2df(public.240, 5) #eventos
-
 public.242.periodico.df <- pub.ls2df(public.242, 1) #artigos
 public.242.livros.df <- pub.ls2df(public.242, 2) #livros
 public.242.eventos.df <- pub.ls2df(public.242, 5) #eventos
-
 public.243.periodico.df <- pub.ls2df(public.243, 1) #artigos
 public.243.livros.df <- pub.ls2df(public.243, 2) #livros
 public.243.eventos.df <- pub.ls2df(public.243, 5) #eventos
-
 public.313.periodico.df <- pub.ls2df(public.313, 1) #artigos
 public.313.livros.df <- pub.ls2df(public.313, 2) #livros
 public.313.eventos.df <- pub.ls2df(public.313, 5) #eventos
-
 #Dataframe específico para análise de especialidades
 especialidade.240.orient <- public.240.eventos.df %>%
   filter (classificacao == "INTERNACIONAL") %>%
@@ -663,11 +650,48 @@ especialidade.240.orient <- public.240.eventos.df %>%
   left_join(perfil.240.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
   select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
   rename(idLattes = `autores-endogeno`)
-
 especialidade.240.orient[is.na(especialidade.240.orient)] <- 0 #Remove NAs do dataframe
 especialidade.240.orient$especialidade <- sub("^$", "Não informada", especialidade.240.orient$especialidade)
 especialidade.240.orient$internacional <- sub(0, "Não", especialidade.240.orient$internacional)
-
+especialidade.242.orient <- public.242.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.242.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.242.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+especialidade.242.orient[is.na(especialidade.242.orient)] <- 0 #Remove NAs do dataframe
+especialidade.242.orient$especialidade <- sub("^$", "Não informada", especialidade.242.orient$especialidade)
+especialidade.242.orient$internacional <- sub(0, "Não", especialidade.242.orient$internacional)
+especialidade.243.orient <- public.243.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.243.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.243.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+especialidade.243.orient[is.na(especialidade.243.orient)] <- 0 #Remove NAs do dataframe
+especialidade.243.orient$especialidade <- sub("^$", "Não informada", especialidade.243.orient$especialidade)
+especialidade.243.orient$internacional <- sub(0, "Não", especialidade.243.orient$internacional)
+especialidade.313.orient <- public.313.eventos.df %>%
+  filter (classificacao == "INTERNACIONAL") %>%
+  select (`autores-endogeno`) %>%
+  separate_rows(`autores-endogeno`, sep = ";") %>%
+  distinct() %>%
+  arrange(`autores-endogeno`) %>% mutate(internacional = "Sim") %>%
+  right_join(perfil.313.df, by = c("autores-endogeno" = "idLattes")) %>%
+  left_join(perfil.313.df.areas.de.atuacao, by = c("autores-endogeno" = "idLattes")) %>%
+  select(`autores-endogeno`, internacional, especialidade, orientacoes_concluidas) %>% distinct() %>%
+  rename(idLattes = `autores-endogeno`)
+especialidade.313.orient[is.na(especialidade.313.orient)] <- 0 #Remove NAs do dataframe
+especialidade.313.orient$especialidade <- sub("^$", "Não informada", especialidade.313.orient$especialidade)
+especialidade.313.orient$internacional <- sub(0, "Não", especialidade.313.orient$internacional)
 #Dataframe especifico para análise de áreas de atuação
 perfil.240.areas <- perfil.240.df.areas.de.atuacao %>% 
   select(-sub_area, -especialidade) %>%
@@ -675,26 +699,37 @@ perfil.240.areas <- perfil.240.df.areas.de.atuacao %>%
   group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
   summarise(num_areas = n()) %>% ungroup()
 perfil.240.areas$num_areas <- as.factor(perfil.240.areas$num_areas)
-
+perfil.242.areas <- perfil.242.df.areas.de.atuacao %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>% ungroup()
+perfil.242.areas$num_areas <- as.factor(perfil.242.areas$num_areas)
+perfil.243.areas <- perfil.243.df.areas.de.atuacao %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>% ungroup()
+perfil.243.areas$num_areas <- as.factor(perfil.243.areas$num_areas)
+perfil.313.areas <- perfil.313.df.areas.de.atuacao %>% 
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  group_by(idLattes, orientacoes_concluidas, publicacoes) %>%
+  summarise(num_areas = n()) %>% ungroup()
+perfil.313.areas$num_areas <- as.factor(perfil.313.areas$num_areas)
 ```
 *Publicações por ano*
 ```{r}
 table(public.240.periodico.df$ano)
-
 table(public.242.periodico.df$ano)
-
 table(public.243.periodico.df$ano)
-
 table(public.313.periodico.df$ano)
 ```
 *20 revistas mais publicadas (análise com dataframe)*
 ```{r}
 head(sort(table(public.240.periodico.df$periodico), decreasing = TRUE), 20)
-
 head(sort(table(public.242.periodico.df$periodico), decreasing = TRUE), 20)
-
 head(sort(table(public.243.periodico.df$periodico), decreasing = TRUE), 20)
-
 head(sort(table(public.313.periodico.df$periodico), decreasing = TRUE), 20)
 ```
 
@@ -702,13 +737,10 @@ head(sort(table(public.313.periodico.df$periodico), decreasing = TRUE), 20)
 ```{r}
 sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
   sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
-
 sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
   sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
-
 sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
   sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
-
 sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
   sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
 ```
@@ -719,7 +751,6 @@ orient.240.posdoutorado.df <- ori.ls2df(orient.240, 6) #pos-Doutorado concluido
 orient.240.doutorado.df <- ori.ls2df(orient.240, 7) #Doutorado concluido
 orient.240.mestrado.df <- ori.ls2df(orient.240, 8) #Mestrado concluido
 orient.240.df <- rbind(rbind(orient.240.posdoutorado.df, orient.240.doutorado.df), orient.240.mestrado.df)
-
 bolsas.240.df <- orient.240.df %>% filter(bolsa == "SIM") %>%
   group_by(natureza, ano) %>%
   summarise(num_bolsas = n()) %>%
@@ -727,21 +758,39 @@ bolsas.240.df <- orient.240.df %>% filter(bolsa == "SIM") %>%
                 group_by(natureza, ano) %>%
                 summarise(num_orients = n())), by = c("natureza", "ano")) %>%
   mutate(ratio = num_bolsas/num_orients)
-
 orient.242.posdoutorado.df <- ori.ls2df(orient.242, 6) #pos-Doutorado concluido
 orient.242.doutorado.df <- ori.ls2df(orient.242, 7) #Doutorado concluido
 orient.242.mestrado.df <- ori.ls2df(orient.242, 8) #Mestrado concluido
 orient.242.df <- rbind(rbind(orient.242.posdoutorado.df, orient.242.doutorado.df), orient.242.mestrado.df)
-
+bolsas.242.df <- orient.242.df %>% filter(bolsa == "SIM") %>%
+  group_by(natureza, ano) %>%
+  summarise(num_bolsas = n()) %>%
+  inner_join((orient.242.df %>%
+                group_by(natureza, ano) %>%
+                summarise(num_orients = n())), by = c("natureza", "ano")) %>%
+  mutate(ratio = num_bolsas/num_orients)
 orient.243.posdoutorado.df <- ori.ls2df(orient.243, 6) #pos-Doutorado concluido
 orient.243.doutorado.df <- ori.ls2df(orient.243, 7) #Doutorado concluido
 orient.243.mestrado.df <- ori.ls2df(orient.243, 8) #Mestrado concluido
 orient.243.df <- rbind(rbind(orient.243.posdoutorado.df, orient.243.doutorado.df), orient.243.mestrado.df)
-
+bolsas.243.df <- orient.243.df %>% filter(bolsa == "SIM") %>%
+  group_by(natureza, ano) %>%
+  summarise(num_bolsas = n()) %>%
+  inner_join((orient.243.df %>%
+                group_by(natureza, ano) %>%
+                summarise(num_orients = n())), by = c("natureza", "ano")) %>%
+  mutate(ratio = num_bolsas/num_orients)
 orient.313.posdoutorado.df <- ori.ls2df(orient.313, 6) #pos-Doutorado concluido
 orient.313.doutorado.df <- ori.ls2df(orient.313, 7) #Doutorado concluido
 orient.313.mestrado.df <- ori.ls2df(orient.313, 8) #Mestrado concluido
 orient.313.df <- rbind(rbind(orient.313.posdoutorado.df, orient.313.doutorado.df), orient.313.mestrado.df)
+bolsas.313.df <- orient.313.df %>% filter(bolsa == "SIM") %>%
+  group_by(natureza, ano) %>%
+  summarise(num_bolsas = n()) %>%
+  inner_join((orient.313.df %>%
+                group_by(natureza, ano) %>%
+                summarise(num_orients = n())), by = c("natureza", "ano")) %>%
+  mutate(ratio = num_bolsas/num_orients)
 ```
 ###
 *Construção de Grafo de Colaborações*
@@ -749,54 +798,66 @@ orient.313.df <- rbind(rbind(orient.313.posdoutorado.df, orient.313.doutorado.df
 g.240 <- g.ls2ig(graphl.240)
 df.240 <- as.data.frame(V(g.240)$name); colnames(df.240) <- "Idlattes"
 df.240 <- left_join(df.240, df.prog, by = c("Idlattes" = "idLattes"))
-
 g.242 <- g.ls2ig(graphl.242)
 df.242 <- as.data.frame(V(g.242)$name); colnames(df.242) <- "Idlattes"
 df.242 <- left_join(df.242, df.prog, by = c("Idlattes" = "idLattes"))
-
 g.243 <- g.ls2ig(graphl.243)
 df.243 <- as.data.frame(V(g.243)$name); colnames(df.243) <- "Idlattes"
 df.243 <- left_join(df.243, df.prog, by = c("Idlattes" = "idLattes"))
-
 g.313 <- g.ls2ig(graphl.313)
 df.313 <- as.data.frame(V(g.313)$name); colnames(df.313) <- "Idlattes"
 df.313 <- left_join(df.313, df.prog, by = c("Idlattes" = "idLattes"))
+perfil.total.df = bind_rows(perfil.240.df, perfil.242.df, perfil.243.df, perfil.313.df) 
 ```
 
 Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa, vide código abaixo.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 df.240 <- df.240 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.240)$programa <- df.240$Programa
 V(g.240)$orient_dout <- perfil.240.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.240)$orient_mest <- perfil.240.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.240)$publicacao <- perfil.240.df$PERIODICO
-V(g.240)$eventos <- perfil.240.df$EVENTO
-
+E(g.240)$publicacao <- perfil.240.df$PERIODICO
+E(g.240)$eventos <- perfil.240.df$EVENTO
+V(g.240)$color = 'blue'
+V(g.240)$name = df.240$Docente
+V(g.240)$name = str_extract(V(g.240)$name, '[^ ]+$')
 df.242 <- df.242 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.242)$programa <- df.242$Programa
 V(g.242)$orient_dout <- perfil.242.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.242)$orient_mest <- perfil.242.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.242)$publicacao <- perfil.242.df$PERIODICO
-V(g.242)$eventos <- perfil.242.df$EVENTO
-
+E(g.242)$publicacao <- perfil.242.df$PERIODICO
+E(g.242)$eventos <- perfil.242.df$EVENTO
+V(g.242)$color = 'yellow'
+V(g.242)$name = df.242$Docente
+V(g.242)$name = str_extract(V(g.242)$name, '[^ ]+$')
 df.243 <- df.243 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.243)$programa <- df.243$Programa
 V(g.243)$orient_dout <- perfil.243.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.243)$orient_mest <- perfil.243.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.243)$publicacao <- perfil.243.df$PERIODICO
-V(g.243)$eventos <- perfil.243.df$EVENTO
-
+E(g.243)$publicacao <- perfil.243.df$PERIODICO
+E(g.243)$eventos <- perfil.243.df$EVENTO
+V(g.243)$color = 'green'
+V(g.243)$name = df.243$Docente
+V(g.243)$name = str_extract(V(g.243)$name, '[^ ]+$')
 df.313 <- df.313 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.313)$programa <- df.313$Programa
 V(g.313)$orient_dout <- perfil.313.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.313)$orient_mest <- perfil.313.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.313)$publicacao <- perfil.313.df$PERIODICO
-V(g.313)$eventos <- perfil.313.df$EVENTO
+E(g.313)$publicacao <- perfil.313.df$PERIODICO
+V(g.313)$color = 'red'
+E(g.313)$eventos <- perfil.313.df$EVENTO
+V(g.313)$name = df.313$Docente
+V(g.313)$name = str_extract(V(g.313)$name, '[^ ]+$')
+grafo = graph.disjoint.union(g.240, g.242, g.243, g.313)%>%
+  set_edge_attr('weight', value = (1/1000)*perfil.total.df$PERIODICO) %>%
+  set_edge_attr('color', value = factor(perfil.total.df$senioridade)) %>%
+  set_edge_attr('width', value =  factor(perfil.total.df$`n_distinct(area)`)) %>%
+  set_vertex_attr('size', value = (1/10)*perfil.total.df$PERIODICO)
 ```
 
 ##CRISP-DM Fases 4 a 6 - Resultados e visualizações:
@@ -815,7 +876,7 @@ public.240.periodico.df %>%
 ```
 
 Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-de Biologia Animal mantém se estável com flutuações normais, mas apresentou uma queda considerável de 2014 para 2015, diminuindo o número de publicações em cerca de 18% mas recuperando em anos posteriores.
+de Biologia Animal apresentou pouca variação entre os anos de 2011 e 2017, registrando valores entre 60 e 72 publicações por ano. Um vale único vlae foi encontrado fora deste intervalo, com número de publicações 18% menor que o ano anterior (2015). Ainda assim, este comportamento não foi propagado nos anos seguintes, caracterizando um ano atípico na amostra.
 
 ###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
 ```{r}
@@ -830,7 +891,7 @@ perfil.240.df %>%
   geom_hline(yintercept = sum(perfil.240.df %>% summarize(x = median(PERIODICO))), color = "red")
 ```
 
-O gráfico acima demonstra o total de publicações para cada pesquisador, demonstrando relativa homogeneidade entre a quantidade de pesquisadores em média, porém há aqueles que deslocam a média para cima por estarem fora do desvio padrão acima ou abaixo, sendo que há destaque para dois pesquisadores que tem um número de publicação que corresponde cerca de quatro vezes o valor da média.
+O gráfico acima demonstra o total de publicações registradas por cada pesquisador, demonstrando relativa homogeneidade na produção média por pesquisador, uma vez que grande parte das amostras se aproxima da mediana (26 publicações em periódicos). Nota-se, entretanto, um grande destaque para dois pesquisadores que apresentaram mais de 100 publicações no período (cerca de quatro vezes o valor da média). Outra consideração relevante é a constatação de que os 3 pesquisadores com maiores coeficientes no gráfico apresentam apenas uma única área de pesquisa cadastrada, enquanto os pesquisadores com mais áreas de pesquisa apresentaram um índice menor.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
 ```{r}
@@ -845,7 +906,7 @@ perfil.240.df %>%
   geom_hline(yintercept = sum(perfil.240.df %>% summarize(x = median(EVENTO))), color = "red")
 ```
 
-AAAAAAAA
+O gráfico acima demonstra o total de eventos registrados por cada pesquisador, demonstrando relativa homogeneidade na participação média de cada pesquisador em eventos, uma vez que grande parte das amostras se aproxima da mediana (11 participações). Ainda assim, alguns *outliars* apresentaram número expressivamente maiores, chegando a quintuplicar a mediana encontrada. É curioso notar que, assim como observado no gráfico de produção de periódicos, os pesquisadores que apresentaram um maior coeficiente de participação em eventos não foram aqueles que relataram um maior número de áreas de pesquisa, induzindo a noção de que pesquisadores especializados apresentam uma maior participação mais expressiva na comunidade acadêmica.
 
 ###Publicação de livros por pais/ano
 ```{r}
@@ -856,7 +917,7 @@ public.240.livros.df %>%
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
-Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal
+Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os Estados Unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal. Ainda assim, é curioso notar que menos da metade dos oito anos da base de dados registraram publicações de livros (2013, 2014, 2016).
 
 ###Publicações de capítulos de livros por ano/país
 ```{r}
@@ -868,7 +929,7 @@ perfil.240.df.publicacoes %>%
   labs(x='Tipo de produção',y='País')
 ```
 
-AAAAAA
+Trazendo a análise de publicações de capítulos de livros, há um aumento expressivo no número de amostras. Todos os anos analisados (2010-2017) registraram mais de um capítulo de livro publicado pelo PPG em Biologia Animal. Entretanto, a publicação de capítulos não apresenta o mesmo nível de internacionalização que o gráfico anterior. Uma observação curiosa é a grande participação de países estrangeiros no início da amostra, enquanto os anos 2016 e 2017 tem publicações majoritariamente nacionais.
 
 ###Eventos nacionais e internacionais
 ```{r}
@@ -900,14 +961,14 @@ orient.240.df %>%
 ```
 
 Observando a evolução do número de orientações completas ao longo dos anos,
-percebe-se que o Programa de Pós-Graduação cresceu consideravelmente na
-natureza de mestrado após 2010, com uma regressão em 2016.
+percebe-se que o Programa de Pós-Graduação em Biologia Animal cresceu na
+natureza de mestrado após 2010, mas teve regressões em 2015 e 2017.
 Entretanto, não há um comportamento linear na evolução do número de orientações
-finalizadas. 2014 despontou no número de dissertações de mestrado, mas
-este comportamento não se repetiu posteriormente. Enquanto as orientações
+Além disso, 2013 despontou no número de dissertações de mestrado, mas
+teve queda vertiginosa nas demais naturezas. Enquanto as orientações
 de mestrado do Programa parecem bem estabelecidas, as supervisões de
 pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
-em nenhum dos anos pesquisados e chegaram a zero registros em 2017.
+em nenhum dos anos pesquisados e chegaram a zero registros em 2017 - enquanto o doutorado atingiu valor máximo neste mesmo ano.
 
 ###Evolução temporal de orientações em andamento e concluídas
 ```{r}
@@ -917,7 +978,7 @@ perfil.240.df.orientacoes %>% group_by(ano, situacao) %>%
   ggtitle("Disposição de orientações por ano")
 ```
 
-AAAAAAAAA
+Observou-se uma quantidade praticamente linear no número de iniciações científicas, mestrados e doutorados concluídos no período 2010 – 2017. Conjuntamente a isso, verifica-se um aumento significativo no número de pós-graduações e iniciações científicas em andamento a partir de 2012. Em contrapartida, os pós-doutorados e outros tipos de especialidades tiveram queda no período em questão. Este comportamento, com diversas orientações finalizadas e poucas em andamento, sugere que o PPG em Biologia Animal contemplava poucos cadastros de orientações em andamento e está intensificando esta prática nos anos mais recentes - o que tornará análises futuras ainda mais enriquecedoras.
 
 ###Índice de bolsas entre naturezas e evolução temporal
 ```{r}
@@ -943,10 +1004,19 @@ de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
 ###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
 ```{r}
-plot(g.240, vertex.label = NA)
+plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
+      edge.arrow.width = 0.3,
+      edge.size = 3,
+      edge.arrow.size = 0.5,
+      vertex.size2 = 3,
+      vertex.label.cex = 0.7,
+      vertex.label.color = 'black',
+      vertex.label.family = 'ArialMT',
+      asp = 0.35,
+      margin = 0.0)
 ```
 
-O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices e a existência de cooperação entre eles em suas arestas. É possível observar um grau profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em  grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. Existem excessões tais como os vértices mais afastados e o vértice único que não tem nenhuma aresta com adjacentes.
+Este grafo demonstra a rede de cooperação, peso, quantidades de publicações e senioridade dos indivíduos e da cooperação entre eles. Cada círculo representa um docente dentro de um PPG indicado pela cor, onde: azul é a PPG de Biologia Animal; amarelo é PPG de Biologia Microbiana; verde corresponde a PPG de Biologia Molecular; e vermelho a PPG de Patologia Molecular. Já para cada aresta, as cores determinam a senioridade entre os dois pontos, onde verde é 9, azul é 8 e laranja é 7; quanto ao diametro é dado pela a quantidade de áreas um vértice compartilha com o outro; já para a ligação da aresta, esta é dada pelos os periódicos em comum para cada vértice, indicando cooperação. A partir deste grafo é possível entender que cada programa de pós graduação se mantém praticamente isolado, exceto pelos os docentes que se repetem para cada PPG. É notável que a maioria destas PPGs tem muita intracomunicação, deixando poucos docentes isolados exceto pela a PPG de Biologia Microbiana que tiveram seis docentes completamente isolados de qualquer outra PPG e dela mesma, tendo o maior número de isolamentos. É possível perceber também que a docente de sobrenome Cynthia Maria Kyaw é uma comunicadora entre PPGs, pois intercomunica as PPGs de Biologia Molecular e Biologia Microbiana e além disso previne o isolamento entre sua própria PPG formando uma ponte entre um e outro grupo de docentes que estariam isolados se não colaborassem com esta. Em cada uma das PPGs há docentes em destaque pela a quantidade de publicações (indicada pelo o diâmetro do vértice), mas é possível perceber que o PPG de Patologia Molecular tem uma dominância de um docente que publica aproximadamente o triplo que o anterior em publicações, o que resulta em um grande vértice central. Este dominante também está com a maioria das interligações de seu PPG, sendo portanto um canal de informação dentro de seu grupo.
 
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
 ```{r}
