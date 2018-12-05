@@ -835,7 +835,7 @@ public.240.periodico.df %>%
 ```
 
 Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduação
-de Biologia Animal mantém se estável com flutuações normais, mas apresentou uma queda considerável de 2014 para 2015, diminuindo o número de publicações em cerca de 18% mas recuperando em anos posteriores.
+de Biologia Animal apresentou pouca variação entre os anos de 2011 e 2017, exceto pela presença de um vale no ano de 2015, com número de publicações 18% menor que o ano anterior. Ainda assim, este comportamento não foi propagado nos anos seguintes, caracterizando um ano atípico na amostra.
 
 ###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
 ```{r}
@@ -850,7 +850,7 @@ perfil.240.df %>%
   geom_hline(yintercept = sum(perfil.240.df %>% summarize(x = median(PERIODICO))), color = "red")
 ```
 
-O gráfico acima demonstra o total de publicações para cada pesquisador, demonstrando relativa homogeneidade entre a quantidade de pesquisadores em média, porém há aqueles que deslocam a média para cima por estarem fora do desvio padrão acima ou abaixo, sendo que há destaque para dois pesquisadores que tem um número de publicação que corresponde cerca de quatro vezes o valor da média.
+O gráfico acima demonstra o total de publicações registradas por cada pesquisador, demonstrando relativa homogeneidade na produção média por pesquisador, uma vez que grande parte das amostras se aproxima da mediana (26 publicações em periódicos). Nota-se, entretanto, um grande destaque para dois pesquisadores que apresentaram mais de 100 publicações no período (cerca de quatro vezes o valor da média). Outra consideração relevante é a constatação de que os 3 pesquisadores com maiores coeficientes no gráfico apresentam apenas uma única área de pesquisa cadastrada, enquanto os pesquisadores com mais áreas de pesquisa apresentaram um índice menor.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
 ```{r}
@@ -865,7 +865,7 @@ perfil.240.df %>%
   geom_hline(yintercept = sum(perfil.240.df %>% summarize(x = median(EVENTO))), color = "red")
 ```
 
-AAAAAAAA
+O gráfico acima demonstra o total de eventos registrados por cada pesquisador, demonstrando relativa homogeneidade na participação média de cada pesquisador em eventos, uma vez que grande parte das amostras se aproxima da mediana (11 participações). Ainda assim, alguns *outliars* apresentaram número expressivamente maiores, chegando a quintuplicar a mediana encontrada. É curioso notar que, assim como observado no gráfico de produção de periódicos, os pesquisadores que apresentaram um maior coeficiente de participação em eventos não foram aqueles que relataram um maior número de áreas de pesquisa, induzindo a noção de que pesquisadores especializados apresentam uma maior participação mais expressiva na comunidade acadêmica.
 
 ###Publicação de livros por pais/ano
 ```{r}
@@ -876,7 +876,7 @@ public.240.livros.df %>%
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
-Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal
+Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal.
 
 ###Publicações de capítulos de livros por ano/país
 ```{r}
