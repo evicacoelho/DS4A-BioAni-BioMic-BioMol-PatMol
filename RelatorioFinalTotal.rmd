@@ -416,7 +416,7 @@ perfil.313.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.313) %>%
   select(idLattes, everything())
 ```
 *Cria arquivo com dados quantitativos para análise*
-```{r}
+  ```{r echo=FALSE}
 perfil.240.df <- data.frame()
 perfil.240.df <- perfil.240.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -444,6 +444,7 @@ perfil.240.df <- perfil.240.df.professores %>%
     by = "idLattes") %>%
   mutate(num_areas = factor(num_areas))
 perfil.240.df[is.na(perfil.240.df)] <- 0 #Remove NAs do dataframe
+
 perfil.240.df.areas.de.atuacao <- perfil.240.df.areas.de.atuacao %>%
   left_join(perfil.240.df, by = "idLattes") %>%
   rowwise() %>% #realizar sum() corretamente
@@ -454,7 +455,8 @@ perfil.240.df.areas.de.atuacao <- perfil.240.df.areas.de.atuacao %>%
                            LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.240.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
-glimpse(perfil.240.df)
+print("Biologia Animal")
+summary(perfil.240.df)
 perfil.242.df <- data.frame()
 perfil.242.df <- perfil.242.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -492,7 +494,9 @@ perfil.242.df.areas.de.atuacao <- perfil.242.df.areas.de.atuacao %>%
                            LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.242.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
-glimpse(perfil.242.df)
+print("Biologia Microbiana")
+summary(perfil.242.df)
+
 perfil.243.df <- data.frame()
 perfil.243.df <- perfil.243.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -530,7 +534,8 @@ perfil.243.df.areas.de.atuacao <- perfil.243.df.areas.de.atuacao %>%
                            LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.243.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
-glimpse(perfil.243.df)
+print("Biologia Molecular")
+summary(perfil.243.df)
 perfil.313.df <- data.frame()
 perfil.313.df <- perfil.313.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -568,8 +573,9 @@ perfil.313.df.areas.de.atuacao <- perfil.313.df.areas.de.atuacao %>%
                            LIVRO, TEXTO_EM_JORNAIS, OUTRAS_PRODUCOES, na.rm = TRUE)) %>%
   select(idLattes, grande_area, area, sub_area, especialidade, orientacoes_concluidas, publicacoes)
 class(perfil.313.df.areas.de.atuacao) <- c("tbl_df", "data.frame") #desfazer rowwise
-glimpse(perfil.313.df)
-```
+print("Patologia Molecular")
+summary(perfil.313.df)
+
 
 ##CRISP-DM Fase 3 - Preparação dos Dados
 A terceira fase do CRISP é conhecida por ser a parte de preparação dos dados. Tal fase possui como
@@ -597,36 +603,44 @@ Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a
 
 ##Análise dos dados no formato lista
 *Número de Publicacoes em periódicos*
-```{r}
-sum(sapply(public.240$PERIODICO, function(x) length(x$natureza)))
-sum(sapply(public.242$PERIODICO, function(x) length(x$natureza)))
-sum(sapply(public.243$PERIODICO, function(x) length(x$natureza)))
-sum(sapply(public.313$PERIODICO, function(x) length(x$natureza)))
+  ```{r echo=FALSE}
+print(c('Biologia Animal:',sum(sapply(public.240$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
+print(c('Biologia Microbiana:',sum(sapply(public.242$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
+print(c('Biologia Molecular:',sum(sapply(public.243$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
+print(c('Patologia Molecular:',sum(sapply(public.313$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
 ```
 *Anos analisados*
-```{r}
+  ```{r echo=FALSE}
+print(c('Biologia Animal:'))
 names(public.240$PERIODICO)
+print(c('Biologia Microbiana:'))
 names(public.242$PERIODICO)
+print(c('Biologia Molecular:'))
 names(public.243$PERIODICO)
+print(c('Patologia Molecular:'))
 names(public.313$PERIODICO)
 ```
 *20 revistas mais publicadas*
-```{r}
+  ```{r echo=FALSE}
+print(c('Biologia Animal:'))
 head(sort(table(as.data.frame(unlist
-    (sapply(public.240$PERIODICO, function(x) unlist(x$periodico)))
-  )), decreasing = TRUE),20)
+                              (sapply(public.240$PERIODICO, function(x) unlist(x$periodico)))
+)), decreasing = TRUE),20)
+print(c('Biologia Microbiana:'))
 head(sort(table(as.data.frame(unlist
-    (sapply(public.242$PERIODICO, function(x) unlist(x$periodico)))
-  )), decreasing = TRUE),20)
+                              (sapply(public.242$PERIODICO, function(x) unlist(x$periodico)))
+)), decreasing = TRUE),20)
+print(c('Biologia Molecular:'))
 head(sort(table(as.data.frame(unlist
-    (sapply(public.243$PERIODICO, function(x) unlist(x$periodico)))
-  )), decreasing = TRUE),20)
+                              (sapply(public.243$PERIODICO, function(x) unlist(x$periodico)))
+)), decreasing = TRUE),20)
+print(c('Patologia Molecular:'))
 head(sort(table(as.data.frame(unlist
-    (sapply(public.313$PERIODICO, function(x) unlist(x$periodico)))
-  )), decreasing = TRUE),20)
+                              (sapply(public.313$PERIODICO, function(x) unlist(x$periodico)))
+)), decreasing = TRUE),20)
 ```
 *Análise dos dados no formato dataframe*
-```{r}
+  ```{r echo=FALSE}
 public.240.periodico.df <- pub.ls2df(public.240, 1) #artigos
 public.240.livros.df <- pub.ls2df(public.240, 2) #livros
 public.240.eventos.df <- pub.ls2df(public.240, 5) #eventos
@@ -719,34 +733,42 @@ perfil.313.areas <- perfil.313.df.areas.de.atuacao %>%
 perfil.313.areas$num_areas <- as.factor(perfil.313.areas$num_areas)
 ```
 *Publicações por ano*
-```{r}
+  ```{r echo=FALSE}
+print("Biologia Animal ")
 table(public.240.periodico.df$ano)
+print("Biologia Microbiana")
 table(public.242.periodico.df$ano)
+print("Biologia Molecular")
 table(public.243.periodico.df$ano)
+print("Patologia Molecular")
 table(public.313.periodico.df$ano)
 ```
 *20 revistas mais publicadas (análise com dataframe)*
-```{r}
+  ```{r echo=FALSE}
+print("Biologia Animal ")
 head(sort(table(public.240.periodico.df$periodico), decreasing = TRUE), 20)
+print("Biologia Microbiana")
 head(sort(table(public.242.periodico.df$periodico), decreasing = TRUE), 20)
+print("Biologia Molecular")
 head(sort(table(public.243.periodico.df$periodico), decreasing = TRUE), 20)
+print("Patologia Molecular")
 head(sort(table(public.313.periodico.df$periodico), decreasing = TRUE), 20)
 ```
 
 *Número de Orientações de Mestrado e Doutorado*
-```{r}
-sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
-  sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
-sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
-  sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
-sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
-  sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
-sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
-  sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))
+  ```{r echo=FALSE}
+print(c("Biologia Animal: ",sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))),quote=FALSE)
+print(c("Biologia Microbiana:",sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))),quote=FALSE)
+print(c("Biologia Molecular:",sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.243$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))),quote=FALSE)
+print(c("Patologia Molecular:",sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
+  sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))),quote=FALSE)
 ```
 
 *Construição de dataframe de orientações*
-```{r}
+  ```{r echo=FALSE}
 orient.240.posdoutorado.df <- ori.ls2df(orient.240, 6) #pos-Doutorado concluido
 orient.240.doutorado.df <- ori.ls2df(orient.240, 7) #Doutorado concluido
 orient.240.mestrado.df <- ori.ls2df(orient.240, 8) #Mestrado concluido
@@ -794,7 +816,7 @@ bolsas.313.df <- orient.313.df %>% filter(bolsa == "SIM") %>%
 ```
 ###
 *Construção de Grafo de Colaborações*
-```{r, warning=FALSE,message=FALSE}
+  ```{r, warning=FALSE,message=FALSE}
 g.240 <- g.ls2ig(graphl.240)
 df.240 <- as.data.frame(V(g.240)$name); colnames(df.240) <- "Idlattes"
 df.240 <- left_join(df.240, df.prog, by = c("Idlattes" = "idLattes"))
@@ -812,7 +834,7 @@ perfil.total.df = bind_rows(perfil.240.df, perfil.242.df, perfil.243.df, perfil.
 
 Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa, vide código abaixo.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 df.240 <- df.240 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.240)$programa <- df.240$Programa
@@ -864,7 +886,7 @@ grafo = graph.disjoint.union(g.240, g.242, g.243, g.313)%>%
 Foram escolhidos alguns resultados, em relação aos dados encontrados durante o processo, para serem plotados em gráficos.
 
 ### Grafico de barras; periodicos por ano
-```{r}
+```{r echo=FALSE}
 public.240.periodico.df %>%
   group_by(ano) %>%
   summarise(Quantidade = n()) %>%
@@ -879,7 +901,7 @@ Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduaç
 de Biologia Animal apresentou pouca variação entre os anos de 2011 e 2017, registrando valores entre 60 e 72 publicações por ano. Um vale único vlae foi encontrado fora deste intervalo, com número de publicações 18% menor que o ano anterior (2015). Ainda assim, este comportamento não foi propagado nos anos seguintes, caracterizando um ano atípico na amostra.
 
 ###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
-```{r}
+```{r echo=FALSE}
 perfil.240.df %>%
   ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
   geom_point() +
@@ -894,7 +916,7 @@ perfil.240.df %>%
 O gráfico acima demonstra o total de publicações registradas por cada pesquisador, demonstrando relativa homogeneidade na produção média por pesquisador, uma vez que grande parte das amostras se aproxima da mediana (26 publicações em periódicos). Nota-se, entretanto, um grande destaque para dois pesquisadores que apresentaram mais de 100 publicações no período (cerca de quatro vezes o valor da média). Outra consideração relevante é a constatação de que os 3 pesquisadores com maiores coeficientes no gráfico apresentam apenas uma única área de pesquisa cadastrada, enquanto os pesquisadores com mais áreas de pesquisa apresentaram um índice menor.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
-```{r}
+```{r echo=FALSE}
 perfil.240.df %>%
   ggplot(aes(idLattes,EVENTO, color = num_areas)) +
   geom_point() +
@@ -909,7 +931,7 @@ perfil.240.df %>%
 O gráfico acima demonstra o total de eventos registrados por cada pesquisador, demonstrando relativa homogeneidade na participação média de cada pesquisador em eventos, uma vez que grande parte das amostras se aproxima da mediana (11 participações). Ainda assim, alguns *outliars* apresentaram número expressivamente maiores, chegando a quintuplicar a mediana encontrada. É curioso notar que, assim como observado no gráfico de produção de periódicos, os pesquisadores que apresentaram um maior coeficiente de participação em eventos não foram aqueles que relataram um maior número de áreas de pesquisa, induzindo a noção de que pesquisadores especializados apresentam uma maior participação mais expressiva na comunidade acadêmica.
 
 ###Publicação de livros por pais/ano
-```{r}
+```{r echo=FALSE}
 public.240.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
@@ -920,7 +942,7 @@ public.240.livros.df %>%
 Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os Estados Unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal. Ainda assim, é curioso notar que menos da metade dos oito anos da base de dados registraram publicações de livros (2013, 2014, 2016).
 
 ###Publicações de capítulos de livros por ano/país
-```{r}
+```{r echo=FALSE}
 perfil.240.df.publicacoes %>%
   filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
   group_by(tipo_producao,pais_de_publicacao) %>%
@@ -932,7 +954,7 @@ perfil.240.df.publicacoes %>%
 Trazendo a análise de publicações de capítulos de livros, há um aumento expressivo no número de amostras. Todos os anos analisados (2010-2017) registraram mais de um capítulo de livro publicado pelo PPG em Biologia Animal. Entretanto, a publicação de capítulos não apresenta o mesmo nível de internacionalização que o gráfico anterior. Uma observação curiosa é a grande participação de países estrangeiros no início da amostra, enquanto os anos 2016 e 2017 tem publicações majoritariamente nacionais.
 
 ###Eventos nacionais e internacionais
-```{r}
+```{r echo=FALSE}
 public.240.eventos.df %>%
   filter(pais_do_evento %in% 
            c(names(head(sort(table(public.240.eventos.df$pais_do_evento)
@@ -949,7 +971,7 @@ que o programa esteve presente em eventos de sede internacional em
 todos os anos registrados na base de dados, principalmente nos Estados Unidos.
 
 ###Orientacoes completas por ano e natureza
-```{r}
+```{r echo=FALSE}
 orient.240.df %>%
   group_by(ano, natureza) %>% summarise(total = n()) %>%
   ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
@@ -971,7 +993,7 @@ pós-doutorado ainda parecem incipientes, tendo em vista que não despontaram
 em nenhum dos anos pesquisados e chegaram a zero registros em 2017 - enquanto o doutorado atingiu valor máximo neste mesmo ano.
 
 ###Evolução temporal de orientações em andamento e concluídas
-```{r}
+```{r echo=FALSE}
 perfil.240.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
@@ -981,7 +1003,7 @@ perfil.240.df.orientacoes %>% group_by(ano, situacao) %>%
 Observou-se uma quantidade praticamente linear no número de iniciações científicas, mestrados e doutorados concluídos no período 2010 – 2017. Conjuntamente a isso, verifica-se um aumento significativo no número de pós-graduações e iniciações científicas em andamento a partir de 2012. Em contrapartida, os pós-doutorados e outros tipos de especialidades tiveram queda no período em questão. Este comportamento, com diversas orientações finalizadas e poucas em andamento, sugere que o PPG em Biologia Animal contemplava poucos cadastros de orientações em andamento e está intensificando esta prática nos anos mais recentes - o que tornará análises futuras ainda mais enriquecedoras.
 
 ###Índice de bolsas entre naturezas e evolução temporal
-```{r}
+```{r echo=FALSE}
 bolsas.240.df %>%
   ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
   geom_line() +
@@ -1003,23 +1025,23 @@ orientações de mestrado registrado em 2014 não foi tão expressivo em número
 de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
 ###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
-```{r}
+```{r echo=FALSE}
 plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
-      edge.arrow.width = 0.3,
-      edge.size = 3,
-      edge.arrow.size = 0.5,
-      vertex.size2 = 3,
-      vertex.label.cex = 0.7,
-      vertex.label.color = 'black',
-      vertex.label.family = 'ArialMT',
-      asp = 0.35,
-      margin = 0.0)
+     edge.arrow.width = 0.3,
+     edge.size = 3,
+     edge.arrow.size = 0.5,
+     vertex.size2 = 3,
+     vertex.label.cex = 0.7,
+     vertex.label.color = 'black',
+     vertex.label.family = 'ArialMT',
+     asp = 0.35,
+     margin = 0.0)
 ```
 
-Este grafo demonstra a rede de cooperação, peso, quantidades de publicações e senioridade dos indivíduos e da cooperação entre eles. Cada círculo representa um docente dentro de um PPG indicado pela cor, onde: azul é a PPG de Biologia Animal; amarelo é PPG de Biologia Microbiana; verde corresponde a PPG de Biologia Molecular; e vermelho a PPG de Patologia Molecular. Já para cada aresta, as cores determinam a senioridade entre os dois pontos, onde verde é 9, azul é 8 e laranja é 7; quanto ao diametro é dado pela a quantidade de áreas um vértice compartilha com o outro; já para a ligação da aresta, esta é dada pelos os periódicos em comum para cada vértice, indicando cooperação. A partir deste grafo é possível entender que cada programa de pós graduação se mantém praticamente isolado, exceto pelos os docentes que se repetem para cada PPG. É notável que a maioria destas PPGs tem muita intracomunicação, deixando poucos docentes isolados exceto pela a PPG de Biologia Microbiana que tiveram seis docentes completamente isolados de qualquer outra PPG e dela mesma, tendo o maior número de isolamentos. É possível perceber também que a docente de sobrenome Cynthia Maria Kyaw é uma comunicadora entre PPGs, pois intercomunica as PPGs de Biologia Molecular e Biologia Microbiana e além disso previne o isolamento entre sua própria PPG formando uma ponte entre um e outro grupo de docentes que estariam isolados se não colaborassem com esta. Em cada uma das PPGs há docentes em destaque pela a quantidade de publicações (indicada pelo o diâmetro do vértice), mas é possível perceber que o PPG de Patologia Molecular tem uma dominância de um docente que publica aproximadamente o triplo que o anterior em publicações, o que resulta em um grande vértice central. Este dominante também está com a maioria das interligações de seu PPG, sendo portanto um canal de informação dentro de seu grupo.
+Este grafo demonstra a rede de cooperação, peso, quantidades de publicações e senioridade dos indivíduos e da cooperação entre eles. Cada círculo representa um docente dentro de um PPG indicado pela cor, onde: azul é a PPG de Biologia Animal; amarelo é PPG de Biologia Microbiana; verde corresponde a PPG de Biologia Molecular; e vermelho a PPG de Patologia Molecular. Já para cada aresta, as cores determinam a senioridade entre os dois pontos, onde verde é 9, azul é 8 e laranja é 7; quanto ao diametro é dado pela a quantidade de áreas um vértice compartilha com o outro; já para a ligação da aresta, esta é dada pelos os periódicos em comum para cada vértice, indicando cooperação. A partir deste grafo é possível entender que cada programa de pós graduação se mantém praticamente isolado, exceto pelos os docentes que se repetem para cada PPG. É notável que a maioria destas PPGs tem muita intracomunicação, deixando poucos docentes isolados exceto pela a PPG de Biologia Microbiana que tiveram seis docentes completamente isolados de qualquer outra PPG e dela mesma, tendo o maior número de isolamentos. É possível perceber também que a docente de nome Cynthia Maria Kyaw é uma comunicadora entre PPGs, pois intercomunica as PPGs de Biologia Molecular e Biologia Microbiana e além disso previne o isolamento entre sua própria PPG formando uma ponte entre um e outro grupo de docentes que estariam isolados se não colaborassem com esta.. Em cada uma das PPGs há docentes em destaque pela a quantidade de publicações (indicada pelo o diâmetro do vértice), mas é possível perceber que o PPG de Patologia Molecular tem uma dominância de um docente que publica aproximadamente o triplo que o anterior em publicações, o que resulta em um grande vértice central. Este dominante também está com a maioria das interligações de seu PPG, sendo portanto um canal de informação dentro de seu grupo. 
 
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
-```{r}
+```{r echo=FALSE}
 orient.240.mestrado.df %>%
   group_by(curso) %>%
   summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
@@ -1032,7 +1054,7 @@ orient.240.mestrado.df %>%
 AAAAAAA
 
 ###Relação de Orientações Concluídas x Publicações por área:
-```{r}
+```{r echo=FALSE}
 perfil.240.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
@@ -1045,7 +1067,7 @@ perfil.240.df.areas.de.atuacao %>%
 AAAAAAAA Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
-```{r}
+```{r echo=FALSE}
 perfil.240.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
@@ -1054,9 +1076,9 @@ perfil.240.areas %>%
 ```
 
 AAAAA Quem trabalha em mais áreas diferentes publica/orienta mais?
-
-###Presença em congressos internacionais por número de orientações:
-```{r}
+  
+  ###Presença em congressos internacionais por número de orientações:
+  ```{r echo=FALSE}
 especialidade.240.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
   geom_jitter(size = .8) +
@@ -1085,3 +1107,4 @@ CAPES. “Documentos de Área”. CAPES.gov.br. Acessado 12 de junho de 2018. Di
 Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. “Sistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desaﬁos para política de Estado - Lívio Amaral”. Revista Educação e Linguagens 2, nº 3 (julho de 2013): 11–17.
 
 Fernandes, Jorge H C, e Ricardo Barros Sampaio. “DataScienceForAll”. Zotero, 13 de junho de 2018
+ 
