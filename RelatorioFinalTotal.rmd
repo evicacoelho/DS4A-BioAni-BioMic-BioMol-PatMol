@@ -5,9 +5,9 @@ author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júl
   G. R. Rodrigues 14/0153713
 date: "18/11/2018"
 output:
-  html_document: default
   pdf_document:
     latex_engine: xelatex
+  html_document: default
   word_document: default
 ---
 
@@ -63,9 +63,9 @@ Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâm
 
 A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
 
-![production](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
+![Produção Científica](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
 
-![impact](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
+![Impacto da Produção](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
 
 Um impacto normalizado de 1,00 significa que a produção teve comportamento similar à média global. Um impacto superior a 1,00 indica maior citação que a média (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média (SeCom, 2018, Adaptado).
 
@@ -412,6 +412,9 @@ perfil.242.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.242) %>%
   select(idLattes, everything())
 perfil.243.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.243) %>%
   select(idLattes, everything())
+
+perfil.243.df.areas.de.atuacao$area[grepl("Florestais",perfil.243.df.areas.de.atuacao$area)] <- "Recursos Florestais"
+
 perfil.313.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.313) %>%
   select(idLattes, everything())
 ```
@@ -1024,22 +1027,6 @@ não recebeu bolsa. Por fim, é possível observar que o pico no número de
 orientações de mestrado registrado em 2014 não foi tão expressivo em número
 de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
-###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
-```{r echo=FALSE}
-plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
-     edge.arrow.width = 0.3,
-     edge.size = 3,
-     edge.arrow.size = 0.5,
-     vertex.size2 = 3,
-     vertex.label.cex = 0.7,
-     vertex.label.color = 'black',
-     vertex.label.family = 'ArialMT',
-     asp = 0.35,
-     margin = 0.0)
-```
-
-Este grafo demonstra a rede de cooperação, peso, quantidades de publicações e senioridade dos indivíduos e da cooperação entre eles. Cada círculo representa um docente dentro de um PPG indicado pela cor, onde: azul é a PPG de Biologia Animal; amarelo é PPG de Biologia Microbiana; verde corresponde a PPG de Biologia Molecular; e vermelho a PPG de Patologia Molecular. Já para cada aresta, as cores determinam a senioridade entre os dois pontos, onde verde é 9, azul é 8 e laranja é 7; quanto ao diametro é dado pela a quantidade de áreas um vértice compartilha com o outro; já para a ligação da aresta, esta é dada pelos os periódicos em comum para cada vértice, indicando cooperação. A partir deste grafo é possível entender que cada programa de pós graduação se mantém praticamente isolado, exceto pelos os docentes que se repetem para cada PPG. É notável que a maioria destas PPGs tem muita intracomunicação, deixando poucos docentes isolados exceto pela a PPG de Biologia Microbiana que tiveram seis docentes completamente isolados de qualquer outra PPG e dela mesma, tendo o maior número de isolamentos. É possível perceber também que a docente de nome Cynthia Maria Kyaw é uma comunicadora entre PPGs, pois intercomunica as PPGs de Biologia Molecular e Biologia Microbiana e além disso previne o isolamento entre sua própria PPG formando uma ponte entre um e outro grupo de docentes que estariam isolados se não colaborassem com esta.. Em cada uma das PPGs há docentes em destaque pela a quantidade de publicações (indicada pelo o diâmetro do vértice), mas é possível perceber que o PPG de Patologia Molecular tem uma dominância de um docente que publica aproximadamente o triplo que o anterior em publicações, o que resulta em um grande vértice central. Este dominante também está com a maioria das interligações de seu PPG, sendo portanto um canal de informação dentro de seu grupo. 
-
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
 ```{r echo=FALSE}
 orient.240.mestrado.df %>%
@@ -1047,7 +1034,7 @@ orient.240.mestrado.df %>%
   summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
   ggplot(aes(x=Quantidade,y = curso, color = Quantidade)) +
   geom_point() +
-  ggtitle('Total de orientações de mestrado (2011-2017)') +
+  ggtitle('Total de orientações de mestrado') +
   labs(x='Quantidade de alunos',y='Curso do mestrando')
 ```
 
@@ -1087,6 +1074,522 @@ especialidade.240.orient %>%
 ```
 
 AAAA
+
+### Grafico de barras; periodicos por ano; Biologia 242
+```{r}
+public.242.periodico.df %>%
+  group_by(ano) %>%
+  summarise(Quantidade = n()) %>%
+  ggplot(aes(ano, Quantidade, fill = ano)) +
+  geom_bar(position = "stack",stat = "identity") +
+  ggtitle("Periodicos publicados por ano") +
+  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
+  theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+```
+
+BBBBBBB
+
+###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+```{r}
+perfil.242.df %>%
+  ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
+  geom_point() +
+  ggtitle("Periodicos publicados por pesquisador (incluindo mediana)") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Numero de publicacoes") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.242.df %>% summarize(x = median(PERIODICO))), color = "red")
+```
+
+BBBBBBB
+
+###Número de areas de pesquisa e quantidade de eventos por pesquisador
+```{r}
+perfil.242.df %>%
+  ggplot(aes(idLattes,EVENTO, color = num_areas)) +
+  geom_point() +
+  ggtitle("Participação dos pesquisadores em eventos (incluindo mediana)") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Quantidade de eventos") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.242.df %>% summarize(x = median(EVENTO))), color = "red")
+```
+
+BBBBBB
+
+###Publicação de livros por pais/ano
+```{r}
+public.242.livros.df %>%
+  group_by(ano,pais_de_publicacao) %>%
+  ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  ggtitle("Livros publicados por ano") +
+  xlab("Ano") + ylab("Pais") + geom_jitter()
+```
+
+BBBBBBBBBB
+
+###Publicações de capítulos de livros por ano/país
+```{r}
+perfil.242.df.publicacoes %>%
+  filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
+  group_by(tipo_producao,pais_de_publicacao) %>%
+  ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
+  geom_jitter() + ggtitle("Publicações de capítulos de livros por ano/país") +
+  labs(x='Tipo de produção',y='País')
+```
+
+BBBBBBB
+
+###Eventos nacionais e internacionais
+```{r}
+public.242.eventos.df %>%
+  filter(pais_do_evento %in% 
+           c(names(head(sort(table(public.242.eventos.df$pais_do_evento)
+                             , decreasing = TRUE), 10)))) %>%
+  group_by(ano_do_trabalho,pais_do_evento) %>%
+  ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
+  ggtitle("Participacão em eventos por localização") +
+  xlab("Ano") + ylab("Pais") + geom_jitter()
+```
+
+BBBBBBBB
+
+###Orientacoes completas por ano e natureza
+```{r}
+orient.242.df %>%
+  group_by(ano, natureza) %>% summarise(total = n()) %>%
+  ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
+  geom_line() +
+  ggtitle("Número de orientações finalizadas por ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade de Orientações")
+```
+
+BBBBBBBBB
+
+###Evolução temporal de orientações em andamento e concluídas
+```{r}
+perfil.242.df.orientacoes %>% group_by(ano, situacao) %>%
+  ggplot(aes(x=situacao,y=ano,color=ano)) +
+  geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  ggtitle("Disposição de orientações por ano")
+```
+
+BBBBB
+
+###Índice de bolsas entre naturezas e evolução temporal
+```{r}
+bolsas.242.df %>%
+  ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
+  geom_line() +
+  ggtitle("Porcentagem de orientações contempladas por bolsas") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Índice de bolsas")
+```
+
+BBBB
+
+###Cursos de Mestrado e total de alunos no período (2011-2017)
+```{r}
+orient.242.mestrado.df %>%
+  group_by(curso) %>%
+  summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
+  ggplot(aes(x=Quantidade,y = curso, color = Quantidade)) +
+  geom_point() +
+  ggtitle('Total de orientações de mestrado') +
+  labs(x='Quantidade de alunos',y='Curso do mestrando')
+```
+
+BBBBBBB
+
+###Relação de Orientações Concluídas x Publicações por área:
+```{r}
+perfil.242.df.areas.de.atuacao %>%
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
+  geom_jitter(shape = 2, size = .8) +
+  ggtitle('Relação de Orientações Concluídas x Publicações') +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
+```
+
+BBBBB Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
+
+###Quantidade de Orientações e Publicações pelo Número de Áreas
+```{r}
+perfil.242.areas %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
+  geom_point() +
+  ggtitle('Orientações e Publicações pelo Número de Áreas') +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
+```
+
+BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
+
+###Presença em congressos internacionais por número de orientações:
+```{r}
+especialidade.242.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_jitter(size = .8) +
+  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
+  labs(x='Participacao internacional',y='Orientações concluídas')
+```
+
+BBBBBBBB
+
+### Grafico de barras; periodicos por ano; Biologia 243
+```{r}
+public.243.periodico.df %>%
+  group_by(ano) %>%
+  summarise(Quantidade = n()) %>%
+  ggplot(aes(ano, Quantidade, fill = ano)) +
+  geom_bar(position = "stack",stat = "identity") +
+  ggtitle("Periodicos publicados por ano") +
+  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+  theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+```
+
+CCCCCCCCC
+
+###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+```{r}
+perfil.243.df %>%
+  ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
+  geom_point() +
+  ggtitle("Periodicos publicados por pesquisador (incluindo mediana)") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Numero de publicacoes") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.243.df %>% summarize(x = median(PERIODICO))), color = "red")
+```
+
+CCCCCCC
+
+###Número de areas de pesquisa e quantidade de eventos por pesquisador
+```{r}
+perfil.243.df %>%
+  ggplot(aes(idLattes,EVENTO, color = num_areas)) +
+  geom_point() +
+  ggtitle("Participação dos pesquisadores em eventos (incluindo mediana)") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Quantidade de eventos") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.243.df %>% summarize(x = median(EVENTO))), color = "red")
+```
+
+CCCCCC
+
+###Publicação de livros por pais/ano
+```{r}
+public.243.livros.df %>%
+  group_by(ano,pais_de_publicacao) %>%
+  ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  ggtitle("Livros publicados por ano") +
+  xlab("Ano") + ylab("Pais") + geom_jitter()
+```
+
+CCCCCCCCC
+
+###Publicações de capítulos de livros por ano/país
+```{r}
+perfil.243.df.publicacoes %>%
+  filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
+  group_by(tipo_producao,pais_de_publicacao) %>%
+  ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
+  geom_jitter() + ggtitle("Publicações de capítulos de livros por ano/país") +
+  labs(x='Tipo de produção',y='País')
+```
+
+CCCCCCCCC
+
+###Eventos nacionais e internacionais
+```{r}
+public.243.eventos.df %>%
+  filter(pais_do_evento %in% 
+           c(names(head(sort(table(public.243.eventos.df$pais_do_evento)
+                             , decreasing = TRUE), 10)))) %>%
+  group_by(ano_do_trabalho,pais_do_evento) %>%
+  ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
+  ggtitle("Participacão em eventos por localização") +
+  xlab("Ano") + ylab("Pais") + geom_jitter()
+```
+
+CCCCCCCCC
+
+###Orientacoes completas por ano e natureza
+```{r}
+orient.243.df %>%
+  group_by(ano, natureza) %>% summarise(total = n()) %>%
+  ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
+  geom_line() +
+  ggtitle("Número de orientações finalizadas por ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade de Orientações")
+```
+
+CCCCCCCCC
+
+###Evolução temporal de orientações em andamento e concluídas
+```{r}
+perfil.243.df.orientacoes %>% group_by(ano, situacao) %>%
+  ggplot(aes(x=situacao,y=ano,color=ano)) +
+  geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  ggtitle("Disposição de orientações por ano")
+```
+
+CCCCCCCCC
+
+###Índice de bolsas entre naturezas e evolução temporal
+```{r}
+bolsas.243.df %>%
+  ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
+  geom_line() +
+  ggtitle("Porcentagem de orientações contempladas por bolsas") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Índice de bolsas")
+```
+
+CCCCCCCCCCCC
+
+###Cursos de Mestrado e total de alunos no período (2011-2017)
+```{r}
+orient.243.mestrado.df %>%
+  group_by(curso) %>%
+  summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
+  ggplot(aes(x=Quantidade,y = curso, color = Quantidade)) +
+  geom_point() +
+  ggtitle('Total de orientações de mestrado') +
+  labs(x='Quantidade de alunos',y='Curso do mestrando')
+```
+
+CCCCCCCCC
+
+###Relação de Orientações Concluídas x Publicações por área:
+```{r}
+perfil.243.df.areas.de.atuacao %>%
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
+  geom_jitter(shape = 2, size = .8) +
+  ggtitle('Relação de Orientações Concluídas x Publicações') +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
+```
+
+CCCCCCC Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
+
+###Quantidade de Orientações e Publicações pelo Número de Áreas
+```{r}
+perfil.243.areas %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
+  geom_point() +
+  ggtitle('Orientações e Publicações pelo Número de Áreas') +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
+```
+
+CCCCCCCCCC Quem trabalha em mais áreas diferentes publica/orienta mais?
+
+###Presença em congressos internacionais por número de orientações:
+```{r}
+especialidade.243.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_jitter(size = .8) +
+  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
+  labs(x='Participacao internacional',y='Orientações concluídas')
+```
+
+CCCCCCCCCCCCC
+
+### Grafico de barras; periodicos por ano; Biologia 313
+```{r}
+public.313.periodico.df %>%
+  group_by(ano) %>%
+  summarise(Quantidade = n()) %>%
+  ggplot(aes(ano, Quantidade, fill = ano)) +
+  geom_bar(position = "stack",stat = "identity") +
+  ggtitle("Periodicos publicados por ano") +
+  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+  theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
+```
+
+DDDDDDDDD
+
+###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
+```{r}
+perfil.313.df %>%
+  ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
+  geom_point() +
+  ggtitle("Periodicos publicados por pesquisador (incluindo mediana)") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Numero de publicacoes") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.313.df %>% summarize(x = median(PERIODICO))), color = "red")
+```
+
+DDDDDDD
+
+###Número de areas de pesquisa e quantidade de eventos por pesquisador
+```{r}
+perfil.313.df %>%
+  ggplot(aes(idLattes,EVENTO, color = num_areas)) +
+  geom_point() +
+  ggtitle("Participação dos pesquisadores em eventos (incluindo mediana)") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Pesquisador(a)",y="Quantidade de eventos") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  geom_hline(yintercept = sum(perfil.313.df %>% summarize(x = median(EVENTO))), color = "red")
+```
+
+DDDDDD
+
+###Publicação de livros por pais/ano
+```{r}
+public.313.livros.df %>%
+  group_by(ano,pais_de_publicacao) %>%
+  ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  ggtitle("Livros publicados por ano") +
+  xlab("Ano") + ylab("Pais") + geom_jitter()
+```
+
+DDDDDDDDD
+
+###Publicações de capítulos de livros por ano/país
+```{r}
+perfil.313.df.publicacoes %>%
+  filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
+  group_by(tipo_producao,pais_de_publicacao) %>%
+  ggplot(aes(ano,tipo_producao,col=pais_de_publicacao)) +
+  geom_jitter() + ggtitle("Publicações de capítulos de livros por ano/país") +
+  labs(x='Tipo de produção',y='País')
+```
+
+DDDDDDDDD
+
+###Eventos nacionais e internacionais
+```{r}
+public.313.eventos.df %>%
+  filter(pais_do_evento %in% 
+           c(names(head(sort(table(public.313.eventos.df$pais_do_evento)
+                             , decreasing = TRUE), 10)))) %>%
+  group_by(ano_do_trabalho,pais_do_evento) %>%
+  ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
+  ggtitle("Participacão em eventos por localização") +
+  xlab("Ano") + ylab("Pais") + geom_jitter()
+```
+
+DDDDDDDDD
+
+###Orientacoes completas por ano e natureza
+```{r}
+orient.313.df %>%
+  group_by(ano, natureza) %>% summarise(total = n()) %>%
+  ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
+  geom_line() +
+  ggtitle("Número de orientações finalizadas por ano") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Quantidade de Orientações")
+```
+
+DDDDDDDDD
+
+###Evolução temporal de orientações em andamento e concluídas
+```{r}
+perfil.313.df.orientacoes %>% group_by(ano, situacao) %>%
+  ggplot(aes(x=situacao,y=ano,color=ano)) +
+  geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  ggtitle("Disposição de orientações por ano")
+```
+
+DDDDDDDDD
+
+###Índice de bolsas entre naturezas e evolução temporal
+```{r}
+bolsas.313.df %>%
+  ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
+  geom_line() +
+  ggtitle("Porcentagem de orientações contempladas por bolsas") +
+  theme(legend.position="right",legend.text=element_text(size=7)) +
+  guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+  labs(x="Ano",y="Índice de bolsas")
+```
+
+DDDDDDDDDDDD
+
+###Cursos de Mestrado e total de alunos no período (2011-2017)
+```{r}
+orient.313.mestrado.df %>%
+  group_by(curso) %>%
+  summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
+  ggplot(aes(x=Quantidade,y = curso, color = Quantidade)) +
+  geom_point() +
+  ggtitle('Total de orientações de mestrado') +
+  labs(x='Quantidade de alunos',y='Curso do mestrando')
+```
+
+DDDDDDDDD
+
+###Relação de Orientações Concluídas x Publicações por área:
+```{r}
+perfil.313.df.areas.de.atuacao %>%
+  select(-sub_area, -especialidade) %>%
+  distinct() %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
+  geom_jitter(shape = 2, size = .8) +
+  ggtitle('Relação de Orientações Concluídas x Publicações') +
+  labs(x='Publicações',y='Orientações concluídas') #+ facet_wrap(grande_area ~ ., ncol = 2)
+#Comentei o Facet pois ele oculta a amostra diferenciada
+```
+
+DDDDDDD Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
+
+###Quantidade de Orientações e Publicações pelo Número de Áreas
+```{r}
+perfil.313.areas %>%
+  ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
+  geom_point() +
+  ggtitle('Orientações e Publicações pelo Número de Áreas') +
+  labs(x='Publicações',y='Orientações concluídas') #+ facet_wrap(. ~ num_areas)
+#Comentei o Facet pois ele oculta a amostra diferenciada
+```
+
+DDDDDDDDDD Quem trabalha em mais áreas diferentes publica/orienta mais?
+
+###Presença em congressos internacionais por número de orientações:
+```{r}
+especialidade.313.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+  geom_jitter(size = .8) +
+  ggtitle('Orientações concluidas x Participação em congressos internacionais') +
+  labs(x='Participacao internacional',y='Orientações concluídas')
+```
+
+DDDDDDDDDDDDD
+
+###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
+```{r fig.height=9.375, fig.width=12.5}
+plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
+      edge.arrow.width = 0.3,
+      edge.size = 3,
+      edge.arrow.size = 0.5,
+      vertex.size2 = 3,
+      vertex.label.cex = 0.7,
+      vertex.label.color = 'black',
+      vertex.label.family = 'ArialMT',
+      asp = 0.0,
+      margin = 0.0)
+```
+
+Este grafo demonstra a rede de cooperação, peso, quantidades de publicações e senioridade dos indivíduos e da cooperação entre eles. Cada círculo representa um docente dentro de um PPG indicado pela cor, onde: azul é a PPG de Biologia Animal; amarelo é PPG de Biologia Microbiana; verde corresponde a PPG de Biologia Molecular; e vermelho a PPG de Patologia Molecular. Já para cada aresta, as cores determinam a senioridade entre os dois pontos, onde verde é 9, azul é 8 e laranja é 7; quanto ao diametro é dado pela a quantidade de áreas um vértice compartilha com o outro; já para a ligação da aresta, esta é dada pelos os periódicos em comum para cada vértice, indicando cooperação. A partir deste grafo é possível entender que cada programa de pós graduação se mantém praticamente isolado, exceto pelos os docentes que se repetem para cada PPG. É notável que a maioria destas PPGs tem muita intracomunicação, deixando poucos docentes isolados exceto pela a PPG de Biologia Microbiana que tiveram seis docentes completamente isolados de qualquer outra PPG e dela mesma, tendo o maior número de isolamentos. É possível perceber também que a docente de sobrenome Cynthia Maria Kyaw é uma comunicadora entre PPGs, pois intercomunica as PPGs de Biologia Molecular e Biologia Microbiana e além disso previne o isolamento entre sua própria PPG formando uma ponte entre um e outro grupo de docentes que estariam isolados se não colaborassem com esta. Em cada uma das PPGs há docentes em destaque pela a quantidade de publicações (indicada pelo o diâmetro do vértice), mas é possível perceber que o PPG de Patologia Molecular tem uma dominância de um docente que publica aproximadamente o triplo que o anterior em publicações, o que resulta em um grande vértice central. Este dominante também está com a maioria das interligações de seu PPG, sendo portanto um canal de informação dentro de seu grupo.
 
 ##Bibliografia
 
