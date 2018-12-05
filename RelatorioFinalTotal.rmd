@@ -938,6 +938,7 @@ O gráfico acima demonstra o total de eventos registrados por cada pesquisador, 
 public.240.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+  guides(color = FALSE) +
   ggtitle("Livros publicados por ano") +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
@@ -965,6 +966,7 @@ public.240.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1000,6 +1002,7 @@ em nenhum dos anos pesquisados e chegaram a zero registros em 2017 - enquanto o 
 perfil.240.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
@@ -1058,6 +1061,7 @@ AAAAAAAA Lembrando que um pesquisador possui mais de uma grande area, o pesquisa
 perfil.240.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
+  guides(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
@@ -1069,6 +1073,7 @@ AAAAA Quem trabalha em mais áreas diferentes publica/orienta mais?
 especialidade.240.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
   geom_jitter(size = .8) +
+  guides(color = FALSE) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
@@ -1083,6 +1088,7 @@ public.242.periodico.df %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periodicos publicados por ano") +
+  guides(color = FALSE) +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 ```
@@ -1125,6 +1131,7 @@ public.242.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   ggtitle("Livros publicados por ano") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1151,6 +1158,7 @@ public.242.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1175,6 +1183,7 @@ BBBBBBBBB
 perfil.242.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
@@ -1224,6 +1233,7 @@ BBBBB Lembrando que um pesquisador possui mais de uma grande area, o pesquisador
 perfil.242.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
+  gudies(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
@@ -1235,6 +1245,7 @@ BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
 especialidade.242.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
   geom_jitter(size = .8) +
+  guides(color = FALSE) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
@@ -1249,6 +1260,7 @@ public.243.periodico.df %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periódicos publicados por ano") +
+  guides(color = FALSE)
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
   theme_minimal() + labs(x="Ano",y="Quantidade de Periódicos")
 ```
@@ -1291,6 +1303,7 @@ public.243.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   ggtitle("Livros publicados por ano") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1317,6 +1330,7 @@ public.243.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1341,6 +1355,7 @@ Este gráfico de tendência compara a quantidade de orientações e a natureza d
 perfil.243.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
@@ -1389,6 +1404,7 @@ A figura de gráficos acima explicita que a maior concentração de publicaçõe
 perfil.243.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
+  guides(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
@@ -1402,6 +1418,7 @@ public.313.periodico.df %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periodicos publicados por ano") +
+  guides(color = FALSE)
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 ```
@@ -1444,6 +1461,7 @@ public.313.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
   ggtitle("Livros publicados por ano") +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1470,6 +1488,7 @@ public.313.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
+  gudies(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1494,6 +1513,7 @@ DDDDDDDDD
 perfil.313.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
+  guides(color = FALSE) +
   ggtitle("Disposição de orientações por ano")
 ```
 
@@ -1545,6 +1565,7 @@ perfil.313.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
+  gudies(color = FALSE) +
   labs(x='Publicações',y='Orientações concluídas') #+ facet_wrap(. ~ num_areas)
 #Comentei o Facet pois ele oculta a amostra diferenciada
 ```
@@ -1556,6 +1577,7 @@ DDDDDDDDDD Quem trabalha em mais áreas diferentes publica/orienta mais?
 especialidade.313.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
   geom_jitter(size = .8) +
+  guides(color = FALSE) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
@@ -1566,7 +1588,8 @@ DDDDDDDDDDDDD
 ```{r fig.height=9.375, fig.width=12.5}
 plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
       edge.arrow.width = 0.3,
-      edge.size = 3,
+
+edge.size = 3,
       edge.arrow.size = 0.5,
       vertex.size2 = 3,
       vertex.label.cex = 0.7,
