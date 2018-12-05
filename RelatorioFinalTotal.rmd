@@ -1370,7 +1370,7 @@ perfil.242.df.areas.de.atuacao %>%
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 ```
 
-BBBB Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos.
+É notável que a concentração de áreas esteja mais aglomerada dentro da grande área de Ciências Biológicas, uma vez que esta grande área engloba todas as PPGs aqui estudadas. Por mais que a predominância desta grande área seja opressora sobre as outras, ainda há a presença de outras grandes áreas com áreas específicas nas publicações.
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
 ```{r echo=FALSE}
@@ -1382,7 +1382,7 @@ perfil.242.areas %>%
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
 
-BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
+De acordo com a figura anterior, nesta PPG, quem trabalha em mais áreas orienta menos pessoas e publica menos. Há uma notável tendencia de diminuição do número de orientações e do número de publicações em pesquisadores que trabalham em cada vez mais áreas.
   
 ###Presença em congressos internacionais por número de orientações
 ```{r echo=FALSE}
@@ -1394,7 +1394,7 @@ especialidade.242.orient %>%
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
 
-BBBBBBBB
+Por mais que o número de pesquisadores que não participam de congressos internacionais ser muito menor, é possível vizualisar que estes conseguem concluir mais orientações que os participantes destes congressos. Isso deve dar-se pela a maior presença deles com seus orientandos, portanto melhor acompanhamento.
 
 ##Biologia Molecular
 
