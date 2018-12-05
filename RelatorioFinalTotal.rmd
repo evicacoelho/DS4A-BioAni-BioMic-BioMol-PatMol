@@ -1035,7 +1035,7 @@ public.240.livros.df %>%
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
-Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os Estados Unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal. Ainda assim, é curioso notar que menos da metade dos oito anos da base de dados registraram publicações de livros (2013, 2014, 2016).
+Denota-se homogeneidade na distribuição de livros publicados para cada país de publicação, onde os estados unidos se equiparam ao Brasil quanto a número de lívros publicados para o PPG em Biologia Animal.
 
 ###Publicações de capítulos de livros por ano/país
 ```{r}
@@ -1047,7 +1047,7 @@ perfil.240.df.publicacoes %>%
   labs(x='Tipo de produção',y='País')
 ```
 
-Trazendo a análise de publicações de capítulos de livros, há um aumento expressivo no número de amostras. Todos os anos analisados (2010-2017) registraram mais de um capítulo de livro publicado pelo PPG em Biologia Animal. Entretanto, a publicação de capítulos não apresenta o mesmo nível de internacionalização que o gráfico anterior. Uma observação curiosa é a grande participação de países estrangeiros no início da amostra, enquanto os anos 2016 e 2017 tem publicações majoritariamente nacionais.
+AAAAAA
 
 ###Eventos nacionais e internacionais
 ```{r}
@@ -1129,12 +1129,12 @@ plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
       vertex.size2 = 3,
       vertex.label.cex = 0.7,
       vertex.label.color = 'black',
-      vertex.label.family = 'Arial',
+      vertex.label.family = 'ArialMT',
       asp = 0.35,
       margin = 0.0)
 ```
 
-O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices e a existência de cooperação entre eles em suas arestas. É possível observar um grau profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em  grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. Existem excessões tais como os vértices mais afastados e o vértice único que não tem nenhuma aresta com adjacentes.
+Este grafo demonstra a rede de cooperação, peso, quantidades de publicações e senioridade dos indivíduos e da cooperação entre eles. Cada círculo representa um docente dentro de um PPG indicado pela cor, onde: azul é a PPG de Biologia Animal; amarelo é PPG de Biologia Microbiana; verde corresponde a PPG de Biologia Molecular; e vermelho a PPG de Patologia Molecular. Já para cada aresta, as cores determinam a senioridade entre os dois pontos, onde verde é 9, azul é 8 e laranja é 7; quanto ao diametro é dado pela a quantidade de áreas um vértice compartilha com o outro; já para a ligação da aresta, esta é dada pelos os periódicos em comum para cada vértice, indicando cooperação. A partir deste grafo é possível entender que cada programa de pós graduação se mantém praticamente isolado, exceto pelos os docentes que se repetem para cada PPG. É notável que a maioria destas PPGs tem muita intracomunicação, deixando poucos docentes isolados exceto pela a PPG de Biologia Microbiana que tiveram seis docentes completamente isolados de qualquer outra PPG e dela mesma, tendo o maior número de isolamentos. É possível perceber também que a docente de sobrenome Cynthia Maria Kyaw é uma comunicadora entre PPGs, pois intercomunica as PPGs de Biologia Molecular e Biologia Microbiana e além disso previne o isolamento entre sua própria PPG formando uma ponte entre um e outro grupo de docentes que estariam isolados se não colaborassem com esta.. Em cada uma das PPGs há docentes em destaque pela a quantidade de publicações (indicada pelo o diâmetro do vértice), mas é possível perceber que o PPG de Patologia Molecular tem uma dominância de um docente que publica aproximadamente o triplo que o anterior em publicações, o que resulta em um grande vértice central. Este dominante também está com a maioria das interligações de seu PPG, sendo portanto um canal de informação dentro de seu grupo. 
 
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
 ```{r}
