@@ -1554,7 +1554,7 @@ especialidade.313.orient %>%
 DDDDDDDDDDDDD
 
 ###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
-```{r}
+```{r fig.height=9.375, fig.width=12.5}
 plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
       edge.arrow.width = 0.3,
       edge.size = 3,
@@ -1563,7 +1563,7 @@ plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
       vertex.label.cex = 0.7,
       vertex.label.color = 'black',
       vertex.label.family = 'ArialMT',
-      asp = 0.35,
+      asp = 0.0,
       margin = 0.0)
 ```
 
