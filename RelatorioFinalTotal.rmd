@@ -63,9 +63,9 @@ Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâm
 
 A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
 
-![production](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
+![Produção científica](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
 
-![impact](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
+![Impacto da produção.](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem2.jpg)
 
 Um impacto normalizado de 1,00 significa que a produção teve comportamento similar à média global. Um impacto superior a 1,00 indica maior citação que a média (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média (SeCom, 2018, Adaptado).
 
