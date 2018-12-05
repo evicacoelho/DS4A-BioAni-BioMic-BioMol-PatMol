@@ -141,7 +141,7 @@ library(igraph) #Importado para manipulação de grafo
 library(dplyr) #Importado para uso do Operador Pipe
 library(tidyr) #Importado para uso da função spread()
 library(ggplot2) #Importado para visualizações com ggplot()
-library(stringr) #str_to_upper
+library(stringr) #Importado para manipulações de strings
 
 setwd("~/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master")
 source("elattes.ls2df.R")
@@ -761,42 +761,62 @@ df.243 <- left_join(df.243, df.prog, by = c("Idlattes" = "idLattes"))
 g.313 <- g.ls2ig(graphl.313)
 df.313 <- as.data.frame(V(g.313)$name); colnames(df.313) <- "Idlattes"
 df.313 <- left_join(df.313, df.prog, by = c("Idlattes" = "idLattes"))
+
+perfil.total.df = bind_rows(perfil.240.df, perfil.242.df, perfil.243.df, perfil.313.df) 
 ```
 
 Apenas para fins de análise inicial, foram retiradas do grafo as observacoes de pesquisadores duplicados quando inclusos em mais de um programa, vide código abaixo.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 df.240 <- df.240 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.240)$programa <- df.240$Programa
 V(g.240)$orient_dout <- perfil.240.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.240)$orient_mest <- perfil.240.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.240)$publicacao <- perfil.240.df$PERIODICO
-V(g.240)$eventos <- perfil.240.df$EVENTO
+E(g.240)$publicacao <- perfil.240.df$PERIODICO
+E(g.240)$eventos <- perfil.240.df$EVENTO
+V(g.240)$color = 'blue'
+V(g.240)$name = df.240$Docente
+V(g.240)$name = str_extract(V(g.240)$name, '[^ ]+$')
 
 df.242 <- df.242 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.242)$programa <- df.242$Programa
 V(g.242)$orient_dout <- perfil.242.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.242)$orient_mest <- perfil.242.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.242)$publicacao <- perfil.242.df$PERIODICO
-V(g.242)$eventos <- perfil.242.df$EVENTO
+E(g.242)$publicacao <- perfil.242.df$PERIODICO
+E(g.242)$eventos <- perfil.242.df$EVENTO
+V(g.242)$color = 'yellow'
+V(g.242)$name = df.242$Docente
+V(g.242)$name = str_extract(V(g.242)$name, '[^ ]+$')
 
 df.243 <- df.243 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.243)$programa <- df.243$Programa
 V(g.243)$orient_dout <- perfil.243.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.243)$orient_mest <- perfil.243.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.243)$publicacao <- perfil.243.df$PERIODICO
-V(g.243)$eventos <- perfil.243.df$EVENTO
+E(g.243)$publicacao <- perfil.243.df$PERIODICO
+E(g.243)$eventos <- perfil.243.df$EVENTO
+V(g.243)$color = 'green'
+V(g.243)$name = df.243$Docente
+V(g.243)$name = str_extract(V(g.243)$name, '[^ ]+$')
 
 df.313 <- df.313 %>% group_by(Idlattes) %>% 
   slice(1L)
 V(g.313)$programa <- df.313$Programa
 V(g.313)$orient_dout <- perfil.313.df$ORIENTACAO_CONCLUIDA_DOUTORADO
 V(g.313)$orient_mest <- perfil.313.df$ORIENTACAO_CONCLUIDA_MESTRADO
-V(g.313)$publicacao <- perfil.313.df$PERIODICO
-V(g.313)$eventos <- perfil.313.df$EVENTO
+E(g.313)$publicacao <- perfil.313.df$PERIODICO
+V(g.313)$color = 'red'
+E(g.313)$eventos <- perfil.313.df$EVENTO
+V(g.313)$name = df.313$Docente
+V(g.313)$name = str_extract(V(g.313)$name, '[^ ]+$')
+
+grafo = graph.disjoint.union(g.240, g.242, g.243, g.313)%>%
+  set_edge_attr('weight', value = (1/1000)*perfil.total.df$PERIODICO) %>%
+  set_edge_attr('color', value = factor(perfil.total.df$senioridade)) %>%
+  set_edge_attr('width', value =  factor(perfil.total.df$`n_distinct(area)`)) %>%
+  set_vertex_attr('size', value = (1/10)*perfil.total.df$PERIODICO)
 ```
 
 ##CRISP-DM Fases 4 a 6 - Resultados e visualizações:
@@ -943,7 +963,16 @@ de bolsas, caracterizando um ano com elevado número de alunos não bolsistas.
 
 ###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
 ```{r}
-plot(g.240, vertex.label = NA)
+plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
+      edge.arrow.width = 0.3,
+      edge.size = 3,
+      edge.arrow.size = 0.5,
+      vertex.size2 = 3,
+      vertex.label.cex = 0.7,
+      vertex.label.color = 'black',
+      vertex.label.family = 'Arial',
+      asp = 0.35,
+      margin = 0.0)
 ```
 
 O grafo acima representa os pesquisadores do Programa de Pós-Graduação em seus vértices e a existência de cooperação entre eles em suas arestas. É possível observar um grau profundo de cooperação entre a maioria dos pesquisadores, que, publicam trabalhos em  grande cooperatividade, gerando um complexo emaranhado de arestas para cada vértice. Existem excessões tais como os vértices mais afastados e o vértice único que não tem nenhuma aresta com adjacentes.
