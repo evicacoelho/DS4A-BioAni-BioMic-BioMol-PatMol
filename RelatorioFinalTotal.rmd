@@ -645,6 +645,7 @@ print(c('Biologia Microbiana:',sum(sapply(public.242$PERIODICO, function(x) leng
 print(c('Biologia Molecular:',sum(sapply(public.243$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
 print(c('Patologia Molecular:',sum(sapply(public.313$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
 ```
+
 *Anos analisados*
   ```{r echo=FALSE}
 print(c('Biologia Animal:'))
@@ -656,6 +657,7 @@ names(public.243$PERIODICO)
 print(c('Patologia Molecular:'))
 names(public.313$PERIODICO)
 ```
+
 *20 revistas mais publicadas*
   ```{r echo=FALSE}
 print(c('Biologia Animal:'))
@@ -675,6 +677,7 @@ head(sort(table(as.data.frame(unlist
                               (sapply(public.313$PERIODICO, function(x) unlist(x$periodico)))
 )), decreasing = TRUE),20)
 ```
+
 *Análise dos dados no formato dataframe*
   ```{r echo=FALSE}
 public.240.periodico.df <- pub.ls2df(public.240, 1) #artigos
@@ -779,6 +782,7 @@ perfil.313.areas <- perfil.313.df.areas.de.atuacao %>%
   summarise(num_areas = n()) %>% ungroup()
 perfil.313.areas$num_areas <- as.factor(perfil.313.areas$num_areas)
 ```
+
 *Publicações por ano*
   ```{r echo=FALSE}
 print("Biologia Animal ")
@@ -790,6 +794,7 @@ table(public.243.periodico.df$ano)
 print("Patologia Molecular")
 table(public.313.periodico.df$ano)
 ```
+
 *20 revistas mais publicadas (análise com dataframe)*
   ```{r echo=FALSE}
 print("Biologia Animal ")
@@ -861,7 +866,7 @@ bolsas.313.df <- orient.313.df %>% filter(bolsa == "SIM") %>%
                 summarise(num_orients = n())), by = c("natureza", "ano")) %>%
   mutate(ratio = num_bolsas/num_orients)
 ```
-###
+
 *Construção de Grafo de Colaborações*
   ```{r, warning=FALSE,message=FALSE}
 g.240 <- g.ls2ig(graphl.240)
