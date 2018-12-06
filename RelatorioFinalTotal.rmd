@@ -33,19 +33,12 @@ A metodologia para desenvolvimento do relatório é baseada no modelo de minera�
 ##CRISP-DM Fase 1 - Entendimento do Negócio
 ##O que é o Sistema Nacional de Pós-Graduação?
 
-A produção do conhecimento científico, no Brasil, é predominantemente efetuada por meio do Sistema Nacional de Pós-Graduação - SNPG, e mais fortemente relacionada com a formação de doutores nesse sistema (Pátaro e Mezzomo, 2013), por meio de cursos de pós-graduação _strictu sensu_. 
+O Programa de Pós-Graduação é o conjugado formado pelos cursos de mestrado e/ou doutorado acadêmicos ou de mestrado profissional de uma Instituição de Ensino Superior - IES atuante numa mesma área do conhecimento (sua área básica) que partilha essencialmente o mesmo corpo docente e tem uma estrutura administrativa comum. Programas são divididos em acadêmicos ou profissionais, de acordo com os cursos (Leite, 2018).
 
-Fernandes e Sampaio (2017) já indicaram que a ciência é reconhecidamente um elemento essencial para o desenvolvimento social e econômico de qualquer nação.
-Assim sendo, faz-se mister aprimorar o SNPG como forma de promoção desse crescimento, visando maximizar o retorno decorrente do emprego dos recursos nele aplicados. 
-A promoção do crescimento do SNPG se dá predominantemente por meio de avaliações regulares de seus programas de pós-graduação, sob responsabilidade da CAPES, que realiza a cada quatro anos um complexo (Leite, 2018, p. 13) e custoso processo de coleta de dados, análise e deliberação sobre as pós-graduações _strictu sensu_, em coerência com o estabelecido no Plano Nacional de Pós-Graduação (PNPG) 2012-2020 (CAPES, 2010) e nos diversos documentos que definem os critérios de organização da pós-graduação em cada área do conhecimento (CAPES, 2018).
-Leite (2018) faz uma apresentação geral  de como se organizam e são avaliadas as pós-graduações no Brasil.
+O sistema nacional de pós-graduação engloba todo programa de pós graduação no Brasil e o CAPES e o responsável pelo processo de acompanhamento e  avaliação  da  qualidade  dos  programas  de  pós-graduação. Cabe à CAPES constituir as normas específicas para a sistematização de avaliação, delineando as etapas, critérios e ferramentas utilizadas no processo (Silveira e Neto, 2016).
 
-O Plano Nacional de Pós-Graduação (PNPG), por outro lado, define diretrizes estratégicas para desenvolvimento da pós-graduação brasileira, que deve abordar prioritariamente grandes temas de interesse nacional, tais como a redução das assimetrias de desenvolvimento entre as regiões do Brasil, a formação de professores para a educação básica, a formação de recursos humanos para as empresas, a resposta aos grandes desafios brasileiros sobre Água, Energia, Transporte, Controle de Fronteiras, Agronegócio, Amazônia, Amazônia Azul (Mar), Saúde, Defesa, Programa Espacial, além de Justiça, Segurança Pública, Criminologia e Desequilíbrio Regional.
-O PNPG também traça as diretrizes para financiamento da pós-graduação e sua internacionalização, apresentando conclusões e recomendações.
+O sistema nacional de pós-graduação tem vários objetivos dentre eles: fortalecer as bases cientifica e tecnológicas de inovação; formação adequada de docentes para todos os níveis de ensino; formação de quadros para mercados não acadêmicos; diminuir as desigualdades acadêmicas entre as regiões do país; preservação do sistema nacional de avaliação de qualidade da pós-graduação brasileira, como um sistema de certificação e referência para a distribuição de bolsas e recursos para o fomento à pesquisa; avaliação da produção tecnológica e seu impacto e relevância para o setor econômico; incentivo à inovação; diversificar o sistema de avaliação de forma a permitir a análise de diferentes modelos de pós-graduação; introduzir procedimentos que contemplem aspectos qualitativos dos programas de pós-graduação; estimular à pós-graduação, apresentando constantes atualizações dos indicadores qualitativos e quantitativos, orientando a formação de recursos humanos e a pesquisa na direção das fronteiras do conhecimento e das precedências estratégicas do País (Nunes, 2009).
 
-As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
-Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
-Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016; Fernandes et. al., 2018).
 
 ### Os Colégios, Grandes áreas e áreas da Pós-Graduação Brasileira
 
@@ -57,11 +50,11 @@ A partir de 2018, as diversas áreas da pós-graduação brasileira foram organi
 
 - Colégio de Humanidades - que contempla as grandes áreas de Ciencias Humanas, Ciencias Sociais Aplicadas e Linguistica, Letras e Artes.
 
-Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas. Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018) (Fernandes et. al., 2018).
+Cada um dos colégios, grandes áreas e áreas de conhecimento possui suas particularidades e não podem ser avaliadas de forma igual. Cada qual deve ser analisada e avaliada conforme o documento de área disponível em Capes (2018). (Fernandes et. al., 2018).
 
 ##A UnB dentro do Sistema Nacional de Pós-Graduação
 
-A produção científica da Universidade de Brasília despontou como uma das mais relevantes do país. Segundo o Plano de Internacionalização da Universidade de Brasília 2018-2022, a produção científica da UnB se expandiu consideravelmente período de 2011 a 2016, assim como a relevância das mesma (SciVal, 2018).
+A produção cientifica na UnB é umas das mais importantes do país. De acordo com o Plano de Internacionalização da Universidade de Brasília a produção aumentou em aspecto de qualidade e quantidade no período de 2011 a 2016. (SciVal, 2018).
 
 ![Produção científica.](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Imagem1.jpg)
 
@@ -69,12 +62,64 @@ A produção científica da Universidade de Brasília despontou como uma das mai
 
 Um impacto normalizado de 1,00 significa que a produção teve comportamento similar à média global. Um impacto superior a 1,00 indica maior citação que a média (por exemplo, um impacto de 1,50 indica 50% a mais de citação) enquanto um impacto inferior a 1,00 indica citação inferior à média (SeCom, 2018, Adaptado).
 
-Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global.(SeCom, 2018).
+Em 2011, o impacto normalizado por citação foi, de acordo com o gráfico, de aproximadamente 0.85, o que indica que os pesquisadores da UnB foram 15% menos citados do que a média global. Similarmente em 2013, ouve uma redução branda no número de pesquisadores citados. Entretanto, de 2013 até 2016 ouve um aumento considerável nesse impacto normalizado - os pesquisadores da UnB atingiram índice de impacto por citação de 1.45 em 2016, sendo 45% mais citados que a média global (SeCom, 2018).
 
-Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%) (SeCom, 2018). Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outros matérias científicos pela UnB.
-(SeCom, 2018).
+Esse aumento na produção cientifica está diretamente associada ao aumento no número de docentes da Universidade. Entre os anos de 2009 e 2013, 577 professores ingressaram no quadro permanente da instituição, com um aumento de 32%. Entre 2013 e 2016, este aumento foi de 185 docentes (8%). (...) Com um quadro de professores maior espera-se naturalmente uma maior produção de artigos e outras matérias científicos pela UnB (SeCom, 2018).
 
-###Captura dos dados: Definindo bancos de dados para as PPGs a partir de arquivos JSON e CSV:
+## Contextualização dos Programas
+### Ciências Biológicas I
+
+A forma de avaliação da Capes para os programas de Pós-Graduação em Biologia Molecular e Biologia Animal da Universidade de Brasília é determinada pela área 06 que se trata sobre ciências biológicas com atuação nas áreas de Genética, Biologia Geral, Biologia Molecular, Biologia Celular, Biologia do Desenvolvimento, Bioinformática e Biologia de Sistemas. 
+
+Há pouco tempo à área de ciências biológicas I passou por mudanças no arranjo dos Programas de Pós-Graduação (PPG) componentes para atender padrões de qualificação e a especialização das Áreas. Isso demonstra algo muito bom, pois a CAPES tem formado novas Áreas que atendem melhor aos critérios característicos de avaliação, resultando em Áreas de Avaliação padronizadas e admitindo maior integração entre os PPG. (Capes, 2016).
+
+A interdisciplinaridade e um fator importante e que caracteriza bem a área de ciências biológicas I. Os programas de pós-graduação que pertencem essa área são compostos por docentes com distintas formações profissionais principalmente em áreas com relação direta com a área de biológicas. O conjunto formado pela união desses profissionais reflete no progresso e desenvolvimento de extrema importância nessas áreas. Este lado multidisciplinar é importante e necessário ser mantido para se compreender e desenvolver melhor técnicas, pesquisas, metodologias, etc. A união destas áreas vem desenvolvendo os núcleos de pesquisa em pós-graduação de maneira muito positiva. (Capes, 2016).
+
+Os referentes de maior peso da Ficha de Avaliação dos programas de pós-graduação na área de ciências biológicas I constituem-se dos tópicos: Corpo Docente, Corpo Discente, Teses, Dissertações e Produção Intelectual. De maneira que se busque o desenvolvimento acadêmico e tecnológico dos programas avaliados e da área de maneira geral. Todo o processo de avaliação dos programas de pós-graduação leva em consideração as atividades do conjugado de Docentes e Discentes. (Capes, 2016).
+
+Abaixo apresenta-se a forma de avaliação e cada peso dos respectivos quesitos avaliados na área de Ciências Biológicas I.
+
+![Critérios de Avaliação em Biológicas I.](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Bio1.png)
+
+As propostas do programa avaliado devem deixar claro e de forma objetiva os fins, as áreas de concentração e as linhas de pesquisa. As áreas de concentração devem refletir as áreas de especialização do seu corpo docente e refletir sobre as projeções futuras do programa. Os programas devem ter uma base concreta em seu núcleo de docentes permanentes para se garantir o total desenvolvimento das atividades de ensino, pesquisa e orientação do programa (Capes, 2016).
+
+Os Programas devem debater e promover o oferecimento de disciplinas com conteúdo programático relacionados com conhecimento das linhas de pesquisa oferecidas pelo programa e de áreas relacionadas que podem promover um desenvolvimento maior. Linhas de pesquisa não atualizadas devem ser reavaliadas, como incentivo à formação interdisciplinar e multidisciplinar do discente e isto que torna a relação entre os programas possível (Capes, 2016).
+
+### ** Biologia Animal
+
+### ** Biologia Molecular
+
+### Ciências Biológicas III
+
+O programa de Pós-Graduação em Ciências Biológicas III compreende as seguintes áreas: Microbiologia, Imunologia e Parasitologia. Ela é considerada uma das mais tradicionais no Sistema Nacional de Pós-Graduação (SNPG), pois é desenvolvida a mais de 50 anos. Um fato importante sobre esta área é que ela aumenta de forma branda, pelo fato de apresentar uma dura avaliação das propostas dos cursos novos. Um desses quesitos é que haja uma semelhança entre as atividades propostas pelos cursos novos com os que já estão na área. Isso fez com que demorasse por volta de 15 anos para dobrar o número de programas, que passou de 18 para 36 programas em 2016 (Capes, 2016).
+
+Essa área é muito voltada, desde o século XIX, para a proposta de soluções para epidemias e pandemias. Continuamente, no século passado o Brasil já apresentava uma qualidade e quantidade de produções cientificas para solução de doenças tropicais principalmente nas áreas de Patologia e doenças Infecciosas e Parasitarias. Além disso, a área apresenta ótima visibilidade no cenário internacional, onde há projetos e publicações interdisciplinares que ajudam na expansão das pesquisas e tem um impacto muito bom na produção intelectual, visto que, essa interdisciplinaridade é muito importante para entender as metodologias para o progresso da área (Capes, 2016).
+
+Os referentes de maior peso da Ficha de Avaliação dos programas de Pós-Graduação na área de Ciências Biológicas III constituem-se dos tópicos: Corpo Docente, Corpo Discente, Teses, Dissertações e Produção Intelectual. De maneira que se busque o desenvolvimento acadêmico e tecnológico dos programas avaliados e da área de maneira geral. Todo o processo de avaliação dos programas de pós-graduação leva em consideração as atividades do conjugado de Docentes e Discentes (Capes, 2016).
+
+Abaixo apresenta-se a forma de avaliação e cada peso dos respectivos quesitos avaliados na área de Ciências Biológicas III para os programas de mestrado acadêmico, doutorado e mestrado profissional.
+
+![Critérios de Avaliação em Biológicas III.](/home/mustella/Repository/DataScience/DS4A-BioAni-BioMic-BioMol-PatMol-master/Bio3.png)
+
+### ** Biologia Microbiana
+
+O programa de pós-graduação (mestrado e doutorado) em Biologia Microbiana pertence a área de Ciências Biológicas I. Este programa foi criado em 2012 na Universidade de Brasília. Suas áreas de pesquisa são – Biologia dos Patógenos, Microbiologia Ambiental e Microbiologia Aplicada – com um foco maior para a linha de Biologia dos Patógenos, apresentando 23 projetos dos 46 desta área. O corpo docente conta com 18 professores permanentes e 3 colaboradores, com diversos graus de experiência. Todos eles são doutores e possuem formações dentro e fora do Brasil. Suas formações são compatíveis com a área em que atuam e suas linhas de pesquisa. Entretanto, somente 11 docentes permanentes orientaram dissertações e teses nesse quadriênio, o que é ruim visto que a área possui 19 docentes permanentes. Há 11 docentes que são pesquisadores de produtividade do CNPq, sendo que 7 deles contem bolsa nível de 1 e 4 deles contem bolsa nível 2. As disciplinas ofertadas pelos discentes possuem um aspecto de diversidade e multidisciplinaridade que são características desta área de formação (Capes, 2017).
+
+No que se refere a quantidade de formandos no quatriênio em questão, formou-se 20 alunos do mestrado e 4 do doutorado e foi produzido uma média de 20 artigos com discentes. Esses números são considerados baixos em relação aos outros programas, visto que, é um curso novo de pós-graduação na universidade. Além disso, há uma porcentagem de 42,5% de mestrandos formados em relação ao número de mestrandos matriculados, o que é considerado muito bom. A perspectiva de formação para esses docentes é muito boa, pois eles já são incorporados ao mercado de trabalho ou ingressam diretamente no doutorado (Capes, 2017). “Com a recente criação do curso de doutorado, este programa terá um impacto regional importante na formação de recursos humanos de alta qualidade que poderão atuar como docentes, pesquisadores ou profissionais da área de microbiologia.” (Capes, 2017).
+
+A produção cientifica em periódicos ficou com uma quantidade (193) e qualidade muito boas, sendo a produção, entorno de, 39 extratos A1+A2 e 81 nos extratos A1+A2+B1. É importante frisar que a produção de artigos é produzida em sua maior parte pelos docentes permanentes, porem a produção feita pelos colaboradores não fica muito atrás e possui um peso considerável na produção do programa, apresentando 40 de um total de 233 artigos. A produção de capitulo de livros dos discentes e participação em patente é boa, apontando para 33 capítulos de livros e uma participação em patente feita (Capes, 2017).
+
+### ** Patologia Molecular
+
+O Programa de Pós-Graduação da Universidade de Brasília em Patologia Molecular, tem perspectivas de desenvolvimento incluindo a capacitação dos docentes, dos discentes e colaboradores internacionais. Esse programa tem uma linha multidisciplinar ligado à área da saúde. Eles vêm implementando medidas para aumentar as exigências na produção cientifica para contratação de orientadores e possuem uma boa infraestrutura para garantir o desenvolvimento do programa. O Programa contêm 3 áreas de conhecimento que contou com cerca de 20 projetos no período. A maioria dos projetos foram financiados e possuem quase a totalidade de docentes permanentes em sua elaboração. Sendo 11 deles da área de Biologia Molecular e desses 11, 3 deles são pertencentes também ao Programa de Biotecnologia e Biodiversidade (Capes, 2017).
+
+Em relação ao corpo docente o programa apresentou por volta de 20 docentes permanentes e 5 docentes colaboradores. Todos eles possuem doutorado e pertencem a diversas áreas do conhecimento, como: Morfologia, Bioquímica, Medicina, Genética, entre outros. E possuem formação em instituições nacionais e internacionais. Cerca de 76% deles são bolsistas produtividade CNPq, que são distribuídos nos níveis 1A até 1D, nível 2 e bolsa DTI2. Já o corpo discente contou com 37 mestre e 35 doutores formados, que foram orientados por 17 docentes permanentes da área. Somente 3 discentes colaborativos não tiveram orientados no período, mas apresentam formações em andamento. A produção em artigos com Qualis A1-B1 foi de 128, sendo 53% dos artigos em Qualis A1,A2 e B1 e 40% em artigos Qualis B2 a B5. O tempo de formação dos discentes também foi muito boa em relação ao período anterior, apresentando uma redução no tempo médio de titulação (Capes, 2017).
+
+A produção intelectual dos docentes permanentes neste período foi de 266 artigos, sendo 66% deles em Qualis A1, A2 e B1 e 34% deles em Qualis B2 a B5. Em comparação com o quadriênio anterior houve uma melhora considerável na produção do programa e a pontuação por docente ficou em torno de 697 pontos. Os capitulo de livros tiveram uma pontuação de 315, o que é considerado muito bom para o programa. Destaca-se que todos os docentes permanentes possuem publicações qualificadas no período em questão e que 8 patentes da área ganharam 510 pontos (Capes, 2017).
+
+Já ao que se refere a inserção social o programa tem um bom número de doutores deste programa participando dos cursos de graduação e pós-graduação. Vários dos professores participam do programa Reuni e trabalham em órgãos públicos como:  Secretaria de Educação do Distrito Federal, Agência do Meio Ambiente do Estado de Goiás, Ministérios, entre outros. Além do mais, é importante destacar que alguns destes docentes participam do programa de mestrado profissional em ensino de biologia em rede nacional (PROFBIO), que tem por objetivo a qualificação do professor de biologia do ensino básico. O programa ainda possui muitas colaborações nacionais e internacionais e alguns intercâmbios internacionais feitos por pós-doutorandos da área (Capes, 2017).
+
+##Captura dos dados: Definindo bancos de dados para as PPGs a partir de arquivos JSON e CSV:
 
 Aqui define-se todas as variáveis base que contém todos os dados utilizados para a realização deste trabalho. Este código estará explícito logo abaixo para demonstrar que utilizou-se dos perfis, dos dados de publicações e orientações de cada um dos docentes. Além disso utilizou-se dados de correlação para a geração de um grafo de correlação ao fim deste trabalho.
 
@@ -1720,6 +1765,8 @@ Azevedo, Mário Luiz Neves de, João Ferreira de Oliveira, e Afrânio Mendes Cat
 Leite, Fernando César Lima. “Considerações básicas sobre a Avaliação do Sistema Nacional de PósGraduação”. Comunicação Pessoal (slides). Universidade de Brasília, abril de 2018.
 
 CAPES. “Documentos de Área”. CAPES.gov.br. Acessado 12 de junho de 2018. Disponível em: http://avaliacaoquadrienal.capes.gov.br/, visitado em Dezembro de 2018.
+
+PORTAL DE PERIODICOS UNISUL, O Processo de Avaliação do Sistema Nacional de Pós-Graduação Identifica a Capes e a Diferencia de outras Agencias. Disponível em: http://www.portaldeperiodicos.unisul.br/index.php/Poiesis/article/view/1961/2708, visitado em: 01/12/2018.
 
 Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. “Sistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desaﬁos para política de Estado - Lívio Amaral”. Revista Educação e Linguagens 2, nº 3 (julho de 2013): 11–17.
 
