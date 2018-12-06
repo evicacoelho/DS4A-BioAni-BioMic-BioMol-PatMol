@@ -151,7 +151,7 @@ df.prog <- df.prog %>% separate(idLattes.Docente.Categoria.Grande.Area.Area.de.A
 ```
 
 *Número de docentes na base e a construção das listas dos mesmos:*
-```{r número de docentes, echo=FALSE, message=FALSE, warning=FALSE}
+```{r Número de docentes, echo=FALSE, message=FALSE, warning=FALSE}
 print(c('Biologia Animal:',length(perfil.240)),quote=FALSE)
 ProfileList.240 <- list()
 for (i in 1:length(perfil.240)) {
@@ -182,6 +182,7 @@ print(c('Biologia Microbiana:',sum(sapply(perfil.242, function(x) nrow(x$areas_d
 print(c('Biologia Moleular:',sum(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
 print(c('Patologia Molecular:',sum(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
 ```
+
 *Numero de areas de atuacao por pessoa*
 ```{r echo=FALSE, paged.print=FALSE}
 print('Biologia Animal:', quote=FALSE)
@@ -193,6 +194,7 @@ print.table(table(unlist(sapply(perfil.243, function(x) nrow(x$areas_de_atuacao)
 print('Patologia Molecular:', quote=FALSE)
 print.table(table(unlist(sapply(perfil.313, function(x) nrow(x$areas_de_atuacao)))),quote=FALSE)
 ```
+
 *Numero de pessoas por grande area*
 ```{r Pessoas por grande área, echo=FALSE, message=FALSE, warning=FALSE}
 print('Biologia Animal:', quote=FALSE); table(unlist(sapply(perfil.240, function(x) (x$areas_de_atuacao$grande_area))))
@@ -200,6 +202,7 @@ print('Biologia Microbiana:', quote=FALSE); table(unlist(sapply(perfil.242, func
 print('Biologia Molecular:', quote=FALSE); table(unlist(sapply(perfil.243, function(x) (x$areas_de_atuacao$grande_area))))
 print('Patologia Molecular:', quote=FALSE); table(unlist(sapply(perfil.313, function(x) (x$areas_de_atuacao$grande_area))))
 ```
+
 *Numero de pessoas que produziram os especificos tipos de producao*
 ```{r produção por tipo por pessoa, echo=FALSE, message=FALSE, warning=FALSE}
 print('Biologia Animal:', quote=FALSE);table(unlist(sapply(perfil.240, function(x) names(x$producao_bibiografica))))
@@ -207,6 +210,7 @@ print('Biologia Microbiana:', quote=FALSE);table(unlist(sapply(perfil.242, funct
 print('Biologia Molecular:', quote=FALSE);table(unlist(sapply(perfil.243, function(x) names(x$producao_bibiografica))))
 print('Patologia Molecular:', quote=FALSE); table(unlist(sapply(perfil.313, function(x) names(x$producao_bibiografica))))
 ```
+
 *Numero de publicacoes por tipo*
 ```{r produção por tipo geral, echo=FALSE, message=FALSE, warning=FALSE}
 print('------ Biologia Animal:', quote=FALSE)
@@ -237,6 +241,7 @@ print('------ Patologia Molecular:', quote=FALSE)
   print(c('Periódicos:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano)))),quote=FALSE)
   print(c('Textos em jornais:',sum(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))),quote=FALSE)
 ```
+
 *Número de pessoas por quantitativo de produções por pessoa*
 ```{r pessoas quantitativo, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -268,6 +273,7 @@ print('------ Patologia Molecular:', quote=FALSE)
   print(c('Periódicos:',table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
   print(c('Textos em jornais:',table(unlist(sapply(perfil.313, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
 ```
+
 *Número de produções por ano*
 ```{r produções por ano, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -299,6 +305,7 @@ print('------ Patologia Molecular:', quote=FALSE)
   print(c('Periódicos:',table(unlist(sapply(perfil.313, function(x) (x$producao_bibiografica$PERIODICO$ano))))),quote=FALSE)
   print(c('Textos em jornais:',table(unlist(sapply(perfil.313, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))),quote=FALSE)
 ```
+
 *Número de pessoas que realizaram diferentes tipos de orientações*
 ```{r}
 print(c('Biologia Animal:',length(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
@@ -306,6 +313,7 @@ print(c('Biologia Microbiana:',length(unlist(sapply(perfil.242, function(x) name
 print(c('Biologia Molecular:',length(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
 print(c('Patologia Molecular:',length(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
 ```
+
 *Número de pessoas por tipo de orientação*
 ```{r}
 print(c('------ Biologia Animal:',table(unlist(sapply(perfil.240, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
@@ -313,6 +321,7 @@ print(c('------ Biologia Microbiana:',table(unlist(sapply(perfil.242, function(x
 print(c('------ Biologia Molecular:',table(unlist(sapply(perfil.243, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
 print(c('------ Patologia Molecular:',table(unlist(sapply(perfil.313, function(x) names(x$orientacoes_academicas))))), quote=FALSE)
 ```
+
 *Número de orientacões concluídas*
 ```{r}
 
@@ -336,6 +345,7 @@ print('------ Patologia Molecular:', quote=FALSE)
   print(c('Orientações concluídas de doutorados:',sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))),quote=FALSE)
   print(c('Orientações concluídas de pós-doutores:',sum(sapply(perfil.313, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))),quote=FALSE)
 ```
+
 *Número de pessoas por quantitativo de orientacões por pessoa*
 ```{r orientação quantitativo, echo=FALSE, message=FALSE, warning=FALSE}
 print('------ Biologia Animal:', quote=FALSE)
@@ -362,6 +372,7 @@ print('------ Patologia Molecular:', quote=FALSE)
   print(c('Orientações concluídas de pós-doutores:',table(unlist(sapply(perfil.313, function(x) 
 length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))),quote=FALSE)
 ```
+
 *Número de orientações por ano*
 ```{r orientações por ano, message=FALSE, warning=FALSE}
 print('------ Biologia Animal:', quote=FALSE)
@@ -451,8 +462,9 @@ perfil.243.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.243) %>%
 perfil.313.df.areas.de.atuacao <- extrai.areas.atuacao(perfil.313) %>%
   select(idLattes, everything())        
 ```
+
 *Cria arquivo com dados quantitativos para análise*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 perfil.240.df <- data.frame()
 perfil.240.df <- perfil.240.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -639,7 +651,7 @@ Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a
 
 ##Análise dos dados no formato lista
 *Número de Publicacoes em periódicos*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 print(c('Biologia Animal:',sum(sapply(public.240$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
 print(c('Biologia Microbiana:',sum(sapply(public.242$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
 print(c('Biologia Molecular:',sum(sapply(public.243$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
@@ -647,7 +659,7 @@ print(c('Patologia Molecular:',sum(sapply(public.313$PERIODICO, function(x) leng
 ```
 
 *Anos analisados*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 print(c('Biologia Animal:'))
 names(public.240$PERIODICO)
 print(c('Biologia Microbiana:'))
@@ -659,7 +671,7 @@ names(public.313$PERIODICO)
 ```
 
 *20 revistas mais publicadas*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 print(c('Biologia Animal:'))
 head(sort(table(as.data.frame(unlist
                               (sapply(public.240$PERIODICO, function(x) unlist(x$periodico)))
@@ -679,7 +691,7 @@ head(sort(table(as.data.frame(unlist
 ```
 
 *Análise dos dados no formato dataframe*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 public.240.periodico.df <- pub.ls2df(public.240, 1) #artigos
 public.240.livros.df <- pub.ls2df(public.240, 2) #livros
 public.240.eventos.df <- pub.ls2df(public.240, 5) #eventos
@@ -784,7 +796,7 @@ perfil.313.areas$num_areas <- as.factor(perfil.313.areas$num_areas)
 ```
 
 *Publicações por ano*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 print("Biologia Animal ")
 table(public.240.periodico.df$ano)
 print("Biologia Microbiana")
@@ -796,7 +808,7 @@ table(public.313.periodico.df$ano)
 ```
 
 *20 revistas mais publicadas (análise com dataframe)*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 print("Biologia Animal ")
 head(sort(table(public.240.periodico.df$periodico), decreasing = TRUE), 20)
 print("Biologia Microbiana")
@@ -808,7 +820,7 @@ head(sort(table(public.313.periodico.df$periodico), decreasing = TRUE), 20)
 ```
 
 *Número de Orientações de Mestrado e Doutorado*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 print(c("Biologia Animal: ",sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
   sum(sapply(orient.240$ORIENTACAO_CONCLUIDA_MESTRADO, function(x) length(x$natureza)))),quote=FALSE)
 print(c("Biologia Microbiana:",sum(sapply(orient.242$ORIENTACAO_CONCLUIDA_DOUTORADO, function(x) length(x$natureza))) + 
@@ -820,7 +832,7 @@ print(c("Patologia Molecular:",sum(sapply(orient.313$ORIENTACAO_CONCLUIDA_DOUTOR
 ```
 
 *Construição de dataframe de orientações*
-  ```{r echo=FALSE}
+```{r echo=FALSE}
 orient.240.posdoutorado.df <- ori.ls2df(orient.240, 6) #pos-Doutorado concluido
 orient.240.doutorado.df <- ori.ls2df(orient.240, 7) #Doutorado concluido
 orient.240.mestrado.df <- ori.ls2df(orient.240, 8) #Mestrado concluido
@@ -868,7 +880,7 @@ bolsas.313.df <- orient.313.df %>% filter(bolsa == "SIM") %>%
 ```
 
 *Construção de Grafo de Colaborações*
-  ```{r, warning=FALSE,message=FALSE}
+```{r, warning=FALSE,message=FALSE}
 g.240 <- g.ls2ig(graphl.240)
 df.240 <- as.data.frame(V(g.240)$name); colnames(df.240) <- "Idlattes"
 df.240 <- left_join(df.240, df.prog, by = c("Idlattes" = "idLattes"))
@@ -1092,7 +1104,9 @@ orient.240.mestrado.df %>%
   labs(x='Quantidade de alunos',y='Curso do mestrando')
 ```
 
-AAAAAAA
+A análise de cursos dos alunos de mestrado orientados pelos professores do PGG de Biologia Animal apresenta um pequeno índice de correlação com outras áreas. No gráfico são listados diversos programas de pós-graduação com orientandos cadastrados - não se limitando aos que foram analisados neste trabalho.
+
+O curso com maior número de orientações do programa é ele mesmo, como esperado (75 orientações). Em segundo lugar está o curso de Ciências da Saúde, com 21 orientações. Dos Programas de Pós-Graduação analisados neste trabalho, o que apresentou maior número de orientações foi o de Patologia Molecular, com apenas 7 registros. Os gráficos produzidos sobre os demais PPGs contemplados por este trabalho apresentaram índices de correlação muito maiores entre si, indicando um certo distanciamento da Biologia Animal dos demais programas.
 
 ###Concentração de áreas por grandes áreas:
 ```{r echo=FALSE}
@@ -1105,7 +1119,10 @@ perfil.240.df.areas.de.atuacao %>%
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 ```
 
-AAAAAAAA Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
+
+
+Uma análise superficial do gráfico apresentado já evidencia uma grande concentração de pesquisadores do
+PPG de Biologia Animal na grande área de Ciências Biológicas. Em comparação com os demais PPGs analisados neste trabalho, o programa de Biologia Animal se destaca pela presença de poucos docentes com pesquisas em outras grandes áreas. Estes poucos docentes não tiveram grande expressão em número de publicações, mas se destacaram no número de orientações - os docentes que apresentaram maior número de orientações na amostra trabalhada estão justamente entre aqueles que se diversificaram quanto à grande área.
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
 ```{r echo=FALSE}
@@ -1117,7 +1134,7 @@ perfil.240.areas %>%
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
 
-AAAAA Quem trabalha em mais áreas diferentes publica/orienta mais?
+Trazendo uma perspectiva sobre as áreas de pesquisa, há uma diversidade um pouco maior entre os docentes do PPG de Biologia Animal, mas poucos pesquisadores contemplam mais de 3 áreas. Além disso, nenhum dos pesquisadores que ultrapassaram esta marca teve destaque em número de publiações. Os destaques em número de publicações se concentram principalmente em pesquisadores com poucas áreas de pesquisa, comportamento este que se repetiu na análise de outros PPGs.
   
 ###Presença em congressos internacionais por número de orientações:
 ```{r echo=FALSE}
@@ -1128,6 +1145,7 @@ especialidade.240.orient %>%
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
+
 
 ## Biologia Microbiana
 
@@ -1286,7 +1304,7 @@ perfil.242.df.areas.de.atuacao %>%
 BBBB Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos.
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
-```{r}
+```{r echo=FALSE}
 perfil.242.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
@@ -1298,7 +1316,7 @@ perfil.242.areas %>%
 BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
   
 ###Presença em congressos internacionais por número de orientações
-```{r}
+```{r echo=FALSE}
 especialidade.242.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
   geom_jitter(size = .8) +
@@ -1312,7 +1330,7 @@ BBBBBBBB
 ##Biologia Molecular
 
 ### Grafico de barras; periodicos por ano
-```{r}
+```{r echo=FALSE}
 public.243.periodico.df %>%
   group_by(ano) %>%
   summarise(Quantidade = n()) %>%
@@ -1327,7 +1345,7 @@ public.243.periodico.df %>%
 Este gráfico demonstra a quantidade de periódicos por ano para a PPG de Biologia molecular. É possível notar que por uma margem, as publicações tem uma quantidade constante, a despeito de 2012 que foi significativamente menor que os outros anos.
 
 ###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
-```{r}
+```{r echo=FALSE}
 perfil.243.df %>%
   ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
   geom_point() +
@@ -1342,7 +1360,7 @@ perfil.243.df %>%
 Este gráfico de dispersão demonstra para quantas área pertence (indicada pelas cores dos pontos), há uma homogeinidade na quantidade de publicações, exceto para alguns poucos pontos que deslocam a média para cima. A barra vermelha demonstra a mediana da quantidade de publicações.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
-```{r}
+```{r echo=FALSE}
 perfil.243.df %>%
   ggplot(aes(idLattes,EVENTO, color = num_areas)) +
   geom_point() +
@@ -1357,7 +1375,7 @@ perfil.243.df %>%
 Como o gráfico anterior, para cada pesquisador e pela quantidade de áreas, mostra-se em quantos eventos foram presentes. Nesta figura, denota-se a heterogeneidade, onde há uma grande quantidade de pesquisadores que participam de poucos eventos, bem como pesquisadores que participam de muitos, porém com uma dispersão muito maior e menor agrupamento em torno da mediana. 
 
 ###Publicação de livros por pais/ano
-```{r}
+```{r echo=FALSE}
 public.243.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
@@ -1369,7 +1387,7 @@ public.243.livros.df %>%
 Percebe-se por esta figura, que para a PPG de Biologia Molecular, há uma predominancia de livros publicados no Brasil e uma carência de difusão de informação para outros países, uma vez que poucos livros foram publicados no exterior.
 
 ###Publicações de capítulos de livros por ano/país
-```{r}
+```{r echo=FALSE}
 perfil.243.df.publicacoes %>%
   filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
   group_by(tipo_producao,pais_de_publicacao) %>%
@@ -1381,7 +1399,7 @@ perfil.243.df.publicacoes %>%
 Esta figura como a anterior, mostra que a maioria de capítulos de livos e a maioria de livros inteiros é publicada no Brasil. Porém para a quantidade de capítulos, há uma maior homogeneidade de publicações no esterior, uma vez que há uma boa quantidade de publicações na Holanda e nos Estados Unidos.
 
 ###Eventos nacionais e internacionais
-```{r}
+```{r echo=FALSE}
 public.243.eventos.df %>%
   filter(pais_do_evento %in% 
            c(names(head(sort(table(public.243.eventos.df$pais_do_evento)
@@ -1396,7 +1414,7 @@ public.243.eventos.df %>%
 Dos eventos participados, a maioria exorbitante foi no Brasil com uma expressividade no exterior quase constante para os Estados Unidos, e temporária para outros países, como a Bélgica e a Espanha (que tiveram eventos somente no ano de 2011), Grã-Bretanha (que tiveram eventos nos anos de 2011 e 2014 somente), a Suíça (que teve eventos somente em 2010) e a Colômbia (que teve eventos somente em 2014).
 
 ###Orientacoes completas por ano e natureza
-```{r}
+```{r echo=FALSE}
 orient.243.df %>%
   group_by(ano, natureza) %>% summarise(total = n()) %>%
   ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
@@ -1410,7 +1428,7 @@ orient.243.df %>%
 Este gráfico de tendência compara a quantidade de orientações e a natureza destes por ano para a PPG de Biologia Molecular. É notável que o aumento até o ano de 2014 era expressivo para as dissetações de mestrado e supervisões de doutorado, tendencia que se alterou para a queda a partir de 2014, onde em 2014 houveram mais que 40 dissertações de mestrado, enqunato em 2017 caiu para 11. A quantidade de teses de doutorado caiu desde 2012 e manteve-se constante em uma margem até 2017.
 
 ###Evolução temporal de orientações em andamento e concluídas
-```{r}
+```{r echo=FALSE}
 perfil.243.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
@@ -1421,7 +1439,7 @@ perfil.243.df.orientacoes %>% group_by(ano, situacao) %>%
 A disposição das orientações e das naturezas de orientações é descrita na figura acima. Nesta figura, percebe-se a tendencia de aumento de orientações em andamento em todas as naturezas de pós-graduações. É notável também que mesmo não houvendo orientações em andamento para alguns anos, ainda haviam dissertações concluídas. Este fato se deve pela a recepção dos docentes para alunos de outras instituições, nas quais estes participavam das bancas e das orientações destes alunos.
 
 ###Índice de bolsas entre naturezas e evolução temporal
-```{r}
+```{r echo=FALSE}
 bolsas.243.df %>%
   ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
   geom_line() +
@@ -1434,7 +1452,7 @@ bolsas.243.df %>%
 Na figura acima, demonstra-se a quantidade de bolsas por ano para cada natureza de orientação. É notável a queda para 2011 nas teses de doutorado e superviões de pós doutorado, algo que não se repetiu em nenhum dos outros anos, que continuaram em sua margem de variação normal.
 
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
-```{r}
+```{r echo=FALSE}
 orient.243.mestrado.df %>%
   group_by(curso) %>%
   summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
@@ -1446,7 +1464,7 @@ orient.243.mestrado.df %>%
 A figura acima demonstra no eixo ordenado que um mesmo orientador pode ter alunos em diversos PPGs e compara a quantidade de alunos para cada PPG. Há uma concentração para uma grande quantidade de alunos no programa de Biologia Molecular - o que era esperado e de áreas correlacionadas, que por coincidência são justamente os programas de Biologia Animal e Patologia Molecular. Observe que no eixo abcisso, os números são tomados como fatores para uma quebra de escala, que não seria possível em valores numéricos.
 
 ###Concentração de áreas por grandes áreas:
-```{r}
+```{r echo=FALSE}
 perfil.243.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
@@ -1459,7 +1477,7 @@ perfil.243.df.areas.de.atuacao %>%
 A figura de gráficos acima explicita que a maior concentração de publicações é dentro da grande área de Ciências Biológicas, como o esperado, dado que ainda ocorrem orientações em outras grandes areas. É visto que os números das áreas que se destacam em cada grande área condiz com sua natureza, uma vez que psicologia é de fato mais presente em Ciencias Humanas, como exemplo. Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
-```{r}
+```{r echo=FALSE}
 perfil.243.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
@@ -1475,7 +1493,7 @@ CCCCCCCCCC Quem trabalha em mais áreas diferentes publica/orienta mais?
 ## Patologia Molecular
 
 ### Grafico de barras; periodicos por ano
-```{r}
+```{r echo=FALSE}
 public.313.periodico.df %>%
   group_by(ano) %>%
   summarise(Quantidade = n()) %>%
@@ -1491,7 +1509,7 @@ Sob uma perspectiva de publicações em periódicos, o Programa de Pós-Graduaç
 apresentou um grande crescimento entre os anos de 2011 e 2015, evoluindo gradualmente a ponto totalizar um aumento de 109% na produção anual neste intervalo (de 54 para 113). Após atingir este pico em 2015, o PPG teve redução no número de publicações nos anos seguintes. Considerando a participação de 23 docentes no programa em 2017, foi atingida uma média de 4,22 publicações em periódicos por professor no ano em questão.
 
 ###Quantidade de periodicos publicados por professor(a) entre 2010 e 2017
-```{r}
+```{r echo=FALSE}
 perfil.313.df %>%
   ggplot(aes(idLattes,PERIODICO, color = num_areas)) +
   geom_point() +
@@ -1510,7 +1528,7 @@ mediana (26 publicações em periódicos). É curioso observar que, apesar de os
 Nota-se aqui um grande destaque para um pesquisador que apresentou 233 publicações, quase 9 vezes o valor obtido pela mediana. Além disso, 22 dos 23 pesquisadores do PPG de Patologia estão relacionados a mais de uma área de pesquisa - revelando um foco menor do programa em especialização e maior em multidisciplinaridade.
 
 ###Número de areas de pesquisa e quantidade de eventos por pesquisador
-```{r}
+```{r echo=FALSE}
 perfil.313.df %>%
   ggplot(aes(idLattes,EVENTO, color = num_areas)) +
   geom_point() +
@@ -1527,7 +1545,7 @@ geneidade na participação média de cada pesquisador em eventos, uma vez que g
 aproxima da mediana (20 participações). Assim como na relação de periódicos, há um pesquisador com muito mais participações registradas que seus colegas de programa (10 vezes o valor da mediana), sendo este o mesmo docente que atingiu o pico no número de periódicos. É curioso notar que o único pesquisador cadastrado com apenas uma área de pesquisa não apresentou nenhuma participação em eventos, reiterando uma proposta de multidisciplinaridade do PPG de Patologia Molecular.
 
 ###Publicação de livros por pais/ano
-```{r}
+```{r echo=FALSE}
 public.313.livros.df %>%
   group_by(ano,pais_de_publicacao) %>%
   ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
@@ -1539,7 +1557,7 @@ public.313.livros.df %>%
 Denota-se no PPG de Patologia Molecular uma certa homogeneidade temporal na distribuição de livros publicados para cada país de publicação, com sete publicações em cinco anos diferentes. Curiosamente, nota-se que este é o único programa que não apresentou nenhum livro publicado fora do Brasil no período analisado. Uma das possíveis justificativas para este baixo índice comparativo é o fato de ser o programa de criação mais recente entre os programas aqui analisados, revelando neste um processo de maturação em andamento no aspecto de internacionalização.
 
 ###Publicações de capítulos de livros por ano/país
-```{r}
+```{r echo=FALSE}
 perfil.313.df.publicacoes %>%
   filter((tipo_producao %in% c('LIVRO', 'CAPITULO_DE_LIVRO'))) %>%
   group_by(tipo_producao,pais_de_publicacao) %>%
@@ -1554,7 +1572,7 @@ Patologia Molecular. Neste eixo, o nível de internacionalização
 foi consideravelmente maior que o anterior, com a menção a diversos países da América e Europa. Entretento, a redução da participação internacional do programa em livros é evidente nos anos 2016 e 2017, com publicações nacionais, principalmente - assim como nos demais programas analisados.
 
 ###Eventos nacionais e internacionais
-```{r}
+```{r echo=FALSE}
 public.313.eventos.df %>%
   filter(pais_do_evento %in% 
            c(names(head(sort(table(public.313.eventos.df$pais_do_evento)
@@ -1571,7 +1589,7 @@ em países estrangeiros, como esperado. Ainda assim, o gráfico mostra que o pro
 internacional nos anos iniciais da base de dados, com destaque para 2012. Além disso, é notável a queda no número de participações a partir do ano de 2015, tanto nacionais quanto internacionais - revelando pouca correlação entre a participação de eventos e publicação de períodicos (mostrada anteriormente).
 
 ###Orientacoes completas por ano e natureza
-```{r}
+```{r echo=FALSE}
 orient.313.df %>%
   group_by(ano, natureza) %>% summarise(total = n()) %>%
   ggplot(aes(x=ano,y=total,group=natureza,color=natureza)) +
@@ -1590,7 +1608,7 @@ as naturezas de orientação do Programa parecem bem estabelecidas, visto que
 mesmo os índices de doutorado apresentaram ao menos 15 observações/ano. Ainda assim, é notável a queda no número de orientações de 2014 para 2015 - o que corrobora com as análises anteriores de queda de participação em eventos no ano em questão.
 
 ###Evolução temporal de orientações em andamento e concluídas
-```{r}
+```{r echo=FALSE}
 perfil.313.df.orientacoes %>% group_by(ano, situacao) %>%
   ggplot(aes(x=situacao,y=ano,color=ano)) +
   geom_jitter(size = 0.8) + facet_wrap(. ~ Natureza) +
@@ -1604,7 +1622,7 @@ orientações em andamento a partir de 2014. O comportamento prévio a este ano,
 tornará análises futuras ainda mais enriquecedoras.
 
 ###Índice de bolsas entre naturezas e evolução temporal
-```{r}
+```{r echo=FALSE}
 bolsas.313.df %>%
   ggplot(aes(x=ano,y=ratio*100,color=natureza, group=natureza)) +
   geom_line() +
@@ -1620,7 +1638,7 @@ fim, é possível observar que o pico no número de orientações de mestrado re
 
 
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
-```{r}
+```{r echo=FALSE}
 orient.313.mestrado.df %>%
   group_by(curso) %>%
   summarise(Quantidade = n()) %>% mutate(Quantidade = factor(Quantidade)) %>%
@@ -1633,7 +1651,7 @@ orient.313.mestrado.df %>%
 A análise de cursos dos alunos de mestrado orientados pelos professores do PGG de Patologia Molecular apresenta um grande índice de correlação com outras áreas. O curso com maior número de orientações do programa é ele mesmo, como esperado (49 orientações). Entretanto, é visível a relação íntima dos docentes com o Programa de Biologia Molecular, com 40 orientações. Em seguida, são listados diversos outros programas de pós-graduação com quantidade significativa de orientados cadastrados - não se limitando aos que foram analisados neste trabalho.
 
 ###Concentração de áreas por grandes áreas:
-```{r}
+```{r echo=FALSE}
 perfil.313.df.areas.de.atuacao %>%
   select(-sub_area, -especialidade) %>%
   distinct() %>%
@@ -1647,7 +1665,7 @@ perfil.313.df.areas.de.atuacao %>%
 Uma análise superficial do gráfico apresentado já evidencia uma grande concentração de pesquisadores do PPG de Patologia Molecular na grande área de Ciências Biológicas. Entretanto, é curioso observar que a maioria dos pesquisadores de maior produtividade (em orientações e publicações) também estão integrados a outras grandes áreas. O principal expoente do programa nestes aspectos está associado à grande área de Ciências Agrárias, por exemplo.
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
-```{r}
+```{r echo=FALSE}
 perfil.313.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
@@ -1661,7 +1679,7 @@ Em um primeiro momento, observa-se que o pesquisador *outliar* comentado anterio
 
 ###Quantidade de Orientações e Participação internacional por PPG
 
-```{r}
+```{r echo=FALSE}
 especialidade.313.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
   geom_jitter(size = .8) +
@@ -1673,7 +1691,7 @@ especialidade.313.orient %>%
 EEEEEEEE
 
 ###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
-```{r fig.height=9.375, fig.width=12.5}
+```{r fig.height=9.375, fig.width=12.5, echo=FALSE}
 plot(grafo, vertex.label=V(grafo)$name, layout = layout.auto,
       edge.arrow.width = 0.3,
 
