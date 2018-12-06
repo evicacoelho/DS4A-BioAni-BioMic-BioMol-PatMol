@@ -1159,6 +1159,7 @@ perfil.242.df %>%
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
   geom_hline(yintercept = sum(perfil.242.df %>% summarize(x = median(PERIODICO))), color = "red")
 ```
+
 Observa-se no gráfico que não existe nenhum padrão linear entre Número de Publicações e Numero de Áreas do pesquisador. Verifica-se apenas que quando o pesquisador está apenas em uma área de pesquisa tende a estar perto da mediana de publicações e quanto mais alto o número de áreas do pesquisador mais se observa uma aleatoriedade no número de publicações. Além do mais, há uma diferença do pesquisador que mais publicou em relação a mediana de cinco vezes mais publicações.
 
 
@@ -1174,6 +1175,7 @@ perfil.242.df %>%
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
   geom_hline(yintercept = sum(perfil.242.df %>% summarize(x = median(EVENTO))), color = "red")
 ```
+
 Como constatado também no gráfico anterior, não há um padrão definido entre a Quantidade de Participação em Eventos e o Número de Áreas em que cada pesquisador está inserido. A quantidades fica em torno de 20 eventos e há um pesquisador um pouco discrepante aos demais que foi em mais de 80 eventos durante o período. 
 
 
@@ -1198,6 +1200,7 @@ perfil.242.df.publicacoes %>%
   geom_jitter() + ggtitle("Publicações de capítulos de livros por ano/país") +
   labs(x='Tipo de produção',y='País')
 ```
+
 Os docentes do programa de Biologia Microbiana apresentaram uma quantidade muito boa de publicações de capitulo de livros durante estes 7 anos. Houve uma maior concentração de publicações em 2014, com destaque para Brasil, mas não se deixou de publicar nos outros países também como: Alemanha, Croácia, Estados Unidos, entre outros. Já no que se refere a publicação de livros, essa se deu de forma branda e com concentração maior no Brasil.
 
 
@@ -1213,6 +1216,7 @@ public.242.eventos.df %>%
   guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
+
 O Brasil teve em disparado um maior número de participação em eventos feito pelos docentes da área de Biologia Microbiana da Universidade de Brasília. Em segundo lugar ficou a participação em eventos nos Estados Unidos, seguido da Alemanha. Nos outros países não tiveram um volume considerável de participações. Além disso, a participações em eventos ficaram lineares durante os anos nos países, somente havendo um numero um pouco maior de ida a esses eventos em 2014 e 2015.
 
 
@@ -1227,6 +1231,7 @@ orient.242.df %>%
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Quantidade de Orientações")
 ```
+
 Nota-se um aumento expressivo no número de orientações de mestrado finalizadas de 2010 até 2014, depois disso, houve um declínio nesse número e uma pequena recuperação na quantidade de orientações finalizadas no ano de 2016. Conjuntamente a isto, o número de orientações finalizadas em teses de doutorado em supervisões de pós-graduação teve oscilações durante todo período, apresentando queda de 2016 para 2017 e aumento de 2015 para 2016, em teses de doutorado e supervisão de pós-doutorado, respectivamente. 
 
 
@@ -1251,6 +1256,7 @@ bolsas.242.df %>%
   guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
   labs(x="Ano",y="Índice de bolsas")
 ```
+
 É considerável notar o aumento expressivo no número de bolsas de teses de doutorado, que em 2017 já apresentava um índice de 100%. Ademais, esse índice de bolsas para os discentes de pós-graduação apresentou queda em 2011 mas em 2014 já retomaram o índice de 100%.  Entretanto, as bolsas em dissertações de mestrado vêm diminuindo, com oscilações, como mostra o gráfico.
 
 ###Cursos de Mestrado e total de alunos no período (2011-2017)
@@ -1264,8 +1270,7 @@ orient.242.mestrado.df %>%
   labs(x='Quantidade de alunos',y='Curso do mestrando')
 ```
 
-
-
+BBBBB
 
 ###Concentração de áreas por grandes áreas:
 ```{r echo=FALSE}
@@ -1278,16 +1283,17 @@ perfil.242.df.areas.de.atuacao %>%
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 ```
 
- Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
+BBBB Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos.
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
-{r}
+```{r}
 perfil.242.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
   guides(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
+```
 
 BBBBB Quem trabalha em mais áreas diferentes publica/orienta mais?
   
@@ -1299,7 +1305,7 @@ especialidade.242.orient %>%
   guides(color = FALSE) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
-
+```
 
 BBBBBBBB
 
@@ -1360,7 +1366,7 @@ public.243.livros.df %>%
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
-Perce-be por esta figura, que para a PPG de Biologia Molecular, há uma predominancia de livros publicados no Brasil e uma carência de difusão de informação para outros países, uma vez que poucos livros foram publicados no exterior.
+Percebe-se por esta figura, que para a PPG de Biologia Molecular, há uma predominancia de livros publicados no Brasil e uma carência de difusão de informação para outros países, uma vez que poucos livros foram publicados no exterior.
 
 ###Publicações de capítulos de livros por ano/país
 ```{r}
