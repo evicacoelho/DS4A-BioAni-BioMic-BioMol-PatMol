@@ -645,6 +645,7 @@ print(c('Biologia Microbiana:',sum(sapply(public.242$PERIODICO, function(x) leng
 print(c('Biologia Molecular:',sum(sapply(public.243$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
 print(c('Patologia Molecular:',sum(sapply(public.313$PERIODICO, function(x) length(x$natureza)))),quote=FALSE)
 ```
+
 *Anos analisados*
   ```{r echo=FALSE}
 print(c('Biologia Animal:'))
@@ -656,6 +657,7 @@ names(public.243$PERIODICO)
 print(c('Patologia Molecular:'))
 names(public.313$PERIODICO)
 ```
+
 *20 revistas mais publicadas*
   ```{r echo=FALSE}
 print(c('Biologia Animal:'))
@@ -675,6 +677,7 @@ head(sort(table(as.data.frame(unlist
                               (sapply(public.313$PERIODICO, function(x) unlist(x$periodico)))
 )), decreasing = TRUE),20)
 ```
+
 *Análise dos dados no formato dataframe*
   ```{r echo=FALSE}
 public.240.periodico.df <- pub.ls2df(public.240, 1) #artigos
@@ -779,6 +782,7 @@ perfil.313.areas <- perfil.313.df.areas.de.atuacao %>%
   summarise(num_areas = n()) %>% ungroup()
 perfil.313.areas$num_areas <- as.factor(perfil.313.areas$num_areas)
 ```
+
 *Publicações por ano*
   ```{r echo=FALSE}
 print("Biologia Animal ")
@@ -790,6 +794,7 @@ table(public.243.periodico.df$ano)
 print("Patologia Molecular")
 table(public.313.periodico.df$ano)
 ```
+
 *20 revistas mais publicadas (análise com dataframe)*
   ```{r echo=FALSE}
 print("Biologia Animal ")
@@ -861,7 +866,7 @@ bolsas.313.df <- orient.313.df %>% filter(bolsa == "SIM") %>%
                 summarise(num_orients = n())), by = c("natureza", "ano")) %>%
   mutate(ratio = num_bolsas/num_orients)
 ```
-###
+
 *Construção de Grafo de Colaborações*
   ```{r, warning=FALSE,message=FALSE}
 g.240 <- g.ls2ig(graphl.240)
@@ -1114,8 +1119,8 @@ perfil.240.areas %>%
 
 AAAAA Quem trabalha em mais áreas diferentes publica/orienta mais?
   
-  ###Presença em congressos internacionais por número de orientações:
-  ```{r echo=FALSE}
+###Presença em congressos internacionais por número de orientações:
+```{r echo=FALSE}
 especialidade.240.orient %>%
   ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
   geom_jitter(size = .8) +
@@ -1279,7 +1284,7 @@ BBBBB Lembrando que um pesquisador possui mais de uma grande area, o pesquisador
 perfil.242.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
-  gudies(color = FALSE) +
+  guides(color = FALSE) +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
   labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 ```
@@ -1309,8 +1314,8 @@ public.243.periodico.df %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periódicos publicados por ano") +
-  guides(color = FALSE)
-  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+  guides(color = FALSE) +
+  geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
   theme_minimal() + labs(x="Ano",y="Quantidade de Periódicos")
 ```
 
@@ -1472,7 +1477,7 @@ public.313.periodico.df %>%
   ggplot(aes(ano, Quantidade, fill = ano)) +
   geom_bar(position = "stack",stat = "identity") +
   ggtitle("Periodicos publicados por ano") +
-  guides(color = FALSE)
+  guides(color = FALSE) +
   geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
   theme_minimal() + labs(x="Ano",y="Quantidade de Periodicos")
 ```
@@ -1552,7 +1557,7 @@ public.313.eventos.df %>%
   group_by(ano_do_trabalho,pais_do_evento) %>%
   ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
   ggtitle("Participacão em eventos por localização") +
-  gudies(color = FALSE) +
+  guides(color = FALSE) +
   xlab("Ano") + ylab("Pais") + geom_jitter()
 ```
 
@@ -1630,11 +1635,11 @@ perfil.313.df.areas.de.atuacao %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = area)) +
   geom_jitter(shape = 2, size = .8) +
   ggtitle('Concentração de áreas por grandes áreas') +
-  labs(x='Publicações',y='Orientações concluídas') #+ facet_wrap(grande_area ~ ., ncol = 2)
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(grande_area ~ ., ncol = 2)
 #Comentei o Facet pois ele oculta a amostra diferenciada
 ```
 
-DDDDDDD Lembrando que um pesquisador possui mais de uma grande area, o pesquisador se repete entre diferentes graficos
+Uma análise superficial do gráfico apresentado já evidencia uma grande concentração de pesquisadores do PPG de Patologia Molecular na grande área de Ciências Biológicas. Entretanto, é curioso observar que a maioria dos pesquisadores de maior produtividade (em orientações e publicações) também estão integrados a outras grandes áreas. O principal expoente do programa nestes aspectos está associado à grande área de Ciências Agrárias, por exemplo.
 
 ###Quantidade de Orientações e Publicações pelo Número de Áreas
 ```{r}
@@ -1642,12 +1647,12 @@ perfil.313.areas %>%
   ggplot(aes(publicacoes, orientacoes_concluidas, color = num_areas)) +
   geom_point() +
   ggtitle('Orientações e Publicações pelo Número de Áreas') +
-  gudies(color = FALSE) +
-  labs(x='Publicações',y='Orientações concluídas') #+ facet_wrap(. ~ num_areas)
+  guides(color = FALSE) +
+  labs(x='Publicações',y='Orientações concluídas') + facet_wrap(. ~ num_areas)
 #Comentei o Facet pois ele oculta a amostra diferenciada
 ```
 
-DDDDDDDDDD Quem trabalha em mais áreas diferentes publica/orienta mais?
+Em um primeiro momento, observa-se que o pesquisador *outliar* comentado anteriormente apresenta valores discrepantes tanto para número de publicações quanto para orientações concluídas. A ideia discutida até aqui sobre a valorização de pluralidade de disciplinas, entretanto, não implica necessariamente em maior produtividade no PPG - o único pesquisador a trabalhar em 4 grandes áreas não apresentou número de orientações e/ou publicações destoante dos demais docentes.
 
 ###Quantidade de Orientações e Participação internacional por PPG
 
@@ -1698,4 +1703,3 @@ CAPES. “Documentos de Área”. CAPES.gov.br. Acessado 12 de junho de 2018. Di
 Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. “Sistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desaﬁos para política de Estado - Lívio Amaral”. Revista Educação e Linguagens 2, nº 3 (julho de 2013): 11–17.
 
 Fernandes, Jorge H C, e Ricardo Barros Sampaio. “DataScienceForAll”. Zotero, 13 de junho de 2018
- 
