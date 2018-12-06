@@ -1,9 +1,10 @@
 ---
-title: Análise da Produção Científica e Acadêmica da Universidade de Brasília - Relatório
-  Parcial sobre Pós-Graduação em Ciências Biológicas
+title: Avaliação dos Programas de pós-graduação de Ciências Biologicas I e III e dos currículos dos professores / pesquisadores cadastrados
+disciplina: Ciência de Dados para Todos (Data Science For All) -2018.1/ Universidade de Brasília (Jorge H. C. Fernandes, Ricardo B. Sampaio, João Ribas de Moura e Jerônimo A. Filho)
 author: Emanuel Victor A. Coelho 14/0137475, Jonas Prado 13/0117277 , Maria Júlia
   G. R. Rodrigues 14/0153713
-date: "18/11/2018"
+ programas de pós-graduação vinculados: Biologia Animal,Biologia Molecular, Biologia Microbiana e Patologia Molecular
+date: "05/12/2018"
 output:
   pdf_document:
     latex_engine: xelatex
