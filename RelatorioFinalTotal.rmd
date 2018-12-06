@@ -1723,15 +1723,14 @@ Em um primeiro momento, observa-se que o pesquisador *outliar* comentado anterio
 ###Quantidade de Orientações e Participação internacional por PPG
 
 ```{r echo=FALSE}
-especialidade.313.orient %>%
-  ggplot(aes(internacional, orientacoes_concluidas, color = especialidade)) +
+especialidade.total.orient %>%
+  ggplot(aes(internacional, orientacoes_concluidas, color = programa)) +
   geom_jitter(size = .8) +
-  guides(color = FALSE) +
   ggtitle('Orientações concluidas x Participação em congressos internacionais') +
   labs(x='Participacao internacional',y='Orientações concluídas')
 ```
 
-EEEEEEEE
+O gráfico acima traz uma comparação entre os pesquisadores dos diversos PPGs analisados neste trabalho e uma relação entre a participação internacional dos docentes e orientações concluídas dos mesmos. É curioso observar que, de todos os programas, o PPG de Patologia Molecular foi o que apresentou mais pontos fora do padrão, com docentes que ultrapassaram 100 orientações no período analisado. Além disso, é possível observar que o PPG de Biologia Microbiana foi o que apresentou maior índice de participação internacional entre seus membros, com grande concentração de suas amostras no lado direito do gráfico. Por fim, é possível perceber que a grande massa pesquisadores ativos internacionalmente se encontra na parte de baixo do gráfico - sinalizando que experiências internacionais não implicam em maior número de orientações.
 
 ###Grafo de proximidade entre pesquisadores do Programa de Pós-Graduação
 ```{r fig.height=9.375, fig.width=12.5, echo=FALSE}
