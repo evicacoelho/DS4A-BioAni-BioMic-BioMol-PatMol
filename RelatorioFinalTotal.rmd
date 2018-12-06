@@ -1358,7 +1358,7 @@ orient.242.mestrado.df %>%
   labs(x='Quantidade de alunos',y='Curso do mestrando')
 ```
 
-BBBBB
+Este gráfico demonstra que para os docentes dentro da PPG de Biologia Microbiana, há alunos de diversas outras PPGs que compõem sua contagem de orientação. Naturalmente a quantidade de alunos para a própia PPG é maior que para outras. Porém é notável que áreas conexas, tal como a Biologia Molecular e a Patologia Molecular, tem muitos alunos sendo orientados por alunos da PPG de Biologia Microbiana.
 
 ###Concentração de áreas por grandes áreas:
 ```{r echo=FALSE}
